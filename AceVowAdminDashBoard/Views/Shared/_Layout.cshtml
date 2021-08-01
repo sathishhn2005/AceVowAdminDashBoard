@@ -1,0 +1,695 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AceVow</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/images/favicon/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    @RenderSection("css", false)
+    <!-- Bootstrap 4.0-->
+    <link href="~/Content/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!-- daterange picker -->
+    <link href="~/Content/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <!-- weather weather -->
+    <link href="~/Content/css/icons/weather-icons/css/weather-icons.css" rel="stylesheet" />
+    <!-- toast CSS -->
+    <link href="~/Content/vendor/jquery-toast-plugin-master/src/jquery.toast.css" rel="stylesheet" />
+    <!-- sweet alert -->
+    <link href="~/Content/vendor/sweetalert/sweetalert.css" rel="stylesheet" />
+    <!-- Bootstrap Switch -->
+    <link href="~/Content/vendor/bootstrap-switch/switch.css" rel="stylesheet" />
+
+    <!-- VoiceX Admin skins -->
+    <link href="~/Content/css/skin_color.css" rel="stylesheet" />
+
+    <!-- Datatable  -->
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <!-- C3Chart -->
+    <link href="~/Content/vendor/c3/c3.min.css" rel="stylesheet" />
+    <!-- DropZone -->
+    <link href="~/Content/vendor/dropzone-5.7.0/dist/basic.css" rel="stylesheet" />
+    <link href="~/Content/vendor/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet" />
+    <!-- theme style -->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/util.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="hold-transition light-skin sidebar-mini theme-purple onlywave w-full">
+    <div class="wrapper">
+        <div class="art-bg">
+            <img src="/Content/images/art1.svg" alt="" class="art-img light-img">
+            <img src="/Content/images/art2.svg" alt="" class="art-img dark-img">
+            <img src="/Content/images/art-bg.svg" alt="" class="wave-img light-img">
+            <img src="/Content/images/art-bg2.svg" alt="" class="wave-img dark-img">
+        </div>
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <!-- mini logo -->
+                <div class="logo-mini">
+                    
+                    <span class="light-logo"><img src="~/Content/images/logo.png" width="88" alt="logo"></span>
+
+                    <span class="dark-logo"><img src="~/Content/images/logo.png" alt="logo"></span>
+                </div>
+                <!-- logo-->
+                <div class="logo-lg">
+                    <span class="light-logo text-white">AceVow</span>
+                    <span class="dark-logo text-white">AceVow</span>
+                </div>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top">
+                <div class="app-menu">
+                    <ul class="header-megamenu nav">
+                        <li class="btn-group nav-item">
+                            <a href="#" class="nav-link rounded" data-toggle="push-menu" role="button">
+                                <i class="nav-link-icon mdi mdi-menu text-white"></i>
+                            </a>
+                        </li>
+                        <li class="btn-group nav-item">
+                            <a href="#" data-provide="fullscreen" class="nav-link rounded" title="Full Screen">
+                                <i class="nav-link-icon mdi mdi-crop-free text-white"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-custom-menu r-side">
+                    <ul class="nav navbar-nav">
+                        <!-- full Screen -->
+                        <li class="search-bar d-sm-inline-flex d-none">
+                            <div class="lookup lookup-circle lookup-right">
+                                <input type="text" name="s">
+                            </div>
+                        </li>
+                        <!-- Messages -->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Messages">
+                                <i class="mdi mdi-email"></i>
+                            </a>
+                            <ul class="dropdown-menu animated bounceIn">
+                                <li class="header">
+                                    <div class="p-20">
+                                        <div class="flexbox">
+                                            <div>
+                                                <h4 class="mb-0 mt-0">Messages</h4>
+                                            </div>
+                                            <div>
+                                                <a href="#" class="text-danger">Clear All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu sm-scrol">
+                                        <li>
+                                            <!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/Content/images/marc.jpg" class="rounded-circle" alt="User Image">
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>
+                                                        Lorem Ipsum
+                                                        <small><i class="fa fa-clock-o"></i> 15 mins</small>
+                                                    </h4>
+                                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/Content/images/marc.jpg" class="rounded-circle" alt="User Image">
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>
+                                                        Nullam tempor
+                                                        <small><i class="fa fa-clock-o"></i> 4 hours</small>
+                                                    </h4>
+                                                    <span>Curabitur facilisis erat quis metus congue viverra.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/Content/images/marc.jpg" class="rounded-circle" alt="User Image">
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>
+                                                        Proin venenatis
+                                                        <small><i class="fa fa-clock-o"></i> Today</small>
+                                                    </h4>
+                                                    <span>Vestibulum nec ligula nec quam sodales rutrum sed luctus.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/Content/images/marc.jpg" class="rounded-circle" alt="User Image">
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>
+                                                        Praesent suscipit
+                                                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                    </h4>
+                                                    <span>Curabitur quis risus aliquet, luctus arcu nec, venenatis neque.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="/Content/images/marc.jpg" class="rounded-circle" alt="User Image">
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h4>
+                                                        Donec tempor
+                                                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                    </h4>
+                                                    <span>Praesent vitae tellus eget nibh lacinia pretium.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">See all e-Mails</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Notifications -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
+                                <i class="mdi mdi-bell"></i>
+                            </a>
+                            <ul class="dropdown-menu animated bounceIn">
+                                <li class="header">
+                                    <div class="p-20">
+                                        <div class="flexbox">
+                                            <div>
+                                                <h4 class="mb-0 mt-0">Notifications</h4>
+                                            </div>
+                                            <div>
+                                                <a href="#" class="text-danger">Clear All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu sm-scrol">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-info"></i> Curabitur id eros quis nunc suscipit blandit.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-warning"></i> Duis malesuada justo eu sapien elementum, in semper diam posuere.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-danger"></i> Donec at nisi sit amet tortor commodo porttitor pretium a erat.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-shopping-cart text-success"></i> In gravida mauris et nisi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-danger"></i> Praesent eu lacus in libero dictum fermentum.
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-primary"></i> Nunc fringilla lorem
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-success"></i> Nullam euismod dolor ut quam interdum, at scelerisque ipsum imperdiet.
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- User Account-->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User">
+                                <img src="~/Content/images/marc.png" class="user-image rounded-circle" alt="User Image">
+                            </a>
+                            <ul class="dropdown-menu animated flipInX">
+                                <!-- User image -->
+                                <li class="user-header bg-img" style="background-image: url(/Content/images/user-info.jpg)" data-overlay="3">
+                                    <div class="flexbox align-self-center">
+                                        <img src="/Content/images/marc.png" class="float-left rounded-circle" alt="User Image">
+                                        <h4 class="user-name align-self-center">
+                                            <span>Samuel Brus</span>
+                                            <small>samuel@gmail.com</small>
+                                        </h4>
+                                    </div>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-person"></i> My Profile</a>
+                                    @*<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-bag"></i> My Balance</a>
+                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-email-unread"></i> Inbox</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-settings"></i> Account Setting</a>*@
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ion-log-out"></i> Logout</a>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="p-10"><a href="javascript:void(0)" class="btn btn-sm btn-rounded btn-success">View Profile</a></div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar" title="Setting"><i class="fa fa-cog fa-spin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="container-full clearfix position-relative">
+                <!-- Left side column. contains the logo and sidebar -->
+                <aside class="main-sidebar">
+                    <!-- sidebar-->
+                    <section class="sidebar">
+                        <!-- sidebar menu-->
+                        <ul class="sidebar-menu tree" data-widget="tree">
+                            <li class="header nav-small-cap">APPS</li>
+                            <li>
+                                <a href="/Home/About"> <i class="ti-home"></i> <span>Home</span> </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="ti-dashboard"></i>
+                                    <span>Dashboard</span>
+                                    <span class="pull-right-container">
+                                            <i class="fa fa-angle-right pull-right"></i>
+                                        </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Home/Index"><i class="ti-more"></i>Client</a></li>
+                                    @*<li><a href="/Admin/MISDashboard"><i class="ti-more"></i>MIS Dashboard</a></li>
+                                    <li><a href="/Admin/BIDashboard"><i class="ti-more"></i>BI Dashboard</a></li>*@
+                                </ul>
+                            </li>
+                            <li class="d-none treeview">
+                                <a href="#">
+                                    <i class="ti-dashboard"></i>
+                                    <span>Underwriting</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-right pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Admin/Masters"> <i class="ti-zip"></i> <span>Masters</span> </a></li>
+                                    <li><a href="/Admin/Quotation"> <i class="ti-pencil-alt"></i> <span>Quotation</span> </a></li>
+                                    <li><a href="/Admin/PolicyIssuance"> <i class="ti-heart-broken"></i> <span>Policy Issuance</span> </a></li>
+                                    <li><a href="pages/mailbox.html"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a></li>
+                                    <li><a href="pages/mailbox.html"> <i class="ti-stamp"></i> <span>Endorsement</span> </a></li>
+                                </ul>
+                            </li>
+                            <li class="d-none treeview">
+                                <a href="#">
+                                    <i class="ti-dashboard"></i>
+                                    <span>Claims Module</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-right pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Claims/DocDashboard"><i class="ti-more"></i>Dashboard</a></li>
+                                    <li><a href="/Claims/OPIPTreatment"><i class="ti-more"></i>OP & IP Treatment</a></li>
+                                    <li><a href="/Claims/Reimbursement"><i class="ti-more"></i>Reimbursement</a></li>
+                                    <li><a href="/Claims/PreApprovals"><i class="ti-more"></i>TPA Data Management</a></li>
+                                    <li><a href="/Claims/PreApprovals"><i class="ti-more"></i>Claims Registration</a></li>
+                                    <li><a href="/Claims/PreApprovals"><i class="ti-more"></i>Pre-Approvals</a></li>
+                                </ul>
+                            </li>
+                            <li class="d-none treeview">
+                                <a href="#">
+                                    <i class="ti-dashboard"></i>
+                                    <span>Claims Admin</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-right pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/ClaimsAdmin/OPAdmin"><i class="ti-more"></i>OP Approvals</a></li>
+                                    <li><a href="/ClaimsAdmin/IPAdmin"><i class="ti-more"></i>IP Approvals</a></li>
+                                </ul>
+                            </li>
+                            @*<li>
+                                    <a href="/Admin/EmployeeRegister"> <i class="ti-user"></i> <span>Register New User</span> </a>
+                                </li>
+                                <li>
+                                    <a href="pages/mailbox.html"> <i class="ti-ticket"></i> <span>Tickets</span> </a>
+                                </li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="ti-power-off"></i>
+                                    <span>Log Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </aside>
+                <!-- Main content -->
+                <section class="content">
+                    @*<div class="spinner-bg">
+                            <div class="spinner"></div>
+                        </div>*@
+                    @RenderBody()
+                </section>
+                <!-- /.content -->
+            </div>
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right d-none d-sm-inline-block">
+                <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            &copy; 2021 <a href="https://acevow.com/">A fast growing software development company</a>. &copy;Copyright © 2021 ACEVOW
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar">
+            <div class="rpanel-title"><span class="pull-right btn btn-circle btn-danger"><i class="ion ion-close text-white" data-toggle="control-sidebar"></i></span> </div>  <!-- Create the tabs -->
+            <ul class="nav nav-tabs control-sidebar-tabs">
+                <li class="nav-item"><a href="#control-sidebar-home-tab" data-toggle="tab" title="Notifications"><i class="ti-comment-alt"></i></a></li>
+                <li class="nav-item"><a href="#control-sidebar-settings-tab" data-toggle="tab" title="Comments"><i class="ti-tag"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <div class="lookup lookup-sm lookup-right d-none d-lg-block mb-20">
+                        <input type="text" name="s" placeholder="Search" class="w-p100">
+                    </div>
+                    <div class="media-list media-list-hover">
+                        <a class="media media-single" href="#">
+                            <h4 class="w-50 text-gray font-weight-500">10:10</h4>
+                            <div class="media-body pl-15 bl-5 rounded border-primary">
+                                <p>Morbi quis ex eu arcu auctor sagittis.</p>
+                                <span class="text-fade">by Johne</span>
+                            </div>
+                        </a>
+                        <a class="media media-single" href="#">
+                            <h4 class="w-50 text-gray font-weight-500">08:40</h4>
+                            <div class="media-body pl-15 bl-5 rounded border-success">
+                                <p>Proin iaculis eros non odio ornare efficitur.</p>
+                                <span class="text-fade">by Amla</span>
+                            </div>
+                        </a>
+                        <a class="media media-single" href="#">
+                            <h4 class="w-50 text-gray font-weight-500">07:10</h4>
+                            <div class="media-body pl-15 bl-5 rounded border-info">
+                                <p>In mattis mi ut posuere consectetur.</p>
+                                <span class="text-fade">by Josef</span>
+                            </div>
+                        </a>
+                        <a class="media media-single" href="#">
+                            <h4 class="w-50 text-gray font-weight-500">01:15</h4>
+                            <div class="media-body pl-15 bl-5 rounded border-danger">
+                                <p>Morbi quis ex eu arcu auctor sagittis.</p>
+                                <span class="text-fade">by Rima</span>
+                            </div>
+                        </a>
+                        <a class="media media-single" href="#">
+                            <h4 class="w-50 text-gray font-weight-500">23:12</h4>
+                            <div class="media-body pl-15 bl-5 rounded border-warning">
+                                <p>Morbi quis ex eu arcu auctor sagittis.</p>
+                                <span class="text-fade">by Alaxa</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <div class="media-list media-list-hover media-list-divided">
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="~/Content/images/marc.png" alt="...">
+                            <div class="media-body">
+                                <p><strong>Carter</strong> <span class="float-right">33 min ago</span></p>
+                                <p>Cras tempor diam nec metus...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (22)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Nicholas</strong> <span class="float-right">11 hour ago</span></p>
+                                <p>Praesent tristique diam...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (23)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Carter</strong> <span class="float-right">33 min ago</span></p>
+                                <p>Cras tempor diam nec...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (22)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Nicholas</strong> <span class="float-right">11 hour ago</span></p>
+                                <p>Praesent tristique diam...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (23)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Carter</strong> <span class="float-right">33 min ago</span></p>
+                                <p>Cras tempor diam nec metus...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (22)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Nicholas</strong> <span class="float-right">11 hour ago</span></p>
+                                <p>Praesent tristique diam...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (23)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Carter</strong> <span class="float-right">33 min ago</span></p>
+                                <p>Cras tempor diam nec...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (22)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img class="avatar avatar-lg" src="/Content/images/marc.jpg" alt="...">
+                            <div class="media-body">
+                                <p><strong>Nicholas</strong> <span class="float-right">11 hour ago</span></p>
+                                <p>Praesent tristique diam...</p>
+                                <div class="media-block-actions">
+                                    <nav class="nav nav-dot-separated no-gutters">
+                                        <div class="nav-item">
+                                            <a class="nav-link text-success" href="#"><i class="fa fa-thumbs-up"></i> (17)</a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a class="nav-link text-danger" href="#"><i class="fa fa-thumbs-down"></i> (23)</a>
+                                        </div>
+                                    </nav>
+                                    <nav class="nav no-gutters gap-2 font-size-16 media-hover-show">
+                                        <a class="nav-link text-success" href="#" data-toggle="tooltip" title="" data-original-title="Approve"><i class="ion-checkmark"></i></a>
+                                        <a class="nav-link text-danger" href="#" data-toggle="tooltip" title="" data-original-title="Delete"><i class="ion-close"></i></a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- jQuery 3 -->
+    @*<script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>*@
+
+
+
+    <!-- fullscreen -->
+    <script src="~/Content/vendor/screenfull/screenfull.js"></script>
+    <!-- popper -->
+    <script src="~/Content/vendor/popper/dist/popper.min.js"></script>
+    <!-- Bootstrap 4.0-->
+    <script src="~/Content/vendor/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- date-range-picker -->
+    <script src="~/Content/vendor/moment/min/moment.min.js"></script>
+    <script src="~/Content/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Slimscroll -->
+    <script src="~/Content/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- FastClick -->
+    <script src="~/Content/vendor/fastclick/lib/fastclick.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Content/vendor/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- apexcharts -->
+    <script src="~/Content/vendor/apexcharts-bundle/irregular-data-series.js"></script>
+    <script src="~/Content/vendor/apexcharts-bundle/dist/apexcharts.js"></script>
+    <!-- C3Chart -->
+    <script src="~/Content/vendor/c3/d3.min.js"></script>
+    <script src="~/Content/vendor/c3/c3.min.js"></script>
+    <!-- FLOT CHARTS -->
+    <script src="~/Content/vendor/Flot/jquery.flot.js"></script>
+    <script src="~/Content/vendor/Flot/jquery.flot.resize.js"></script>
+    <script src="~/Content/vendor/Flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/vendor/Flot/jquery.flot.categories.js"></script>
+    <script src="~/Content/vendor/Flot/jquery.flot.time.js"></script>
+    <!-- Echart -->
+    <script src="~/Content/vendor/echarts/dist/echarts-en.min.js"></script>
+    <!-- sweet alert -->
+    <script src="~/Content/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Content/vendor/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <!-- VoiceX Admin App -->
+    <script src="~/Content/js/template.js"></script>
+    <!-- toast -->
+    <script src="~/Content/vendor/jquery-toast-plugin-master/src/jquery.toast.js"></script>
+
+    <!-- VoiceX Admin for demo purposes -->
+    <script src="~/Content/js/demo.js"></script>
+    <!-- steps  -->
+    <script src="~/Content/vendor/jquery-steps-master/build/jquery.steps.js"></script>
+    <!-- DropZone -->
+    <script src="~/Content/vendor/dropzone-5.7.0/dist/dropzone.js"></script>
+    @RenderSection("scripts", false)
+    <!-- Datatable  -->
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+﻿
+
+<div class="p-t-30">
+    <div class="row">
+        <!-- Widget Item -->
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-primary pull-up">
+                <h6 class="text-uppercase">Total clients</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">154</span>
+                    <span class="font-size-30 text-info mdi mdi-city"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-success pull-up">
+                <h6 class="text-uppercase">Client Approved</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">412</span>
+                    <span class="font-size-30 text-primary mdi mdi-seal"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-danger pull-up">
+                <h6 class="text-uppercase">Client Rejected</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">1</span>
+                    <span class="font-size-30 text-danger mdi mdi-city"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-12">
+            <div class="box box-body pb-10 bl-4 border-warning pull-up">
+                <h6 class="text-uppercase">Client Pending</h6>
+                <div class="d-flex justify-content-between">
+                    <span class=" font-size-30">10</span>
+                    <span class="font-size-30 text-warning mdi mdi-home"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="box ">
+                <div class="box-header">
+                    <h4>Client Search</h4>
+                    <div class="row">
+
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @Html.TextBox("txtClientName", "", new { @class = "form-control w-full", @placeholder = "Enter Client Name" })
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @Html.TextBox("txtStoreUrl", "", new { @class = "form-control w-full", @placeholder = "Enter Store Url" })
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            @Html.TextBox("txtClientCity", "", new { @class = "form-control w-full", @placeholder = "Enter City" })
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6 mb-0">
+                            <button class="btn btn-primary btn-sm" id="btnSearch" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box d-none">
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Contact Name</th>
+                                    <th>Email Id</th>
+                                    <th>Contact No.</th>
+                                    <th>Store Name</th>
+                                    <th>Store Url</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Postal Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("UploadProductImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.Label("BrowseFiles","", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("files", "", new { @type = "file", @multiple = "multiple" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="ImageUpload" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 text-success">
+                            @ViewBag.UploadStatus
+                        </div>
+                    </div>
+
+                </div>
+            }
+            <div class="box">
+                <!-- /.box-header -->
+                <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
+
+                <div class="box-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home8" role="tab"><span><i class="mdi mdi-hotel mr-10"></i>Client List</span></a> </li>
+                        <li class="d-none nav-item"> <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><span class="noti-dot"><i class="mdi mdi-checkbox-marked-circle-outline mr-10"></i>Recent Approvals</span></a> </li>
+                    </ul>
+
+
+                    <!-- Tab panes -->
+                    <div class="tab-content tabcontent-border">
+                        <div class="tab-pane active" id="home8" role="tabpanel">
+                            <div class="tab-pane table-responsive active" id="All">
+                                <table id="tblClient" class="table m-b-0 table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>StoreName</th>
+                                            <th>Contact Name</th>
+                                            <th>Store URL</th>
+                                            <th>Positon</th>
+                                            <th>Email Id</th>
+                                            <th>Address</th>
+                                            <th>City</th>
+                                            <th>BulkUpload</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile8" role="tabpanel">
+                            <div class="tab-pane table-responsive active" id="All">
+                                <table class="table m-b-0 table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Patients ID</th>
+                                            <th>Name</th>
+                                            <th>Age</th>
+                                            <th>Reason</th>
+                                            <th>Number</th>
+                                            <th>Requested Date</th>
+                                            <th>Approved Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="list-name">KU 00598</span></td>
+                                            <td>Daniel</td>
+                                            <td>32</td>
+                                            <td>Surgery</td>
+                                            <td>404-447-6013</td>
+                                            <td>11 Feb 2021</td>
+                                            <td>--</td>
+                                            <td><span class="badge badge-warning">Awaiting Approval </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="list-name">KU 00598</span></td>
+                                            <td>Daniel</td>
+                                            <td>32</td>
+                                            <td>Surgery</td>
+                                            <td>404-447-6013</td>
+                                            <td>15 Feb 2021</td>
+                                            <td>--</td>
+                                            <td><span class="badge badge-warning">Awaiting Approval</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("BulkUpdate", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hdnId" name="hdnId" value="0" />
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="text-right">
+
+                                <a href="~/Masters/RIMaster.csv" class="btn btn-dark btn-sm" download>
+                                    <i class="mdi mdi-download"></i> Download Sample format
+                                </a>
+                            </div>
+
+                            <div class="fileuploader fileuploader-theme-dragdrop">
+
+                                <input type="file" name="CSVFile" id="fileUploadRIMaster" accept=".csv" />
+
+                                <div class="mt-2">
+
+                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                        <span>Upload</span>
+                                    </i>
+                                    <button id="uploadFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        GetClient();
+    });
+
+    $('#btnSearch').on('click', function () {
+        GetClient();
+    });
+    function GetClient() {
+        var param = { ClientName: $('#txtClientName').val(), StoreUrl: $('#txtStoreUrl').val(), City: $('#txtClientCity').val() };
+        $("#tblClient").find("tr:not(:first)").remove();
+
+        $.ajax({
+
+            type: "GET",
+            url: "GetClientInfo",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result.length > 0) {
+                    var i = 0;
+                    $.each(Result, function (key, value) {
+                        i++;
+                        var hdnID = "hdnobjJSonVal_" + i;
+                        var JVal = JSON.stringify(value);
+                        $('#tblClient').append('<tr> <td>' + value.StoreName + '</td>  <td>' + value.StoreURL + '</td> <td>' + value.ContactName + '</td> <td>' + value.Positon + '</td><td>' + value.EmailId + '</td> <td>' + value.City + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+
+
+                    })
+                }
+                else {
+                    $('#tblClient').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+                //$("#tblRIMaster tr").filter(function () {
+                //    $(this).toggle($(this).text().toLowerCase().indexOf(formData) > -1)
+                //});
+
+            },
+            error: function () {
+                // $("#lblMessage").html('Error while Registring the Company!.');
+            }
+        })
+    }
+    function SetId(id) {
+        $('#hdnId').val(id);
+
+    }
+    function csvFileUpload() {
+
+        var rowCount = 0;
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUploadRIMaster").val().toLowerCase())) {
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+
+                    var rows = e.target.result.split('\r\n');
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        var cells = rows[i].split(",");
+                        var RRC = rowCount + 1;
+                        if (i == 0) {
+
+
+                            // Heater validation
+                            if (cells.length == 9) {
+
+                                if (cells[0] != "Name") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Name).");
+                                    return false;
+                                }
+                                if (cells[1] != "Category") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Category).");
+                                    return false;
+                                }
+                                if (cells[2] != "Description") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Description).");
+                                    return false;
+                                }
+                                if (cells[3] != "RegularPrice") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (RegularPrice).");
+                                    return false;
+                                }
+                                if (cells[4] != "TaxType") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (TaxType).");
+                                    return false;
+                                }
+                                if (cells[5] != "IsRecommended") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (IsRecommended).");
+                                    return false;
+                                }
+                                if (cells[6] != "IsActive") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (IsActive).");
+                                    return false;
+                                }
+                                if (cells[7] != "Email") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Email).");
+                                    return false;
+                                }
+                                if (cells[8] != "Image") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Image).");
+                                    return false;
+                                }
+                            }
+                            else {
+                                $('#fileUploadRIMaster').val('');
+                                alert("Upload Csv file invalid template , Please check .");
+                                return false;
+                            }
+
+                        } else {
+                            // Row validation
+
+
+                            if (cells.length == 9) {
+                                if (cells[0] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Name  is empty");
+                                    return false;
+                                }
+                                if (cells[1] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Category is empty");
+                                    return false;
+                                }
+
+                                if (cells[2] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Description  is empty");
+                                    return false;
+                                }
+
+                                if (cells[3] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " RegularPrice is empty");
+                                    return false;
+                                }
+
+                                if (cells[4] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " TaxType is empty");
+                                    return false;
+                                }
+                                if (cells[5] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " IsRecommended is empty");
+                                    return false;
+                                }
+
+                                if (cells[6] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " IsActive is empty");
+                                    return false;
+                                }
+                                if (cells[7] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Email is empty");
+                                    return false;
+                                }
+                                if (cells[8] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Image is empty");
+                                    return false;
+                                }
+
+                            }
+                            else {
+
+                                if (cells.length > 1) {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " This row have comma simple or invalied Column length");
+                                    return false;
+                                }
+                            }
+
+                        }
+
+                        rowCount += 1;
+
+                    }
+
+                    if (rowCount == rows.length) {
+                        $("#hdnMsgStatus").val('Y');
+                        
+                        $("#uploadFiles").click();
+
+                    }
+
+                }
+                reader.readAsText($("#fileUploadRIMaster")[0].files[0]);
+            } else {
+                $('#fileUploadRIMaster').val('');
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        } else {
+            $('#fileUploadRIMaster').val('');
+            alert("Please upload a valid CSV file.");
+            return false;
+        }
+    }
+</script>
