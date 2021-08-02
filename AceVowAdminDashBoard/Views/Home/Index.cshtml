@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            @using (Html.BeginForm("UploadProductImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @*@using (Html.BeginForm("UploadProductImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -107,7 +107,7 @@
                     </div>
 
                 </div>
-            }
+            }*@
             <div class="box">
                 <!-- /.box-header -->
                 <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
@@ -133,7 +133,6 @@
                                             <th>Positon</th>
                                             <th>Email Id</th>
                                             <th>Address</th>
-                                            <th>City</th>
                                             <th>BulkUpload</th>
                                             <th>Action</th>
 
@@ -190,6 +189,39 @@
             </div>
             <!-- /.box -->
             <!-- /.col -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">AceVow</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">From Date:</label>
+                        <input type="date" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">To Date:</label>
+                        <input type="date" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="text-success col-form-label">Total Count is 123</label>
+                       
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Get Count</button>
+            </div>
         </div>
     </div>
 </div>
@@ -264,7 +296,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblClient').append('<tr> <td>' + value.StoreName + '</td>  <td>' + value.StoreURL + '</td> <td>' + value.ContactName + '</td> <td>' + value.Positon + '</td><td>' + value.EmailId + '</td> <td>' + value.City + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td><a href="#" data-toggle="modal" data-target="#exampleModal">' + value.StoreName + '</a></td>  <td>' + value.StoreURL + '</td> <td>' + value.ContactName + '</td> <td>' + value.Positon + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -388,11 +420,11 @@
                                     return false;
                                 }
 
-                                if (cells[4] == "") {
-                                    $('#fileUploadRIMaster').val('');
-                                    alert("Please check Row NO : " + RRC + " TaxType is empty");
-                                    return false;
-                                }
+                                //if (cells[4] == "") {
+                                //    $('#fileUploadRIMaster').val('');
+                                //    alert("Please check Row NO : " + RRC + " TaxType is empty");
+                                //    return false;
+                                //}
                                 if (cells[5] == "") {
                                     $('#fileUploadRIMaster').val('');
                                     alert("Please check Row NO : " + RRC + " IsRecommended is empty");

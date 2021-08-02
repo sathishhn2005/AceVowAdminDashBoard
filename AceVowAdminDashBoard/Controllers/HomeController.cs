@@ -17,21 +17,53 @@ namespace AceVowAdminDashBoard.Controllers
         DataModel objBAL;
         public ActionResult Index()
         {
-            return View();
+            if (Session["UserName"] != null)
+                return View();
+            else
+                return RedirectToAction("Login", "Home");
         }
+        [HttpGet]
+        public ActionResult Login(Login objModels)
+        {
+            string UName = string.Empty;
+            Session["UserName"] = null;
+            int i = 0;
+            string Pswd = string.Empty;
+            UName = objModels.UserName;
+            Pswd = objModels.Password;
+            if (!string.IsNullOrEmpty(UName) && !string.IsNullOrEmpty(Pswd))
+            {
+                objBAL = new DataModel();
+                i = objBAL.GetLoginInfo(UName, Pswd);
+                if (i > 0)
+                {
+                    Session["UserName"] = UName;
+                    return RedirectToAction("About", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "Username or Password not found.!";
+                    return View();
+                }
+            }
 
+            else
+                return View();
+        }
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            if (Session["UserName"] != null)
+                return View();
+            else
+                return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (Session["UserName"] != null)
+                return View();
+            else
+                return RedirectToAction("Login", "Home");
         }
         [HttpGet]
         public JsonResult GetClientInfo(string ClientName, string StoreUrl, string City)

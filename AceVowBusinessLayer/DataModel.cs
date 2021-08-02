@@ -1,6 +1,7 @@
 ﻿using AceVowEntities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -98,6 +99,28 @@ namespace AceVowBusinessLayer
                 throw ex;
             }
             return InsRow;
+        }
+
+        public int GetLoginInfo(string uname, string pswd)
+        {
+            int i = 0;
+            SqlConnection sqlCon = null;
+            String SqlconString = ConfigurationManager.ConnectionStrings["AceVowAdmin"].ConnectionString;
+            using (sqlCon = new SqlConnection(SqlconString))
+            {
+                sqlCon.Open();
+                SqlCommand Cmnd = new SqlCommand("SELECT UserName FROM Login WHERE UserName=@Uname and Password=@Pswd", sqlCon);
+                Cmnd.Parameters.AddWithValue("@Uname", uname);
+                Cmnd.Parameters.AddWithValue("@Pswd", pswd);
+                object result = Cmnd.ExecuteScalar();
+                if (result != null)
+                {
+                    string name = result.ToString();
+                    i = 1;
+                }
+                sqlCon.Close();
+            }
+            return i;
         }
     }
 }
