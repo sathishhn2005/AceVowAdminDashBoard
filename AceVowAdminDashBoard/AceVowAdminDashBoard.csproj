@@ -2192,6 +2192,7 @@
     <Content Include="Content\vendor\popper\packages\tooltip\yarn.lock" />
     <Content Include="Content\vendor\popper\README.md" />
     <Content Include="Content\vendor\popper\yarn.lock" />
+    <Content Include="Masters\SampleFormat.csv" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Dashboard.js" />
