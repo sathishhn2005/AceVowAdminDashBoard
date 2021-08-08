@@ -1,12 +1,11 @@
 ﻿using AceVowEntities;
+using AceVowUtility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AceVowBusinessLayer
 {
@@ -41,19 +40,7 @@ namespace AceVowBusinessLayer
 
                     if (dtResult.Rows.Count > 0)
                     {
-                        lstClient = dtResult.AsEnumerable().Select(U => new ClientUser()
-                        {
-                            Id = U.Field<int>("Id"),
-                            StoreName = U.Field<string>("StoreName"),
-                            ContactName = U.Field<string>("ContactName"),
-                            StoreURL = U.Field<string>("StoreURL"),
-                            Positon = U.Field<string>("Positon"),
-                            EmailId = U.Field<string>("EmailId"),
-                            AddressLine1 = U.Field<string>("Address"),
-                            City = U.Field<string>("City"),
-                           
-
-                        }).ToList();
+                        DTtoListConverter.ConvertTo(dtResult, out lstClient);
                     }
 
                 }
@@ -122,5 +109,174 @@ namespace AceVowBusinessLayer
             }
             return i;
         }
+
+        public int GetAutocompleteCat(string prefixText, string Action, out List<Category> lstCat)
+        {
+            int ReturnCode = 0;
+            lstCat = null;
+
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@prefixText",SqlDbType.NVarChar),
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+
+                                      };
+
+                Param[0].Value = prefixText;
+                Param[1].Value = Action;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+
+                    dtResult = objDBEngine.GetDataTable("pGetAutocompleteCatName", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstCat = dtResult.AsEnumerable().Select(U => new Category()
+                        {
+                            Name = U.Field<string>("Name"),
+                            ParentCategory = U.Field<string>("ParentCategory")
+                        }
+                        ).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public long DMLCatMaster(string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+
+                Param[0].Value = JPramValue;
+                Param[1].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLCategoryMaster", Param, out InsRow);
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
+        }
+        public int GetClientUser(int Id, out ClientUser obj)
+        {
+            int ReturnCode = 0;
+            obj = null;
+            List<Category> lst = null;
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Id",SqlDbType.Int),
+
+                                      };
+
+                Param[0].Value = Id;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    DataSet ds = new DataSet();
+
+                    ds = objDBEngine.GetDataSet("pGetClientInfo_Update", Param);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        DataRow row =ds.Tables[0].Rows[0];
+                        obj = new ClientUser
+                        {
+                            Id = Convert.ToInt32(row["Id"]),
+                            Industry = row["Industry"].ToString(),
+                            StoreName = row["StoreName"].ToString(),
+                            StoreURL = row["StoreURL"].ToString(),
+                            ContactName = row["ContactName"].ToString(),
+                            Positon = row["Positon"].ToString(),
+                            PirmaryContact = row["PirmaryContact"].ToString(),
+                            EmailId = row["EmailId"].ToString(),
+                            Password = row["Password"].ToString(),
+                            AddressLine1 = row["AddressLine1"].ToString(),
+                            AddressLine2 = row["AddressLine2"].ToString(),
+                            City = row["City"].ToString(),
+                            TargetedCities = row["TargetedCities"].ToString(),
+                            TargetedCommunities = row["TargetedCommunities"].ToString(),
+                            WelcomeMessage = row["WelcomeMessage"].ToString(),
+                            TrolleryCount = Convert.ToInt32(row["TrolleryCount"]),
+                            BasketCount = Convert.ToInt32(row["BasketCount"]),
+                            UserId = Convert.ToInt32(row["UserId"]),
+                            PostalCode = row["PostalCode"].ToString(),
+                            ClientLogo = row["ClientLogo"].ToString(),
+                            ClientBanner = row["ClientBanner"].ToString(),
+                            ClientFBUrl = row["ClientFBUrl"].ToString(),
+                            ClientInstaUrl = row["ClientInstaUrl"].ToString(),
+                            ClientTwitterUrl = row["ClientTwitterUrl"].ToString()
+                        };
+
+                    }
+                    if (ds.Tables[1].Rows.Count > 0)
+                    {
+                        lst = new List<Category>();
+                        DTtoListConverter.ConvertTo(ds.Tables[1], out lst);
+                    }
+                    obj.lstCategory = lst;
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public long DMLUserMaster(string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+
+                Param[0].Value = JPramValue;
+                Param[1].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLClient", Param, out InsRow);
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
+        }
+      
     }
 }

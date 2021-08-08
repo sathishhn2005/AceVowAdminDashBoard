@@ -1,6 +1,30 @@
 ﻿
+<style type="text/css">
+    .ui-autocomplete {
+        /*max-height: 100px;
+        overflow-y: auto;*/
+        /* prevent horizontal scrollbar */
+        /*overflow-x: hidden;*/
+        position: absolute;
+        cursor: default;
+        z-index: 4000 !important
+    }
 
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+
+    .fixed-height {
+        padding: 1px;
+        max-height: 200px;
+        overflow: auto;
+    }
+</style>
 <div class="p-t-30">
+
     <div class="row">
         <!-- Widget Item -->
         <div class="col-xl-3 col-12">
@@ -83,31 +107,31 @@
                 </div>
             </div>
             @*@using (Html.BeginForm("UploadProductImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
+                {
+                    @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.Label("BrowseFiles","", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextBox("files", "", new { @type = "file", @multiple = "multiple" })
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("BrowseFiles","", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBox("files", "", new { @type = "file", @multiple = "multiple" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="ImageUpload" class="btn btn-primary" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="ImageUpload" class="btn btn-primary" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10 text-success">
-                            @ViewBag.UploadStatus
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 text-success">
+                                @ViewBag.UploadStatus
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            }*@
+                    </div>
+                }*@
             <div class="box">
                 <!-- /.box-header -->
                 <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
@@ -129,11 +153,12 @@
                                         <tr>
                                             <th>StoreName</th>
                                             <th>Contact Name</th>
-                                            <th>Store URL</th>
-                                            <th>Positon</th>
+
+
                                             <th>Email Id</th>
                                             <th>Address</th>
                                             <th>BulkUpload</th>
+                                            <th>Add Category</th>
                                             <th>Action</th>
 
                                         </tr>
@@ -205,15 +230,15 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">From Date:</label>
-                        <input type="date" class="form-control" id="recipient-name">
+                        <input type="date" class="form-control" id="txtFromDate">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">To Date:</label>
-                        <input type="date" class="form-control" id="recipient-name">
+                        <input type="date" class="form-control" id="txtToDate">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="text-success col-form-label">Total Count is 123</label>
-                       
+
                     </div>
 
                 </form>
@@ -270,9 +295,46 @@
         <!-- /.modal-dialog -->
     </div>
 }
+
+<div id="CategoryUpdate" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="uploadBulkLabel">Add Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formCat">
+                <h1 class="text-center text-success">@TempData["CatMess"]</h1>
+                <div class="form-group">
+                    <label for="txtParentCatName" class="col-form-label">Parent Category</label>
+                    <input type="text" class="form-control" id="txtParentCatName">
+                    @*@Html.TextBox("txtParentCatName", "", new { @class = "form-control w-full", @placeholder = "Enter  Name" })*@
+                </div>
+                <div class="form-group">
+                    <label for="txtCatName" class="col-form-label">Category Name</label>
+                    <input type="text" class="form-control" id="txtCatName">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" id="btnCat">
+                </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script>
     $(document).ready(function () {
         GetClient();
+       // window.location.href = "/Home/EditClient";
     });
 
     $('#btnSearch').on('click', function () {
@@ -295,8 +357,9 @@
                     $.each(Result, function (key, value) {
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
+                        var hdId = i;
                         var JVal = JSON.stringify(value);
-                        $('#tblClient').append('<tr> <td><a href="#" data-toggle="modal" data-target="#exampleModal">' + value.StoreName + '</a></td>  <td>' + value.StoreURL + '</td> <td>' + value.ContactName + '</td> <td>' + value.Positon + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td><a href="#" data-toggle="modal" data-target="#exampleModal">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdId + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -465,7 +528,7 @@
 
                     if (rowCount == rows.length) {
                         $("#hdnMsgStatus").val('Y');
-                        
+
                         $("#uploadFiles").click();
 
                     }
@@ -482,5 +545,132 @@
             alert("Please upload a valid CSV file.");
             return false;
         }
+    }
+
+    $(document).ready(function () {
+        $("#txtParentCatName").autocomplete({
+            minLength: 2,
+            autoFocus: true,
+            open: function () { $($('.ui-autocomplete')).css('width', '300px'); },
+            source: function (request, response) {
+                var param = { prefixText: $('#txtParentCatName').val(), Action: "ParentCatName" };
+
+                $.ajax({
+                    url: "/Home/GetParentCateogryName",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+
+                                label: item.Name,
+                                value: item.Name
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        //alert(err.Message)
+                        console.log("Ajax Error! " + err.Message);
+                    }
+                });
+            },
+
+        });
+        $("#txtCatName").autocomplete({
+            minLength: 2,
+            autoFocus: true,
+            open: function () { $($('.ui-autocomplete')).css('width', '300px'); },
+            source: function (request, response) {
+                var param = { prefixText: $('#txtCatName').val(), Action: "ParentCatName" };
+
+                $.ajax({
+                    url: "/Home/GetParentCateogryName",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+
+                                label: item.Name,
+                                value: item.Name
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        //alert(err.Message)
+                        console.log("Ajax Error! " + err.Message);
+                    }
+                });
+            },
+
+        });
+        $('#btnCat').on('click', function () {
+
+            if ($.trim($("#txtCatName").val()) == "") {
+                alert("Please enter CatName");
+                $("#txtCatName").focus();
+                return false;
+            }
+            if ($.trim($("#txtParentCatName").val()) == "") {
+                alert("Please enter ParentCatName");
+                $("#txtParentCatName").focus();
+                return false;
+            }
+
+
+            var objCat = new Object();
+            objCat.UserId = $('#hdnId').val();
+            objCat.Name = $("#txtCatName").val();
+            objCat.ParentCategory = $("#txtParentCatName").val();
+
+            var param = {
+                obj: objCat
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddCategory",
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(param),
+                success: function (res) {
+                    if (res > 0) {
+
+                    }
+                    else if (res == -2) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '',
+                            text: "Please provide all mandatory fields.",
+                        })
+                        //alert('Please provide all mandatory fields')
+                        return false;
+                    }
+                    $('#formCat').reset();
+                },
+                error: function () {
+                    // $("#lblMessage").html('Error while Registring the Company!.');
+                    $('#formCat').reset();
+                }
+            })
+        });
+    });
+    function EditClientMaster(id) {
+       // window.location.href = "/Home/EditClient?Id='" + id + "'";
+        $('#hdnId').val(id);
+       // window.location.href = "/Home/EditClient?hdnId=" + id + "";
+        window.open(
+            "/Home/EditClient?hdnId=" + id + "",
+            '_blank' // <- This is what makes it open in a new window.
+        );
+        
     }
 </script>

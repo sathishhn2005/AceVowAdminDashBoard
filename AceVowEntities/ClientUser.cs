@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AceVowEntities
 {
@@ -32,5 +34,14 @@ namespace AceVowEntities
         public string ClientFBUrl { get; set; }
         public string ClientInstaUrl { get; set; }
         public string ClientTwitterUrl { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public int CatUserId { get; set; }
+        public List<Category> lstCategory{ get; set; }
+        [JsonIgnore]
+        public HttpPostedFileBase ImageFileLogo { get; set; }
+        [JsonIgnore]
+        public HttpPostedFileBase ImageFileBanner { get; set; }
+
     }
 }

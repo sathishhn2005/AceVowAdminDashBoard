@@ -9,6 +9,8 @@ using System.Configuration;
 using System.IO;
 using System.Transactions;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AceVowAdminDashBoard.Controllers
 {
@@ -75,6 +77,39 @@ namespace AceVowAdminDashBoard.Controllers
             ReturnCode = objBAL.GetClientInfo(ClientName, StoreUrl, City, out lstClientinfo);
 
             return Json(lstClientinfo, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult AddCategory(Category obj)
+
+        {
+            string msg = "";
+            long RIMasterID = 0;
+            TempData["CatMess"] = "";
+            string JParamVal = JsonConvert.SerializeObject(obj);
+            objBAL = new DataModel();
+            RIMasterID = objBAL.DMLCatMaster(JParamVal);
+            if (RIMasterID > 0)
+            {
+                msg = "Inserted Successfully";
+            }
+            else
+            {
+                msg = "Error Occured, Please check it.";
+            }
+            TempData["CatMess"] = msg;
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetParentCateogryName(string prefixText, string Action)
+        {
+            List<Category> lstCat = null;
+            int ReturnCode = 0;
+
+            objBAL = new DataModel();
+            ReturnCode = objBAL.GetAutocompleteCat(prefixText, Action, out lstCat);
+
+            return Json(lstCat, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -204,6 +239,140 @@ namespace AceVowAdminDashBoard.Controllers
             return objCsvFileBulkUplaod;
         }
 
+        public ActionResult EditClient(string hdnId)
+        {
+            if (Session["UserName"] != null)
+            {
+                int i = Convert.ToInt32(hdnId);
+                ClientUser obj = new ClientUser();
+                objBAL = new DataModel();
+                objBAL.GetClientUser(i, out obj);
+                return View(obj);
+            }
+            else
+                return RedirectToAction("Login", "Home");
 
+        }
+
+        [HttpPost]
+        public ActionResult Index(ClientUser user)
+        {
+            string msg = "";
+            long RIMasterID = 0;
+            TempData["UserMess"] = "";
+            // user.Password = _encrypt(user.Password);
+            try
+            {
+                var allowedExtensions = new[] { ".Jpg", ".png", ".jpg", ".jpeg" };
+                if (user.ImageFileLogo != null)
+                {
+                    if (user.ImageFileLogo.FileName.Length > 0)
+                    {
+                        //Use Namespace called :  System.IO  
+                        string FileName = Path.GetFileNameWithoutExtension(user.ImageFileLogo.FileName);
+
+                        //To Get File Extension  
+                        string FileExtension = Path.GetExtension(user.ImageFileLogo.FileName);
+                        if (allowedExtensions.Contains(FileExtension)) //check what type of extension  
+                        {
+
+                            //Add Current Date To Attached File Name  
+                            //  FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
+                            FileName = Guid.NewGuid().ToString() + FileExtension;
+                            user.ClientLogo = FileName;
+                            //Get Upload path from Web.Config file AppSettings.  
+                            string ServerPath = ConfigurationManager.AppSettings["ClientLogo"].ToString();
+
+                            //string UploadPath = Path.Combine("C:\\Users\\ThisPc\\Documents\\Visual Studio 2017\\Projects\\AllDealz\\AllDealz\\ClientLogo", FileName);
+                            string UploadPath = Path.Combine(ServerPath, FileName);
+
+
+                            //Its Create complete path to store in server.  
+                            var fullPath = UploadPath;
+                            //To copy and save file into server.  
+                            user.ImageFileLogo.SaveAs(fullPath);
+                        }
+                    }
+                }
+                if (user.ImageFileBanner != null)
+                {
+                    if (user.ImageFileBanner.FileName.Length > 0)
+                    {
+                        //Use Namespace called :  System.IO  
+                        string FileName = Path.GetFileNameWithoutExtension(user.ImageFileBanner.FileName);
+
+                        //To Get File Extension  
+                        string FileExtension = Path.GetExtension(user.ImageFileBanner.FileName);
+                        if (allowedExtensions.Contains(FileExtension)) //check what type of extension  
+                        {
+                            //Add Current Date To Attached File Name  
+                            //  FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
+                            FileName = Guid.NewGuid().ToString() + FileExtension;
+                            user.ClientBanner = FileName;
+
+                            //Get Upload path from Web.Config file AppSettings.  
+                            string ServerPath = ConfigurationManager.AppSettings["ClientBanner"].ToString();
+                            string UploadPath = Path.Combine(ServerPath, FileName);
+
+                            //string UploadPath = Path.Combine("C:\\Users\\ThisPc\\Documents\\Visual Studio 2017\\Projects\\AllDealz\\AllDealz\\ClientBanner", FileName);
+
+                            //Its Create complete path to store in server.  
+                            var fullPath = UploadPath;
+                            //To copy and save file into server.  
+                            user.ImageFileBanner.SaveAs(fullPath);
+                        }
+                    }
+                }
+                if (string.IsNullOrEmpty(user.ClientBanner))
+                    user.ClientBanner = string.Empty;
+                if (string.IsNullOrEmpty(user.ClientLogo))
+                    user.ClientLogo = string.Empty;
+                string JParamVal = JsonConvert.SerializeObject(user);
+                objBAL = new DataModel();
+                RIMasterID = objBAL.DMLUserMaster(JParamVal);
+                if (RIMasterID > 0)
+                {
+                    msg = "Inserted Successfully";
+                }
+                else
+                {
+                    msg = "Error Occured, Please check it.";
+                }
+                TempData["UserMess"] = msg;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return View();
+        }
+        private string _encrypt(string toEncrypt)
+        {
+            string key = "nextGENp@55w0rd";
+            try
+            {
+                byte[] keyArray;
+                byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                hashmd5.Clear();
+
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+                tdes.Key = keyArray;
+                tdes.Mode = CipherMode.ECB;
+                tdes.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform cTransform = tdes.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                tdes.Clear();
+                return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
+            catch (Exception)
+            {
+                // MessageBox.Show(ex.Message);
+            }
+            return toEncrypt;
+        }
     }
 }
