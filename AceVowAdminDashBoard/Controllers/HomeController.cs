@@ -347,6 +347,19 @@ namespace AceVowAdminDashBoard.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public JsonResult GetCountQR(ClientUser objUser)
+        {
+            DateTime PolicyFDate = objUser.FromDate == Convert.ToDateTime("01-01-0001 12.00.00 AM") ? Convert.ToDateTime("01-01-1753 12.00.00 AM") : objUser.FromDate;
+            DateTime PolicyTDate = objUser.ToDate == Convert.ToDateTime("01-01-0001 12.00.00 AM") ? Convert.ToDateTime("01-01-1753 12.00.00 AM") : objUser.ToDate;
+            objBAL = new DataModel();
+            long returnCode = objBAL.GetQRCount(objUser.UserId, PolicyFDate, PolicyTDate);
+            return Json(new
+            {
+                Result = returnCode
+            }, JsonRequestBehavior.AllowGet);
+            //return Json(returnCode);
+        }
         private string _encrypt(string toEncrypt)
         {
             string key = "nextGENp@55w0rd";

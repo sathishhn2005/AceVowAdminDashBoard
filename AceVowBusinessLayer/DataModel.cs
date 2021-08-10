@@ -13,6 +13,7 @@ namespace AceVowBusinessLayer
     {
         DBEngine objDBEngine;
         DataTable dtResult;
+        readonly Utility objUtility = new Utility();
         public int GetClientInfo(string ClientName, string StoreUrl, string City, out List<ClientUser> lstClient)
         {
             int ReturnCode = 0;
@@ -277,6 +278,49 @@ namespace AceVowBusinessLayer
             }
             return RIMAsterID;
         }
-      
+        public long GetQRCount(int? UId, DateTime FromDate, DateTime ToDate)
+        {
+            long returnCode = -1;
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "GetQRCountforDashBoard" 
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                  
+                    cmd.Parameters.Add("@FDate", SqlDbType.DateTime).Value = FromDate;
+                    cmd.Parameters.Add("@TDate", SqlDbType.DateTime).Value = ToDate;
+                    cmd.Parameters.AddWithValue("@UserId", UId);
+                    returnCode = Convert.ToInt64(cmd.ExecuteScalar());
+                    cmd.Dispose();
+
+                    //SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    //{
+                    //    SelectCommand = cmd
+                    //};
+                    //sdaAdapter.Fill(ds);
+
+                    //if (ds.Tables[0].Rows.Count > 0)
+                    //{
+                    //    DataRow row = ds.Tables[0].Rows[0];
+
+                    //    returnCode = Convert.ToInt64(row["Id"]);
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,20 @@ namespace AceVowEntities
         public HttpPostedFileBase ImageFileLogo { get; set; }
         [JsonIgnore]
         public HttpPostedFileBase ImageFileBanner { get; set; }
+        [Display(Name = "From Date")]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+
+        public DateTime FromDate { get; set; }
+        [Display(Name = "To Date")]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+        public DateTime ToDate { get; set; }
+        [Display(Name = "Offer Start Date")]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+
+        public DateTime OfferStartDate { get; set; }
+        [Display(Name = "Offer End Date")]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+        public DateTime OfferEndDate { get; set; }
 
     }
 }

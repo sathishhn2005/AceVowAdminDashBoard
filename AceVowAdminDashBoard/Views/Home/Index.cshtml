@@ -96,6 +96,7 @@
                                     <th>Store Name</th>
                                     <th>Store Url</th>
                                     <th>Address</th>
+                                   
                                     <th>City</th>
                                     <th>Postal Code</th>
                                 </tr>
@@ -153,10 +154,10 @@
                                         <tr>
                                             <th>StoreName</th>
                                             <th>Contact Name</th>
-
-
                                             <th>Email Id</th>
                                             <th>Address</th>
+                                            <th>StartDate</th>
+                                            <th>EndDate</th>
                                             <th>BulkUpload</th>
                                             <th>Add Category</th>
                                             <th>Action</th>
@@ -230,14 +231,14 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">From Date:</label>
-                        <input type="date" class="form-control" id="txtFromDate">
+                        <input type="date" class="form-control" name="FromDate" id="txtFromDate">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">To Date:</label>
-                        <input type="date" class="form-control" id="txtToDate">
+                        <input type="date" class="form-control" name="ToDate" id="txtToDate">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="text-success col-form-label">Total Count is 123</label>
+                        <label for="message-text" id="lblCount" class="text-success col-form-label"></label>
 
                     </div>
 
@@ -245,7 +246,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Get Count</button>
+                <button type="button" id="btnGetCount" onclick="qrCount()" class="btn btn-primary">Get Count</button>
             </div>
         </div>
     </div>
@@ -308,19 +309,19 @@
 
             <div class="modal-body">
                 <form id="formCat">
-                <h1 class="text-center text-success">@TempData["CatMess"]</h1>
-                <div class="form-group">
-                    <label for="txtParentCatName" class="col-form-label">Parent Category</label>
-                    <input type="text" class="form-control" id="txtParentCatName">
-                    @*@Html.TextBox("txtParentCatName", "", new { @class = "form-control w-full", @placeholder = "Enter  Name" })*@
-                </div>
-                <div class="form-group">
-                    <label for="txtCatName" class="col-form-label">Category Name</label>
-                    <input type="text" class="form-control" id="txtCatName">
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" id="btnCat">
-                </div>
+                    <h1 class="text-center text-success">@TempData["CatMess"]</h1>
+                    <div class="form-group">
+                        <label for="txtParentCatName" class="col-form-label">Parent Category</label>
+                        <input type="text" class="form-control" id="txtParentCatName">
+                        @*@Html.TextBox("txtParentCatName", "", new { @class = "form-control w-full", @placeholder = "Enter  Name" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCatName" class="col-form-label">Category Name</label>
+                        <input type="text" class="form-control" id="txtCatName">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" id="btnCat">
+                    </div>
                 </form>
             </div>
 
@@ -334,7 +335,7 @@
 <script>
     $(document).ready(function () {
         GetClient();
-       // window.location.href = "/Home/EditClient";
+        // window.location.href = "/Home/EditClient";
     });
 
     $('#btnSearch').on('click', function () {
@@ -359,7 +360,19 @@
                         var hdnID = "hdnobjJSonVal_" + i;
                         var hdId = i;
                         var JVal = JSON.stringify(value);
-                        $('#tblClient').append('<tr> <td><a href="#" data-toggle="modal" data-target="#exampleModal">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td></td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdId + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+
+                        //var v = new Date(parseInt(value.PolicyFromDate.replace("/Date(", "").replace(")/", ""), 10));
+                        ////Fromvalue = value.toDateString()
+                        //Fromvalue = v.toISOString();
+
+                        //var Str =
+
+                        //    ("00" + value.getDate()).slice(-2)
+                        //    + "-" + ("00" + (value.getMonth() + 1)).slice(-2)
+                        //    + "-" + value.getFullYear()
+
+                        //$('#PolicyFromDate').val(Str);
+                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td>' + value.OfferStartDate + '</td><td>' + value.OfferEndDate + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdId + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -662,15 +675,41 @@
                 }
             })
         });
+        //qrCount(0);
+
     });
     function EditClientMaster(id) {
-       // window.location.href = "/Home/EditClient?Id='" + id + "'";
+        // window.location.href = "/Home/EditClient?Id='" + id + "'";
         $('#hdnId').val(id);
-       // window.location.href = "/Home/EditClient?hdnId=" + id + "";
+        // window.location.href = "/Home/EditClient?hdnId=" + id + "";
         window.open(
             "/Home/EditClient?hdnId=" + id + "",
             '_blank' // <- This is what makes it open in a new window.
         );
-        
+
+    }
+    function qrCount(id) {
+        $('#exampleModal').modal('show');
+        // SetId(id);
+
+        if (id == 0 || id == undefined) {
+            id = $('#hdnId').val();
+        }
+        var objUser = { FromDate: $('#txtFromDate').val(), ToDate: $('#txtToDate').val(), UserId: id };
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "GetCountQR",
+            data: objUser,
+            dataType: "json",
+            success: function (Result) {
+                $('#lblCount').html("Total No.of count " + Result.Result);
+                $('#hdnId').val(id);
+            },
+            error: function (Result) {
+                alert("Error");
+            }
+        });
+
     }
 </script>
