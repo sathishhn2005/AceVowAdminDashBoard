@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "ClientPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="box">
+    <!-- /.box-header -->
+    <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
+
+    <div class="box-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home8" role="tab"><span><i class="mdi mdi-hotel mr-10"></i>Client Post</span></a> </li>
+            <li class="d-none nav-item"> <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><span class="noti-dot"><i class="mdi mdi-checkbox-marked-circle-outline mr-10"></i>Recent Approvals</span></a> </li>
+        </ul>
+
+
+        <div class="tab-content tabcontent-border">
+            <div class="tab-pane active" id="home8" role="tabpanel">
+                <div class="tab-pane table-responsive active" id="All">
+                    <table id="tblClient" class="table m-b-0 table-hover">
+                        <thead class="text-center">
+                            <tr>
+
+                                <th>User Name</th>
+                                <th>Email Address</th>
+                                <th>Phone Number</th>
+
+                                <th>User Id</th>
+                                <th>PostBulkUpload</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("BulkPostUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="uploadPostBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="uploadPostBulkLabel">Upload Bulk Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hdnId" name="hdnId" value="0" />
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="text-right">
+
+                                <a href="~/Masters/PostUploadFormat.csv" class="btn btn-dark btn-sm" download>
+                                    <i class="mdi mdi-download"></i> Download PostUpload format
+                                </a>
+                            </div>
+
+                            <div class="fileuploader fileuploader-theme-dragdrop">
+
+                                <input type="file" name="PostCSVFile" id="fileUploadPost" accept=".csv" />
+
+                                <div class="mt-2">
+
+                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFilePostUpload();">
+                                        <span>Upload Post</span>
+                                    </i>
+                                    <button id="uploadPostFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
+<script>
+    function csvFilePostUpload() {
+
+        var rowCount = 0;
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUploadPost").val().toLowerCase())) {
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+
+                    var rows = e.target.result.split('\r\n');
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        var cells = rows[i].split(",");
+                        var RRC = rowCount + 1;
+                        if (i == 0) {
+
+
+                            // Heater validation
+                            if (cells.length == 5) {
+
+                                				
+
+                                if (cells[0] != "FacebookPost") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check column name mismatch (FacebookPost).");
+                                    return false;
+                                }
+                                if (cells[1] != "PageName") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check column name mismatch (PageName).");
+                                    return false;
+                                }
+                                if (cells[2] != "Message") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check column name mismatch (Message).");
+                                    return false;
+                                }
+                                if (cells[3] != "ImageUrl") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check column name mismatch (ImageUrl).");
+                                    return false;
+                                }
+                                if (cells[4] != "ScheduledTime") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check column name mismatch (ScheduledTime).");
+                                    return false;
+                                }
+                            }
+                            else {
+                                $('#fileUploadPost').val('');
+                                alert("Upload Csv file invalid template , Please check .");
+                                return false;
+                            }
+
+                        } else {
+                            if (cells.length == 5) {
+                                if (cells[0] == "") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " FacebookPost is empty");
+                                    return false;
+                                }
+                                if (cells[1] == "") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " PageName is empty");
+                                    return false;
+                                }
+
+                                if (cells[2] == "") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " Message  is empty");
+                                    return false;
+                                }
+                                if (cells[3] == "") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " ImageUrl  is empty");
+                                    return false;
+                                }
+                                if (cells[4] == "") {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " ScheduledTime  is empty");
+                                    return false;
+                                }
+
+
+                            }
+                            else {
+
+                                if (cells.length > 1) {
+                                    $('#fileUploadPost').val('');
+                                    alert("Please check Row NO : " + RRC + " This row have comma simple or invalied Column length");
+                                    return false;
+                                }
+                            }
+
+                        }
+
+                        rowCount += 1;
+
+                    }
+
+                    if (rowCount == rows.length) {
+                        $("#hdnMsgStatus").val('Y');
+
+                        $("#uploadPostFiles").click();
+
+                    }
+
+                }
+                reader.readAsText($("#fileUploadPost")[0].files[0]);
+            } else {
+                $('#fileUploadPost').val('');
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        } else {
+            $('#fileUploadPost').val('');
+            alert("Please upload a valid CSV file.");
+            return false;
+        }
+    }
+    $(document).ready(function () {
+        GetClient();
+
+    });
+    function SetId(id) {
+        $('#hdnId').val(id);
+
+    }
+    function GetClient() {
+        var param = { ClientName: $('#txtClientName').val(), StoreUrl: $('#txtStoreUrl').val(), City: $('#txtClientCity').val() };
+        $("#tblClient").find("tr:not(:first)").remove();
+
+        $.ajax({
+
+            type: "GET",
+            url: "https://localhost:44396/api/admin/getClientsAdminDashBoard",
+            //url: "https://social.alldealz.ca/api/admin/getClientsAdminDashBoard",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (Result) {
+                if (Result.data.length > 0) {
+                    var i = 0;
+                    $.each(Result.data, function (key, value) {
+                        i++;
+                        var hdnID = "hdnobjJSonVal_" + i;
+                        var hdId = i;
+                        var JVal = JSON.stringify(value);
+
+                        $('#tblClient').append('<tr> <td>' + value.userName + '</td><td>' + value.emailAddress + '</td><td>' + value.phoneNumber + '</td><td>' + value.userId + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + "'" + value.userId + "'" + ') data-target="#uploadPostBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+
+                        //emailAddress: "sathish@gmail.com"
+                        //fbConnected: false
+                        //instaConnected: false
+                        //phoneNumber: "897545454"
+                        //profileImage: "https://localhost:5001/api/files?file=01800bdd-d8f7-4534-a4d4-33971734cf69Logo (2).jpeg"
+                        //userId: "19da8d70-643c-4aae-a2bb-c6f2ad82d8d9"
+                        //userName: "kumarsati"
+                    })
+                }
+                else {
+                    $('#tblClient').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>

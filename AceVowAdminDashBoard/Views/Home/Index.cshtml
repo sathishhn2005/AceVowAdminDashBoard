@@ -96,7 +96,7 @@
                                     <th>Store Name</th>
                                     <th>Store Url</th>
                                     <th>Address</th>
-                                   
+
                                     <th>City</th>
                                     <th>Postal Code</th>
                                 </tr>
@@ -156,8 +156,7 @@
                                             <th>Contact Name</th>
                                             <th>Email Id</th>
                                             <th>Address</th>
-                                            <th>StartDate</th>
-                                            <th>EndDate</th>
+
                                             <th>BulkUpload</th>
                                             <th>Add Category</th>
                                             <th>Action</th>
@@ -332,7 +331,9 @@
     <!-- /.modal-dialog -->
 </div>
 
+
 <script>
+    
     $(document).ready(function () {
         GetClient();
         // window.location.href = "/Home/EditClient";
@@ -372,7 +373,7 @@
                         //    + "-" + value.getFullYear()
 
                         //$('#PolicyFromDate').val(Str);
-                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td>' + value.OfferStartDate + '</td><td>' + value.OfferEndDate + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + hdId + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -426,11 +427,11 @@
                                     alert("Please check column name mismatch (Category).");
                                     return false;
                                 }
-                                if (cells[2] != "Description") {
-                                    $('#fileUploadRIMaster').val('');
-                                    alert("Please check column name mismatch (Description).");
-                                    return false;
-                                }
+                                //if (cells[2] != "Description") {
+                                //    $('#fileUploadRIMaster').val('');
+                                //    alert("Please check column name mismatch (Description).");
+                                //    return false;
+                                //}
                                 if (cells[3] != "RegularPrice") {
                                     $('#fileUploadRIMaster').val('');
                                     alert("Please check column name mismatch (RegularPrice).");
@@ -441,11 +442,11 @@
                                     alert("Please check column name mismatch (TaxType).");
                                     return false;
                                 }
-                                if (cells[5] != "IsRecommended") {
-                                    $('#fileUploadRIMaster').val('');
-                                    alert("Please check column name mismatch (IsRecommended).");
-                                    return false;
-                                }
+                                //if (cells[5] != "IsRecommended") {
+                                //    $('#fileUploadRIMaster').val('');
+                                //    alert("Please check column name mismatch (IsRecommended).");
+                                //    return false;
+                                //}
                                 if (cells[6] != "IsActive") {
                                     $('#fileUploadRIMaster').val('');
                                     alert("Please check column name mismatch (IsActive).");
@@ -484,11 +485,11 @@
                                     return false;
                                 }
 
-                                if (cells[2] == "") {
-                                    $('#fileUploadRIMaster').val('');
-                                    alert("Please check Row NO : " + RRC + " Description  is empty");
-                                    return false;
-                                }
+                                //if (cells[2] == "") {
+                                //    $('#fileUploadRIMaster').val('');
+                                //    alert("Please check Row NO : " + RRC + " Description  is empty");
+                                //    return false;
+                                //}
 
                                 if (cells[3] == "") {
                                     $('#fileUploadRIMaster').val('');
@@ -501,11 +502,11 @@
                                 //    alert("Please check Row NO : " + RRC + " TaxType is empty");
                                 //    return false;
                                 //}
-                                if (cells[5] == "") {
-                                    $('#fileUploadRIMaster').val('');
-                                    alert("Please check Row NO : " + RRC + " IsRecommended is empty");
-                                    return false;
-                                }
+                                //if (cells[5] == "") {
+                                //    $('#fileUploadRIMaster').val('');
+                                //    alert("Please check Row NO : " + RRC + " IsRecommended is empty");
+                                //    return false;
+                                //}
 
                                 if (cells[6] == "") {
                                     $('#fileUploadRIMaster').val('');

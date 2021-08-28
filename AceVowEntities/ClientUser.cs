@@ -34,10 +34,13 @@ namespace AceVowEntities
         public string ClientBanner { get; set; }
         public string ClientFBUrl { get; set; }
         public string ClientInstaUrl { get; set; }
+        public string Status { get; set; }
         public string ClientTwitterUrl { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string Domain { get; set; }
         public int CatUserId { get; set; }
+        public bool IsActive { get; set; }
         public List<Category> lstCategory{ get; set; }
         [JsonIgnore]
         public HttpPostedFileBase ImageFileLogo { get; set; }

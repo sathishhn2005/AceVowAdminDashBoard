@@ -191,6 +191,85 @@ namespace AceVowAdminDashBoard.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+        [HttpPost]
+        public ActionResult BulkPostUpload(HttpPostedFileBase PostCSVFile, string hdnMsgStatus, string hdnId)
+        {
+            long returnCode = -1;
+            string SchedulePostsJson = string.Empty;
+            string ErrorMsg = string.Empty;
+            //int id = Convert.ToInt32(hdnId);
+
+            string _filePath = string.Empty;
+            string _FileName = string.Empty;
+            string FPath = ConfigurationManager.AppSettings["PostUploadPath"];
+
+            objBAL = new DataModel();
+            try
+            {
+                string UserId = hdnId;
+
+                if (ModelState.IsValid)
+                {
+
+                    if (PostCSVFile.ContentLength > 0)
+                    {
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(PostCSVFile.FileName);
+                        var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+                        _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
+                        PostCSVFile.SaveAs(_filePath);
+                    }
+
+
+                    List<SchedulePosts> lstValues = System.IO.File.ReadAllLines(_filePath)
+                                              .Skip(1)
+                                              .Select(v => FromPostCsv(v))
+                                              .ToList();
+
+                    List<List<SchedulePosts>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
+                                                                 .GroupBy(x => x.Index / 5000)
+                                                                 .Select(x => x.Select(v => v.Value).ToList()).ToList();
+
+                    using (TransactionScope transactionScope = new TransactionScope())
+                    {
+                        try
+                        {
+                            for (int i = 0; i < lstValueList.Count; i++)
+                            {
+
+                                SchedulePostsJson = JsonConvert.SerializeObject(lstValueList[i]);
+                                returnCode = objBAL.BulkInsertSchedulePosts("", SchedulePostsJson, UserId, out ErrorMsg);
+                            }
+                            transactionScope.Complete();
+                            transactionScope.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            transactionScope.Dispose();
+                            TempData["Alertmsg"] = "please contact Administrator";
+                            throw ex;
+                        }
+                    }
+                    if (returnCode != -1)
+                    {
+                        TempData["Alertmsg"] = ErrorMsg;
+                        System.IO.File.Delete(_filePath);
+                    }
+                    else
+                    {
+                        TempData["Alertmsg"] = "please contact Administrator";
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Alertmsg"] = "please contact Administrator";
+                throw;
+            }
+
+            return RedirectToAction("ClientPost", "Home");
+
+        }
 
         [HttpPost]
         public ActionResult UploadProductImages(HttpPostedFileBase[] files)
@@ -222,22 +301,38 @@ namespace AceVowAdminDashBoard.Controllers
             string[] values = csvLineData.Split(',');
 
 
-            Product objCsvFileBulkUplaod = new Product();
-
-
-            objCsvFileBulkUplaod.Name = values[0];
-            objCsvFileBulkUplaod.CategoryName = values[1];
-            objCsvFileBulkUplaod.Description = values[2];
-            objCsvFileBulkUplaod.RegularPrice = Convert.ToDecimal(values[3]);
-            objCsvFileBulkUplaod.TaxType = values[4];
-            objCsvFileBulkUplaod.IsRecommended = values[5];
-            objCsvFileBulkUplaod.IsActive = values[6];
-            objCsvFileBulkUplaod.Email = values[7];
-            objCsvFileBulkUplaod.image = values[8];
+            Product objCsvFileBulkUplaod = new Product
+            {
+                Name = values[0],
+                CategoryName = values[1],
+                Description = values[2],
+                RegularPrice = Convert.ToDecimal(values[3]),
+                TaxType = values[4],
+                IsRecommended = values[5],
+                IsActive = values[6],
+                Email = values[7],
+                image = values[8]
+            };
 
 
             return objCsvFileBulkUplaod;
         }
+        public static SchedulePosts FromPostCsv(string csvPostLineData)
+        {
+            string[] values = csvPostLineData.Split(',');
+            SchedulePosts objCsvPostBulkUplaod = new SchedulePosts
+            {
+                FacebookPost = values[0],
+                PageName = values[1],
+                Message = values[2],
+                ImageUrL= values[3],
+                ScheduledTime = Convert.ToDateTime(values[4]) //2021 - 08 - 08 12:15:00.0000000
+                //ScheduledTime = DateTime.ParseExact(values[4], "yyyy-MM-dd HH:MM:SS", null)
+
+        };
+            return objCsvPostBulkUplaod;
+        }
+
 
         public ActionResult EditClient(string hdnId)
         {
@@ -359,6 +454,26 @@ namespace AceVowAdminDashBoard.Controllers
                 Result = returnCode
             }, JsonRequestBehavior.AllowGet);
             //return Json(returnCode);
+        }
+        [HttpGet]
+        public JsonResult GetDeals()
+        {
+            objBAL = new DataModel();
+            int returnCode = objBAL.GetDeals(out List<ClientUser> lstDeals);
+            return Json(new
+            {
+                Result = lstDeals
+            }, JsonRequestBehavior.AllowGet);
+            //return Json(lstClientinfo, JsonRequestBehavior.AllowGet);
+            //return Json(returnCode);
+        }
+        public ActionResult ClientPost()
+        {
+            return View();
+        }
+        public ActionResult Deals()
+        {
+            return View();
         }
         private string _encrypt(string toEncrypt)
         {

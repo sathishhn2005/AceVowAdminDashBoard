@@ -88,6 +88,40 @@ namespace AceVowBusinessLayer
             }
             return InsRow;
         }
+        public long BulkInsertSchedulePosts(string Action, string JPramValue, string Createdby, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@UserId",SqlDbType.NVarChar),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertPostMaster", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
 
         public int GetLoginInfo(string uname, string pswd)
         {
@@ -206,34 +240,38 @@ namespace AceVowBusinessLayer
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        DataRow row =ds.Tables[0].Rows[0];
-                        obj = new ClientUser
-                        {
-                            Id = Convert.ToInt32(row["Id"]),
-                            Industry = row["Industry"].ToString(),
-                            StoreName = row["StoreName"].ToString(),
-                            StoreURL = row["StoreURL"].ToString(),
-                            ContactName = row["ContactName"].ToString(),
-                            Positon = row["Positon"].ToString(),
-                            PirmaryContact = row["PirmaryContact"].ToString(),
-                            EmailId = row["EmailId"].ToString(),
-                            Password = row["Password"].ToString(),
-                            AddressLine1 = row["AddressLine1"].ToString(),
-                            AddressLine2 = row["AddressLine2"].ToString(),
-                            City = row["City"].ToString(),
-                            TargetedCities = row["TargetedCities"].ToString(),
-                            TargetedCommunities = row["TargetedCommunities"].ToString(),
-                            WelcomeMessage = row["WelcomeMessage"].ToString(),
-                            TrolleryCount = Convert.ToInt32(row["TrolleryCount"]),
-                            BasketCount = Convert.ToInt32(row["BasketCount"]),
-                            UserId = Convert.ToInt32(row["UserId"]),
-                            PostalCode = row["PostalCode"].ToString(),
-                            ClientLogo = row["ClientLogo"].ToString(),
-                            ClientBanner = row["ClientBanner"].ToString(),
-                            ClientFBUrl = row["ClientFBUrl"].ToString(),
-                            ClientInstaUrl = row["ClientInstaUrl"].ToString(),
-                            ClientTwitterUrl = row["ClientTwitterUrl"].ToString()
-                        };
+                        List<ClientUser> lstCount = new List<ClientUser>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstCount);
+                        obj = new ClientUser();
+                        obj = lstCount[0];
+                        //DataRow row = ds.Tables[0].Rows[0];
+                        //obj = new ClientUser
+                        //{
+                        //    Id = Convert.ToInt32(row["Id"]),
+                        //    Industry = row["Industry"].ToString(),
+                        //    StoreName = row["StoreName"].ToString(),
+                        //    StoreURL = row["StoreURL"].ToString(),
+                        //    ContactName = row["ContactName"].ToString(),
+                        //    Positon = row["Positon"].ToString(),
+                        //    PirmaryContact = row["PirmaryContact"].ToString(),
+                        //    EmailId = row["EmailId"].ToString(),
+                        //    Password = row["Password"].ToString(),
+                        //    AddressLine1 = row["AddressLine1"].ToString(),
+                        //    AddressLine2 = row["AddressLine2"].ToString(),
+                        //    City = row["City"].ToString(),
+                        //    TargetedCities = row["TargetedCities"].ToString(),
+                        //    TargetedCommunities = row["TargetedCommunities"].ToString(),
+                        //    WelcomeMessage = row["WelcomeMessage"].ToString(),
+                        //    TrolleryCount = Convert.ToInt32(row["TrolleryCount"]),
+                        //    BasketCount = Convert.ToInt32(row["BasketCount"]),
+                        //    UserId = Convert.ToInt32(row["UserId"]),
+                        //    PostalCode = row["PostalCode"].ToString(),
+                        //    ClientLogo = row["ClientLogo"].ToString(),
+                        //    ClientBanner = row["ClientBanner"].ToString(),
+                        //    ClientFBUrl = row["ClientFBUrl"].ToString(),
+                        //    ClientInstaUrl = row["ClientInstaUrl"].ToString(),
+                        //    ClientTwitterUrl = row["ClientTwitterUrl"].ToString()
+                        //};
 
                     }
                     if (ds.Tables[1].Rows.Count > 0)
@@ -289,13 +327,13 @@ namespace AceVowBusinessLayer
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "GetQRCountforDashBoard" 
+                        CommandText = "pGetQRCountforDashBoard"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
 
-                  
+
                     cmd.Parameters.Add("@FDate", SqlDbType.DateTime).Value = FromDate;
                     cmd.Parameters.Add("@TDate", SqlDbType.DateTime).Value = ToDate;
                     cmd.Parameters.AddWithValue("@UserId", UId);
@@ -321,6 +359,39 @@ namespace AceVowBusinessLayer
                 throw ex;
             }
             return returnCode;
+        }
+        public int GetDeals(out List<ClientUser> lstDeals)
+        {
+            int ReturnCode = 0;
+            lstDeals = null;
+
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@ClientName",SqlDbType.NVarChar),
+                                      };
+
+                Param[0].Value = "admin";
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+                    dtResult = objDBEngine.GetDataTable("pGetDealsInfo", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(dtResult, out lstDeals);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
         }
     }
 }

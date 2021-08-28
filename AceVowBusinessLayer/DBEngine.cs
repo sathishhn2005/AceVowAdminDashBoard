@@ -153,11 +153,19 @@ namespace AceVowBusinessLayer
             ReturnCode = 0;
             try
             {
-                using (objConn = new SqlConnection(objUtility.GetConnectionString()))
+              //  using (useNetworkAccess
+              //? new Core.NetworkAccess(username, password, domain)
+              //: null)
+              //  {
+              //      CheckExportDirectoryExists();
+              //  }
+                using (SPname.Equals("pBulkInsertPostMaster") ? objConn = new SqlConnection(objUtility.GetConnectionStringSMTesting()) : objConn = new SqlConnection(objUtility.GetConnectionString()))
                 {
                     objConn.Open();
-                    objCmd = new SqlCommand(SPname, objConn);
-                    objCmd.CommandType = CommandType.StoredProcedure;
+                    objCmd = new SqlCommand(SPname, objConn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
                     foreach (SqlParameter SPpram in arrParam)
                     {

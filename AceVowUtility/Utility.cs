@@ -14,5 +14,10 @@ namespace AceVowUtility
             string conStr = ConfigurationManager.ConnectionStrings["AceVowAdmin"].ConnectionString.ToString();
             return conStr;
         }
+        public string GetConnectionStringSMTesting()
+        {
+            string conStr = ConfigurationManager.ConnectionStrings["AllDealzSM"].ConnectionString.ToString();
+            return conStr;
+        }
     }
 }

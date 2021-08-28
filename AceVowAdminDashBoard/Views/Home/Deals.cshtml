@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Deals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="box">
+    <!-- /.box-header -->
+    <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
+
+    <div class="box-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home8" role="tab"><span><i class="mdi mdi-hotel mr-10"></i>Client Deals</span></a> </li>
+            <li class="d-none nav-item"> <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><span class="noti-dot"><i class="mdi mdi-checkbox-marked-circle-outline mr-10"></i>Recent Approvals</span></a> </li>
+        </ul>
+
+
+        <div class="tab-content tabcontent-border">
+            <div class="tab-pane active" id="home8" role="tabpanel">
+                <div class="tab-pane table-responsive active" id="All">
+                    <table id="tblClient" class="table m-b-0 table-hover">
+                        <thead class="text-center">
+                            <tr>
+                                <th>StoreName</th>
+                                <th>Deal Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    $(document).ready(function () {
+        GetPost();
+
+    });
+    function SetId(id) {
+        $('#hdnId').val(id);
+
+    }
+    function getPreview(id) {
+        if (id > 0) {
+            window.open(
+                'https://alldealz.ca/Deals/Preview?id=' + id + '',
+                '_blank' // <- This is what makes it open in a new window.
+            );
+        }
+        else {
+            alert('Error while Preview!');
+        }
+
+    }
+    
+    function GetPost() {
+       
+        $.ajax({
+
+            type: "GET",
+           
+            url: "/Home/GetDeals",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (data) {
+                if (data.Result.length > 0) {
+                    var i = 0;
+                    $.each(data.Result, function (key, value) {
+                        i++;
+                        var hdnID = "hdnobjJSonVal_" + i;
+                        var hdId = i;
+                        var JVal = JSON.stringify(value);
+                        $('#tblClient').append('<tr> <td><a href="javascript:getPreview(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.Domain + '</td><td>' + value.Status + '</td></tr>');
+                    })
+                }
+                else {
+                    $('#tblClient').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+
+            },
+            error: function () {
+
+            }
+        })
+    }
+</script>
+
