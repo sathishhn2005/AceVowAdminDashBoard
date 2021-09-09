@@ -11,8 +11,13 @@ namespace AceVowEntities
 {
     public partial class ClientUser
     {
+        
         public int Id { get; set; }
         public string Industry { get; set; }
+        public string UserName { get; set; }
+        public string ImageUrl { get; set; }
+        public string Comment { get; set; }
+        public string ReplyComment { get; set; }
         public string StoreName { get; set; }
         public string StoreURL { get; set; }
         public string ContactName { get; set; }
@@ -60,6 +65,6 @@ namespace AceVowEntities
         [Display(Name = "Offer End Date")]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
         public DateTime OfferEndDate { get; set; }
-
+        public DateTime LastUpdate { get; set; }
     }
 }

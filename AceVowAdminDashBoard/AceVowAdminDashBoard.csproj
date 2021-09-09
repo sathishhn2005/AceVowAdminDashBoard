@@ -3759,6 +3759,8 @@
     <Content Include="Content\Theme\fonts\ionicons.eot" />
     <Content Include="Content\Theme\fonts\ionicons.ttf" />
     <Content Include="Content\Theme\fonts\ionicons.woff" />
+    <Content Include="Masters\PostUploadFormat.csv" />
+    <Content Include="Masters\RecipeBulkUpload.csv" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Dashboard.js" />
@@ -3790,6 +3792,7 @@
     <Content Include="Views\Home\EditClient.cshtml" />
     <Content Include="Views\Home\ClientPost.cshtml" />
     <Content Include="Views\Home\Deals.cshtml" />
+    <Content Include="Views\Home\RecipeUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

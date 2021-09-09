@@ -148,17 +148,13 @@ namespace AceVowBusinessLayer
             }
         }
 
+
         public SqlCommand DMLOperationOutPutParam(string SPname, SqlParameter[] arrParam, out int ReturnCode)
         {
             ReturnCode = 0;
             try
             {
-              //  using (useNetworkAccess
-              //? new Core.NetworkAccess(username, password, domain)
-              //: null)
-              //  {
-              //      CheckExportDirectoryExists();
-              //  }
+              
                 using (SPname.Equals("pBulkInsertPostMaster") ? objConn = new SqlConnection(objUtility.GetConnectionStringSMTesting()) : objConn = new SqlConnection(objUtility.GetConnectionString()))
                 {
                     objConn.Open();
@@ -192,6 +188,83 @@ namespace AceVowBusinessLayer
             return objCmd;
 
         }
+        public SqlCommand DMLOperationOutPutParam_SMTesting(string SPname, SqlParameter[] arrParam, out int ReturnCode)
+        {
+            ReturnCode = 0;
+            try
+            {
 
+                using (objConn = new SqlConnection(objUtility.GetConnectionStringSMTesting()))
+                {
+                    objConn.Open();
+                    objCmd = new SqlCommand(SPname, objConn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    foreach (SqlParameter SPpram in arrParam)
+                    {
+                        objCmd.Parameters.Add(SPpram);
+                    }
+
+                    ReturnCode = objCmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+                if (ConnectionState.Open == objConn.State)
+                {
+                    objConn.Close();
+                }
+            }
+
+            return objCmd;
+
+        }
+        public DataSet GetDataSetSM_Testing(string SPname, SqlParameter[] arrParam)
+        {
+            objds = new DataSet();
+            try
+            {
+                using (objConn = new SqlConnection(objUtility.GetConnectionStringSMTesting()))
+                {
+                    objConn.Open();
+                    objCmd = new SqlCommand(SPname, objConn);
+                    objCmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (SqlParameter SPpram in arrParam)
+                    {
+                        objCmd.Parameters.Add(SPpram);
+                    }
+                    objSqlDataAdapter = new SqlDataAdapter(objCmd);
+
+                    using (objSqlDataAdapter = new SqlDataAdapter(objCmd))
+                    {
+                        objSqlDataAdapter.Fill(objds);
+                    }
+
+                }
+
+                return objds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+                if (ConnectionState.Open == objConn.State)
+                {
+                    objConn.Close();
+                }
+            }
+        }
     }
 }

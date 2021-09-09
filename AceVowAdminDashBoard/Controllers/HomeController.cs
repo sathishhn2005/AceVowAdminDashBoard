@@ -99,6 +99,25 @@ namespace AceVowAdminDashBoard.Controllers
             TempData["CatMess"] = msg;
             return View();
         }
+        [HttpPost]
+        public JsonResult UpdateComments(ClientUser obj)
+
+        {
+            string msg = "";
+
+            objBAL = new DataModel();
+            long returnCode = objBAL.UpdatePostComment(obj.Id, obj.ReplyComment, out msg);
+            if (!string.IsNullOrEmpty(msg))
+            {
+                TempData["CatMess"] = msg;
+            }
+            else
+            {
+                msg = "Error Occured, Please check it.";
+                TempData["CatMess"] = msg;
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult GetParentCateogryName(string prefixText, string Action)
@@ -325,12 +344,33 @@ namespace AceVowAdminDashBoard.Controllers
                 FacebookPost = values[0],
                 PageName = values[1],
                 Message = values[2],
-                ImageUrL= values[3],
+                ImageUrL = values[3],
                 ScheduledTime = Convert.ToDateTime(values[4]) //2021 - 08 - 08 12:15:00.0000000
-                //ScheduledTime = DateTime.ParseExact(values[4], "yyyy-MM-dd HH:MM:SS", null)
+                                                              //ScheduledTime = DateTime.ParseExact(values[4], "yyyy-MM-dd HH:MM:SS", null)
 
-        };
+            };
             return objCsvPostBulkUplaod;
+        }
+        public static Recipes FromRecipeCsv(string csvPostLineData)
+        {
+            string[] values = csvPostLineData.Split(',');
+            //UserName ProductCategory RecipeName RecipeCategory  Ingredients Duration    ImageName Credits Serving
+
+            Recipes objCsvRecipeBulkUplaod = new Recipes
+            {
+                UserName = values[0],
+                CategoryName = values[1],//ProductCategory
+                RecipeName = values[2],
+                RecipeCategory = values[3],
+                Ingredients = values[4],
+                Duration = values[5],
+                ImageName = values[6],
+                Credits = values[7],
+                Serving = values[8],
+
+
+            };
+            return objCsvRecipeBulkUplaod;
         }
 
 
@@ -475,6 +515,121 @@ namespace AceVowAdminDashBoard.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public JsonResult GetPostComments()
+        {
+            List<ClientUser> response = null;
+            try
+            {
+                objBAL = new DataModel();
+                int i = 0, j = 0;
+                i = objBAL.GetComments(j, out response);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return Json(new
+            {
+                Result = response
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult RecipeUpload()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult BulkRecipeUpload(HttpPostedFileBase RecipeCSVFile, string hdnMsgStatus, string hdnId)
+        {
+            if (RecipeCSVFile != null)
+            {
+
+
+                long returnCode = -1;
+                string RecipeJson = string.Empty;
+                string ErrorMsg = string.Empty;
+                //int id = Convert.ToInt32(hdnId);
+
+                string _filePath = string.Empty;
+                string _FileName = string.Empty;
+                string FPath = ConfigurationManager.AppSettings["RecipeUploadPath"];
+
+                objBAL = new DataModel();
+                try
+                {
+                    string UserId = hdnId;
+
+                    if (ModelState.IsValid)
+                    {
+
+
+                        if (RecipeCSVFile.ContentLength > 0)
+                        {
+                            _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(RecipeCSVFile.FileName);
+                            var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+                            _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
+                            RecipeCSVFile.SaveAs(_filePath);
+                        }
+
+
+                        List<Recipes> lstValues = System.IO.File.ReadAllLines(_filePath)
+                                                  .Skip(1)
+                                                  .Select(v => FromRecipeCsv(v))
+                                                  .ToList();
+
+                        List<List<Recipes>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
+                                                                     .GroupBy(x => x.Index / 5000)
+                                                                     .Select(x => x.Select(v => v.Value).ToList()).ToList();
+
+                        using (TransactionScope transactionScope = new TransactionScope())
+                        {
+                            try
+                            {
+                                for (int i = 0; i < lstValueList.Count; i++)
+                                {
+
+                                    RecipeJson = JsonConvert.SerializeObject(lstValueList[i]);
+                                    returnCode = objBAL.BulkInsertRecipeMaster("", RecipeJson, out ErrorMsg);
+                                }
+                                transactionScope.Complete();
+                                transactionScope.Dispose();
+                            }
+                            catch (Exception ex)
+                            {
+                                transactionScope.Dispose();
+                                TempData["Alertmsg"] = "please contact Administrator";
+                                throw ex;
+                            }
+                        }
+                        if (returnCode != -1)
+                        {
+                            TempData["Alertmsg"] = ErrorMsg;
+                            System.IO.File.Delete(_filePath);
+                        }
+                        else
+                        {
+                            TempData["Alertmsg"] = "please contact Administrator";
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["Alertmsg"] = "please contact Administrator";
+                    throw ex;
+                }
+
+                return RedirectToAction("RecipeUpload", "Home");
+            }
+            else
+            {
+
+                TempData["Alertmsg"] = "Please Check the csv file.!";
+                return RedirectToAction("RecipeUpload", "Home");
+            }
+        }
+
         private string _encrypt(string toEncrypt)
         {
             string key = "nextGENp@55w0rd";

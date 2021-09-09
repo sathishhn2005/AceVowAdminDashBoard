@@ -244,34 +244,7 @@ namespace AceVowBusinessLayer
                         DTtoListConverter.ConvertTo(ds.Tables[0], out lstCount);
                         obj = new ClientUser();
                         obj = lstCount[0];
-                        //DataRow row = ds.Tables[0].Rows[0];
-                        //obj = new ClientUser
-                        //{
-                        //    Id = Convert.ToInt32(row["Id"]),
-                        //    Industry = row["Industry"].ToString(),
-                        //    StoreName = row["StoreName"].ToString(),
-                        //    StoreURL = row["StoreURL"].ToString(),
-                        //    ContactName = row["ContactName"].ToString(),
-                        //    Positon = row["Positon"].ToString(),
-                        //    PirmaryContact = row["PirmaryContact"].ToString(),
-                        //    EmailId = row["EmailId"].ToString(),
-                        //    Password = row["Password"].ToString(),
-                        //    AddressLine1 = row["AddressLine1"].ToString(),
-                        //    AddressLine2 = row["AddressLine2"].ToString(),
-                        //    City = row["City"].ToString(),
-                        //    TargetedCities = row["TargetedCities"].ToString(),
-                        //    TargetedCommunities = row["TargetedCommunities"].ToString(),
-                        //    WelcomeMessage = row["WelcomeMessage"].ToString(),
-                        //    TrolleryCount = Convert.ToInt32(row["TrolleryCount"]),
-                        //    BasketCount = Convert.ToInt32(row["BasketCount"]),
-                        //    UserId = Convert.ToInt32(row["UserId"]),
-                        //    PostalCode = row["PostalCode"].ToString(),
-                        //    ClientLogo = row["ClientLogo"].ToString(),
-                        //    ClientBanner = row["ClientBanner"].ToString(),
-                        //    ClientFBUrl = row["ClientFBUrl"].ToString(),
-                        //    ClientInstaUrl = row["ClientInstaUrl"].ToString(),
-                        //    ClientTwitterUrl = row["ClientTwitterUrl"].ToString()
-                        //};
+
 
                     }
                     if (ds.Tables[1].Rows.Count > 0)
@@ -392,6 +365,110 @@ namespace AceVowBusinessLayer
                 throw ex;
             }
             return ReturnCode;
+        }
+        public long BulkInsertRecipeMaster(string Action, string JPramValue, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertRecipeMaster", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        public int GetComments(int Id, out List<ClientUser> lstClientUser)
+        {
+            int ReturnCode = 0;
+            lstClientUser = null;
+
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Id",SqlDbType.Int),
+
+                                      };
+
+                Param[0].Value = Id;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    DataSet ds = new DataSet();
+
+                    ds = objDBEngine.GetDataSetSM_Testing("pGetPostComments", Param);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lstClientUser = new List<ClientUser>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstClientUser);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public long UpdatePostComment(int Id, string ReplyComments, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Id",SqlDbType.Int),
+                                            new SqlParameter("@ReplyComments",SqlDbType.NVarChar),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Id;
+                Param[1].Value = ReplyComments ?? "";
+
+                Param[2].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam_SMTesting("pUpdatePostComment", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
         }
     }
 }
