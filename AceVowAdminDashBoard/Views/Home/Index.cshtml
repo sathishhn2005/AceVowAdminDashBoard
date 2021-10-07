@@ -373,7 +373,7 @@
                         //    + "-" + value.getFullYear()
 
                         //$('#PolicyFromDate').val(Str);
-                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.Id.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveClient(this,' + value.UserId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -390,6 +390,30 @@
                 // $("#lblMessage").html('Error while Registring the Company!.');
             }
         })
+    }
+    function DeActiveClient(obj, Uid) {
+
+        var UId = '' + Uid;
+        var param = { UserId: UId };
+        $.ajax({
+            type: "POST",
+            url: "DeactivateClient",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result == "DeActivated") {
+                    $(obj).closest('tr').remove();
+                    alert("DeActivated successfully");
+                    return false;
+                }
+                else { alert(Result); }
+            },
+            error: function () {
+                console.log('Error while Registring the Company!.');
+            }
+        })
+
     }
     function SetId(id) {
         $('#hdnId').val(id);

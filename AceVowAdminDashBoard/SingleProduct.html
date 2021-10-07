@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML TO IMAGE</title>
+
+    <!--<script src="jquery-1.10.2.js"></script>
+    <script src="html2canvas.js"></script>-->
+    <script src="Scripts/App/html2canvas.js"></script>
+    <script src="Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+
+    <script type="text/javascript">
+
+        function downloadimage() {
+
+            //var container = document.getElementById("image-wrap"); //specific element on page
+            var container = document.getElementById("htmltoimage");; // full page
+            //html2canvas(container, {
+            //    useCORS: true,
+            //    allowTaint: true,
+            //    scale: 0.98,
+            //    dpi: 500,
+            //    width: 1400, height: 900
+            //}).then(function (canvas) {
+
+            //    var link = document.createElement("a");
+            //    document.body.appendChild(link);
+            //    link.download = "html_image.jpg";
+            //    link.href = canvas.toDataURL();
+            //    link.target = '_blank';
+            //    link.click();
+            //});
+            html2canvas(container, { useCORS: true }).then(function (canvas) {
+                var imgBase64 = canvas.toDataURL();
+                // console.log("imgBase64:", imgBase64);
+                var imgURL = "data:image/" + imgBase64;
+                var triggerDownload = $("<a>").attr("href", imgURL).attr("download", "layout_" + new Date().getTime() + ".jpeg").appendTo("body");
+                triggerDownload[0].click();
+                triggerDownload.remove();
+            });
+        }
+
+    </script>
+
+
+    <style>
+        #htmltoimage {
+            width: 65%;
+            margin: auto;
+        }
+    </style>
+    
+
+
+</head>
+
+<body style="text-align:center">
+
+    <div id="htmltoimage">
+        <div class="imgbg">
+            <img src="ads2.jpg">
+        </div>
+        <h1>
+            Demo page to show example of "How to Create and Download Image of HTML content in webpage Using html2canvas
+            library". Find tutorial page here <a href="http://local.evoting.com/Content/img/ads2.jpg"
+                                                 target="_blank">Here</a>
+        </h1>. Just click on button below to download Image of this HTML content which
+        is wrapped in an ID named "htmltoimage". Now I am typing some randome stuff, so that image downloaded will have
+        some content to show blah blah blah :P :D <br>
+        <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button>
+    </div>
+
+</body>
+
+</html>

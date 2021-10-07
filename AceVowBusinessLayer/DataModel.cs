@@ -145,6 +145,7 @@ namespace AceVowBusinessLayer
             return i;
         }
 
+
         public int GetAutocompleteCat(string prefixText, string Action, out List<Category> lstCat)
         {
             int ReturnCode = 0;
@@ -469,6 +470,125 @@ namespace AceVowBusinessLayer
                 throw ex;
             }
             return InsRow;
+        }
+        public long DMLRecipeMaster(string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+
+                Param[0].Value = JPramValue;
+                Param[1].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLRecipe", Param, out InsRow);
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
+        }
+        public int GetRecipeforUpdate(int UserId, out List<Recipes> lstRecipe)
+        {
+            int ReturnCode = 0;
+            lstRecipe = null;
+            try
+            {
+
+                SqlParameter[] Param = { new SqlParameter("@UserId", SqlDbType.Int) };
+
+                Param[0].Value = UserId;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+                    dtResult = objDBEngine.GetDataTable("pGetRecipeforUpdate", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstRecipe = new List<Recipes>();
+                        DTtoListConverter.ConvertTo(dtResult, out lstRecipe);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public int GetUserList(out List<ClientUser> lstUsers)
+        {
+            int ReturnCode = 0;
+            lstUsers = null;
+            
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Id",SqlDbType.Int),
+
+                                      };
+
+                Param[0].Value = 0;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    DataSet ds = new DataSet();
+
+                    ds = objDBEngine.GetDataSet("pGetUsers", Param);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lstUsers = new List<ClientUser>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstUsers);
+                    }
+                  
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public int DeactivateClient(int UserId)
+        {
+            int intResult = 0;
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@UserId",SqlDbType.Int),
+
+                                      };
+                Param[0].Value = UserId;
+                using (objDBEngine = new DBEngine())
+                {
+                    intResult = objDBEngine.DMLOperation("pDeactivateClient", Param);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return intResult;
         }
     }
 }

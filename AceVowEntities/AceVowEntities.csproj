@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="ClientUser.cs" />
-    <Compile Include="Deals.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="PreviewDeals.cs" />
     <Compile Include="Recipes.cs" />
     <Compile Include="SchedulePosts.cs" />
     <Compile Include="Product.cs" />

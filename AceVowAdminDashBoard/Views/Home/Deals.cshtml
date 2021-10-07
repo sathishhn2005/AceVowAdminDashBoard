@@ -37,7 +37,7 @@
 </div>
 
 <script>
-    
+    //FlyerPreview
     $(document).ready(function () {
         GetPost();
 
@@ -48,23 +48,28 @@
     }
     function getPreview(id) {
         if (id > 0) {
+            //window.open(
+            //    'https://alldealz.ca/Deals/Preview/' + id + '',
+            //    '_blank' // <- This is what makes it open in a new window.
+            //);
             window.open(
-                'https://alldealz.ca/Deals/Preview/' + id + '',
+                'https://localhost:44337/Deals/PreviewFlyer/' + id + '',
                 '_blank' // <- This is what makes it open in a new window.
-            );
+            ); 
+            //var getUrl = 'http://localhost:54239/Deals/FlyerPreview/' + id;
         }
         else {
             alert('Error while Preview!');
         }
 
     }
-    
+
     function GetPost() {
-       
+
         $.ajax({
 
             type: "GET",
-           
+
             url: "/Home/GetDeals",
             dataType: "json",
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -89,5 +94,6 @@
             }
         })
     }
+   
 </script>
 

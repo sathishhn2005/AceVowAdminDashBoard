@@ -256,7 +256,7 @@ namespace AceVowAdminDashBoard.Controllers
                             {
 
                                 SchedulePostsJson = JsonConvert.SerializeObject(lstValueList[i]);
-                                returnCode = objBAL.BulkInsertSchedulePosts("", SchedulePostsJson, UserId, out ErrorMsg);
+                                //returnCode = objBAL.BulkInsertSchedulePosts("", SchedulePostsJson, UserId, out ErrorMsg);
                             }
                             transactionScope.Complete();
                             transactionScope.Dispose();
@@ -656,6 +656,64 @@ namespace AceVowAdminDashBoard.Controllers
                 // MessageBox.Show(ex.Message);
             }
             return toEncrypt;
+        }
+        [HttpPost]
+        public ActionResult UpdateRecipe(Recipes obj)
+
+        {
+            string msg = "";
+            long RIMasterID = 0;
+            TempData["CatMess"] = "";
+            string JParamVal = JsonConvert.SerializeObject(obj);
+            objBAL = new DataModel();
+            RIMasterID = objBAL.DMLRecipeMaster(JParamVal);
+            if (RIMasterID > 0)
+            {
+                msg = "Inserted Successfully";
+            }
+            else
+            {
+                msg = "Error Occured, Please check it.";
+            }
+            TempData["CatMess"] = msg;
+           // return RedirectToAction("RecipeUpdate", "Home");
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+        
+        public ActionResult RecipeUpdate()
+        {
+            objBAL = new DataModel();
+            objBAL.GetUserList(out List<ClientUser> lstusers);
+            List<SelectListItem> userList = new List<SelectListItem>();
+            foreach (var item in lstusers)
+            {
+                userList.Add(new SelectListItem { Text = item.UserName, Value = Convert.ToString(item.Id) });
+            }
+
+            ViewBag.lstUsers = userList;
+            return View();
+            
+        }
+        [HttpGet]
+        public ActionResult GetRecipe(int UserId)
+        {
+            objBAL = new DataModel();
+            List<Recipes> lstRecipe = new List<Recipes>();
+            int i = objBAL.GetRecipeforUpdate(UserId, out lstRecipe);
+            return Json(lstRecipe, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeactivateClient(string UserId)
+        {
+
+            int ReturnCode = 0;
+            int Uid = UserId == "" || UserId == null ? 0 : Convert.ToInt32(UserId);
+
+            objBAL = new DataModel();
+            ReturnCode = objBAL.DeactivateClient(Uid);
+
+            string Msg = ReturnCode > 0 ? "DeActivated" : "Error occure,Contact Admin";
+            return Json(Msg, JsonRequestBehavior.AllowGet);
         }
     }
 }

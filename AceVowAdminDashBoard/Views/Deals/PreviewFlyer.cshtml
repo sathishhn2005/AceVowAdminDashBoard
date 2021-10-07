@@ -1,0 +1,134 @@
+﻿@model IEnumerable<AceVowEntities.PreviewDeals>
+
+@{
+    ViewBag.Title = "PreviewFlyer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />
+<div class="container pb-70 col-lg-12 col-md-12">
+    <div class="shop-bottom-area">
+
+        <!-- Shop Tab Content Start -->
+        <div class="tab-content jump">
+            <!-- Tab One Start -->
+            <div id="shop-1" class="tab-pane active">
+                <div class="form-group banner-content ng-star-inserted">
+                    @*<h4 style="margin:15px !important;" class="text-center text-danger">The latest Recipes from your favorite Clients.</h4>*@
+                    <div class="row my-4">
+                        <div class="col-lg-4 col-7 p-lg-3">
+
+                        </div>
+                        <div class="d-none col-lg-4 col-5 p-lg-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divRecipeProductList">
+                <div class="shadow p-3 mb-1 bg-white rounded divider">
+                    <div class="row">
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="card-group">
+                                    <div class="card">
+                                        <img class="card-img-top" src="https://alldealz.ca/ProductImages/@item.image" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="text-danger card-title"><b>@item.Name</b></h5>
+
+                                            <p>
+                                                @if (item.OfferPrice.Equals(0))
+                                                {
+                                                    <span class="col-2 new-price">$ @item.RegularPrice</span>
+
+                                                    <span>Qty: @item.Quantity</span>
+                                                }
+                                                else
+                                                {
+
+                                                    <span class="new-price">$ @item.OfferPrice </span><span class="old-price"> $ @item.RegularPrice</span>
+
+                                                    <span>Qty: @item.Quantity</span>
+                                                }
+                                            </p>
+                                            @if (item.SavingPercentage > 0)
+                                            {
+                                                <h2 style="position: absolute; margin-top: 7em; margin-left: 8rem;font-size: 15px;">
+                                                    @item.SavingPercentage <span>%Off</span>
+                                                </h2>
+                                                <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0" style="width: 70%;margin-left: 4rem;">
+                                            }
+                                            else
+                                            {
+                                                <h2 style="position: absolute; margin-top: 7em; margin-left: 6rem;font-size: 14px;">
+                                                    Offer<span>Coming soon</span>
+                                                </h2>
+                                                <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0" style="width: 70%;margin-left: 4rem;">
+
+                                            }
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <p class="card-text">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input addProduct" type="checkbox" name="flexSwitchCheckChecked" id="@item.ProductId" value="@item.ProductId">
+                                                    <label class="form-check-label" for="@item.ProductId">Add Product</label>
+                                                </div>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  Pagination Area End -->
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" id="btnCat">
+    </div>
+</div>
+<script>
+    var lstProducts = [];
+    $('.addProduct').click(function () {
+        //see all the checked checkboxs and loop through them
+        $('input[type=checkbox]:checked').each(function () {
+
+            var checked = $(this).val();
+            if ($(this).is(':checked')) {
+                lstProducts.push({"ProductId": checked });
+            } else {
+                lstProducts.splice($.inArray(checked, tmp), 1);
+            }
+        });
+    });
+    $(document).ready(function () {
+
+        $('#btnCat').on('click', function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/Deals/SingleProductFlyer",
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(lstProducts ),
+                success: function (res) {
+                   window.location = '@Url.Action("SingleProductFlyer", "Deals")'
+                },
+                error: function (res) {
+                   window.location = '@Url.Action("SingleProductFlyer", "Deals")'
+                }
+            })
+        });
+        //qrCount(0);
+
+    });
+
+</script>

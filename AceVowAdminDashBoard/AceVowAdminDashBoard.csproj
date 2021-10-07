@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,10 +46,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer.WinForms, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.WinForms.1.5.0.6\lib\net45\HtmlRenderer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Select.HtmlToPdf, Version=21.1.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.21.1.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -58,6 +73,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -115,14 +131,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,6 +153,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\css\color_theme.css" />
+    <Content Include="Content\css\FlyerStyle.css" />
     <Content Include="Content\css\icons\cryptocoins-master\cryptocoins-colors.css" />
     <Content Include="Content\css\icons\cryptocoins-master\cryptocoins.css" />
     <Content Include="Content\css\icons\flag-icon-css\css\flag-icon.css" />
@@ -3339,7 +3352,59 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="ProductImages\10.jpeg" />
+    <Content Include="ProductImages\11.jpeg" />
+    <Content Include="ProductImages\12.jpeg" />
+    <Content Include="ProductImages\13.png" />
+    <Content Include="ProductImages\14.jpeg" />
+    <Content Include="ProductImages\15.jpeg" />
+    <Content Include="ProductImages\16.jpeg" />
+    <Content Include="ProductImages\17.jpeg" />
+    <Content Include="ProductImages\18.jpeg" />
+    <Content Include="ProductImages\19.jpeg" />
+    <Content Include="ProductImages\20.jpeg" />
+    <Content Include="ProductImages\21.jpeg" />
+    <Content Include="ProductImages\22.jpeg" />
+    <Content Include="ProductImages\23.jpg" />
+    <Content Include="ProductImages\24.jpeg" />
+    <Content Include="ProductImages\25.png" />
+    <Content Include="ProductImages\26.png" />
+    <Content Include="ProductImages\27.jpeg" />
+    <Content Include="ProductImages\28.jpeg" />
+    <Content Include="ProductImages\29.jpeg" />
+    <Content Include="ProductImages\3.jpeg" />
+    <Content Include="ProductImages\30.jpg" />
+    <Content Include="ProductImages\31.jpeg" />
+    <Content Include="ProductImages\32.jpg" />
+    <Content Include="ProductImages\33.jpeg" />
+    <Content Include="ProductImages\34.jpg" />
+    <Content Include="ProductImages\35.jpg" />
+    <Content Include="ProductImages\36.jpeg" />
+    <Content Include="ProductImages\37.jpeg" />
+    <Content Include="ProductImages\38.jpeg" />
+    <Content Include="ProductImages\39.jpeg" />
+    <Content Include="ProductImages\4.jpeg" />
+    <Content Include="ProductImages\40.png" />
+    <Content Include="ProductImages\41.jpeg" />
+    <Content Include="ProductImages\42.jpeg" />
+    <Content Include="ProductImages\43.jpeg" />
+    <Content Include="ProductImages\44.jpg" />
+    <Content Include="ProductImages\45.jpeg" />
+    <Content Include="ProductImages\46.jpeg" />
+    <Content Include="ProductImages\47.jpeg" />
+    <Content Include="ProductImages\48.png" />
+    <Content Include="ProductImages\49.jpeg" />
+    <Content Include="ProductImages\5.jpeg" />
+    <Content Include="ProductImages\50.jpeg" />
+    <Content Include="ProductImages\52.jpg" />
+    <Content Include="ProductImages\6.png" />
+    <Content Include="ProductImages\7.png" />
+    <Content Include="ProductImages\8.jpeg" />
+    <Content Include="ProductImages\9.png" />
+    <Content Include="Scripts\App\canvas2image.min.js" />
     <Content Include="Scripts\App\ClientUser.js" />
+    <Content Include="Scripts\App\html2canvas.js" />
+    <Content Include="Scripts\App\html2canvas.min.js" />
     <Content Include="Scripts\Autocomplete\jquery-ui.css" />
     <Content Include="Scripts\Autocomplete\jquery-ui.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3774,6 +3839,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SingleProduct.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3793,13 +3859,16 @@
     <Content Include="Views\Home\ClientPost.cshtml" />
     <Content Include="Views\Home\Deals.cshtml" />
     <Content Include="Views\Home\RecipeUpload.cshtml" />
+    <Content Include="Views\Home\RecipeUpdate.cshtml" />
+    <Content Include="Views\Deals\PreviewFlyer.cshtml" />
+    <Content Include="Views\Deals\SingleProductFlyer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\vendor\js\" />
+    <Folder Include="image\" />
     <Folder Include="LogoBannerUpload\" />
     <Folder Include="Models\" />
-    <Folder Include="ProductImages\" />
     <Folder Include="ProductUploadCsv\TempFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -3861,11 +3930,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

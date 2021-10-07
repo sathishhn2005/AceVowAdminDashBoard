@@ -1,0 +1,338 @@
+﻿@model IEnumerable<AceVowEntities.PreviewDeals>
+
+@{
+    ViewBag.Title = "SingleProductFlyer";
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML TO IMAGE</title>
+
+    <!--<script src="jquery-1.10.2.js"></script>
+    <script src="html2canvas.js"></script>-->
+    @*<script src="Scripts/App/html2canvas.js"></script>*@
+    <script src="~/Scripts/App/html2canvas.js"></script>
+    <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+    @*<script src="Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>*@
+
+    <script type="text/javascript">
+
+        function downloadimage() {
+
+            //var container = document.getElementById("image-wrap"); //specific element on page
+            var container = document.getElementById("htmltoimage");; // full page
+            //html2canvas(container, {
+            //    useCORS: true,
+            //    allowTaint: true,
+            //    scale: 0.98,
+            //    dpi: 500,
+            //    width: 1400, height: 900
+            //}).then(function (canvas) {
+
+            //    var link = document.createElement("a");
+            //    document.body.appendChild(link);
+            //    link.download = "html_image.jpg";
+            //    link.href = canvas.toDataURL();
+            //    link.target = '_blank';
+            //    link.click();
+            //});
+            html2canvas(container, { useCORS: true }).then(function (canvas) {
+                var imgBase64 = canvas.toDataURL();
+                // console.log("imgBase64:", imgBase64);
+                var imgURL = "data:image/" + imgBase64;
+                var triggerDownload = $("<a>").attr("href", imgURL).attr("download", "layout_" + new Date().getTime() + ".jpeg").appendTo("body");
+                triggerDownload[0].click();
+                triggerDownload.remove();
+            });
+        }
+
+    </script>
+
+
+  
+    <style>
+        #htmltoimage {
+            width: 65%;
+            margin: auto;
+        }
+
+       
+
+        a {
+            text-decoration: none;
+        }
+
+        .product-card {
+            width: 380px;
+            position: relative;
+            box-shadow: 0 2px 7px #dfdfdf;
+            margin: 50px auto;
+            background: #fafafa;
+        }
+
+        .badge {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            background: red;
+            color: #fff;
+            padding: 3px 10px;
+        }
+
+        .product-tumb {
+            display: flex;
+            /*align-items: center;*/
+            justify-content: flex-start;
+            /*height: 300px;*/
+            /*padding: 50px;*/
+            /*background: #f0f0f0;*/
+            width: 100%;
+            padding-bottom: 25px;
+            margin-left: 2rem;
+        }
+
+            .product-tumb img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+
+        .product-details {
+            padding: 10px 15px;
+            display: flex;
+        }
+
+        .product-catagory {
+            display: block;
+            font-size: 11px;
+            width: 50%;
+            /* font-weight: 700; */
+            /* text-transform: uppercase; */
+            color: #fff;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .product-details h4 a {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            color: #363636;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+            .product-details h4 a:hover {
+                color: #fbb72c;
+            }
+
+        .product-offer-details {
+            overflow: hidden;
+            margin-left: 17rem;
+            /*margin-top: 20px;*/
+            position: absolute;
+            text-align: center;
+            font-family: system-ui;
+            padding: 10px;
+            line-height: 1;
+            /* border: 2px solid #dec407; */
+        }
+
+        .product-details p {
+            font-size: 10px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            color: #fff;
+            margin-left: 4rem;
+            width: 50%;
+        }
+
+        .product-bottom-details {
+            overflow: hidden;
+            /*border-top: 1px solid #eee;*/
+            margin-top: 14rem;
+            margin-left: 16rem;
+            position: absolute;
+        }
+
+            .product-bottom-details div {
+                float: left;
+                width: 50%;
+            }
+
+        .product-top-details {
+            overflow: hidden;
+            /*border-top: 1px solid #eee;*/
+            /* padding-top: 20px; */
+            margin-left: 19px;
+            margin-top: 20px;
+            position: absolute;
+            text-align: center;
+            font-family: system-ui;
+            padding: 10px;
+            line-height: 1;
+            border: 2px solid #dec407;
+        }
+
+            .product-top-details div {
+                float: left;
+                /*width: 50%;*/
+            }
+
+        .product-pricetop {
+            font-size: 20px;
+            color: #000;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .product-price {
+            font-size: 30px;
+            color: red;
+            font-weight: 600;
+        }
+
+            .product-price small {
+                font-size: 75%;
+                font-weight: 400;
+                text-decoration: line-through;
+                display: inline-block;
+                margin-right: 5px;
+                color: #000;
+            }
+
+        .product-links {
+            text-align: right;
+        }
+
+            .product-links a {
+                display: inline-block;
+                margin-left: 5px;
+                color: #e1e1e1;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                .product-links a:hover {
+                    color: #fbb72c;
+                }
+    </style>
+
+</head>
+
+<body>
+    <div id="htmltoimage">
+        <div class="product-card">
+            <div style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
+                            <!-- <div class="badge">Hot</div>
+                            https://alldealz.ca/ClientLogo/08c86536-71b4-46b5-8083-494b99034bb8.jpeg
+                            -->
+                            <div class="headr" style="padding: 10px; display: flex;">
+                                <div style="width: 200px;">
+                                    <img style="width: 95%;" src="https://alldealz.ca/ClientLogo/08c86536-71b4-46b5-8083-494b99034bb8.jpeg">
+                                </div>
+                                <div style="width: 300px;">
+                                    <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
+                                        SCAN FOR <br><span style="font-size: 20px;
+    color: #000;">MORE OFFER</span>
+                                    </p>
+                                </div>
+                                <div style="width: 200px;">
+                                    <img style="width: 100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="background: transparent; height: 35px;
+    display: flex; align-items: center;">
+                            <div style="width: 35%;">
+                                <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
+                            </div>
+
+                            <div style="width: 35%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
+                                <p>DEAL START <span style="color: yellow">SEP 23</span>	</p>
+                                <p>DEAL ENDS <span style="color: yellow">SEP 31</span>	</p>
+                            </div>
+
+                            <div style="width: 20%; font-weight: bold; color: yellow; margin-left: 2rem;">
+                                <h2>2021</h2>
+                            </div>
+                        </div>
+                        <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
+                            <div class="product-top-details">
+                                <div class="product-pricetop">@item.Name</div>
+
+                            </div>
+
+                            <div class="product-offer-details">
+                                <div class="product-pricetop" style="position: absolute; margin-top: 25px; color: yellow; margin-left: 22px; font-size: 17px; font-weight: bold;">SAVE <br><span style="font-size: 22px;">@item.SavingPercentage</span></div>
+                                <img style="width: 100px;" src="https://i.ibb.co/StFckrv/offer-8.png">
+
+                            </div>
+
+                            <div class="product-bottom-details">
+                                <div class="product-price"><small>@item.OfferPrice</small>@item.RegularPrice</div>
+                                <div class="product-links">
+                                    <a href=""><i class="fa fa-heart"></i></a>
+                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                            </div>
+
+
+                            <div class="product-tumb">
+                                @*<img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRrxm8AYs6IEfe8tvm2-jC5kDAPyRTtZECaZ2Fp3vaoNMlbKrEx9WrDESzyfjE4IKcNL1wQbHiOS27rI6VrDLAf23O_hMMKTQ" style="width: 50%; margin-top: 6rem;" alt="">*@
+                                <img src="data:image/png;base64,@item.image" style="width: 50%; margin-top: 6rem;" alt="">
+                                <!-- <div class="" style="position: absolute;">
+                                <img style="width: 100%;" src="https://www.seekpng.com/png/full/10-109433_system-purple-brush-stroke-png.png">
+                                    </div> -->
+                            </div>
+                            <div>
+                                <h2 style="position: absolute;
+    margin-left: 9rem;
+    margin-top: 9px; font-size: 30px;">
+                                    @item.SavingPercentage %OFF
+                                </h2>
+                                <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0" style="width: 70%;
+    margin-left: 4rem;
+    margin-bottom: 1rem;">
+                            </div>
+
+                        </div>
+                        <div class="product-details">
+                            <span class="product-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                            <p>
+                                Contact us for more information<br>
+                                <span style="font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;"><img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png" style="width: 8%; margin-right: 4px;">(905) 913-7667</span>
+                            </p>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button>
+    
+</body>
+
+
+</html>
+
+
+
