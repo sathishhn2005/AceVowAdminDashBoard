@@ -568,7 +568,7 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
-        public int DeactivateClient(int UserId)
+        public int DeactivateClient(ClientUser objUser)
         {
             int intResult = 0;
             try
@@ -576,9 +576,11 @@ namespace AceVowBusinessLayer
 
                 SqlParameter[] Param = {
                                             new SqlParameter("@UserId",SqlDbType.Int),
+                                            new SqlParameter("@Status",SqlDbType.Bit),
 
                                       };
-                Param[0].Value = UserId;
+                Param[0].Value = objUser.UserId;
+                Param[1].Value = objUser.IsActive;
                 using (objDBEngine = new DBEngine())
                 {
                     intResult = objDBEngine.DMLOperation("pDeactivateClient", Param);
@@ -590,5 +592,30 @@ namespace AceVowBusinessLayer
             }
             return intResult;
         }
+        public int DeactivateRecipe(Recipes objRecipe)
+        {
+            int intResult = 0;
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@RecipeId",SqlDbType.Int),
+                                            new SqlParameter("@Status",SqlDbType.Bit),
+
+                                      };
+                Param[0].Value = objRecipe.RecipeId;
+                Param[1].Value = objRecipe.IsActive;
+                using (objDBEngine = new DBEngine())
+                {
+                    intResult = objDBEngine.DMLOperation("pDeactivateRecipe", Param);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return intResult;
+        }
+        
     }
 }

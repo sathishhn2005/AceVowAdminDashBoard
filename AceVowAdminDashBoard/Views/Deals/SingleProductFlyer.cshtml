@@ -10,56 +10,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HTML TO IMAGE</title>
-
-    <!--<script src="jquery-1.10.2.js"></script>
-    <script src="html2canvas.js"></script>-->
-    @*<script src="Scripts/App/html2canvas.js"></script>*@
-    <script src="~/Scripts/App/html2canvas.js"></script>
-    <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
-    @*<script src="Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>*@
-
-    <script type="text/javascript">
-
-        function downloadimage() {
-
-            //var container = document.getElementById("image-wrap"); //specific element on page
-            var container = document.getElementById("htmltoimage");; // full page
-            //html2canvas(container, {
-            //    useCORS: true,
-            //    allowTaint: true,
-            //    scale: 0.98,
-            //    dpi: 500,
-            //    width: 1400, height: 900
-            //}).then(function (canvas) {
-
-            //    var link = document.createElement("a");
-            //    document.body.appendChild(link);
-            //    link.download = "html_image.jpg";
-            //    link.href = canvas.toDataURL();
-            //    link.target = '_blank';
-            //    link.click();
-            //});
-            html2canvas(container, { useCORS: true }).then(function (canvas) {
-                var imgBase64 = canvas.toDataURL();
-                // console.log("imgBase64:", imgBase64);
-                var imgURL = "data:image/" + imgBase64;
-                var triggerDownload = $("<a>").attr("href", imgURL).attr("download", "layout_" + new Date().getTime() + ".jpeg").appendTo("body");
-                triggerDownload[0].click();
-                triggerDownload.remove();
-            });
-        }
-
-    </script>
-
-
-  
+    <link href="~/Content/Fonts/roboto.css" rel="stylesheet" />
+    <link href="~/Content/css/products.css" rel="stylesheet" />
     <style>
         #htmltoimage {
             width: 65%;
             margin: auto;
         }
 
-       
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
 
         a {
             text-decoration: none;
@@ -227,108 +196,650 @@
 </head>
 
 <body>
-    <div id="htmltoimage">
-        <div class="product-card">
-            <div style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
+    <div id="product-1" class="d-none">
+        <div class="product-1-card">
+            <div id="htmltoimage" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%);
+         padding: 5px;
+         width: 400px;">
 
+                <div style="background-color: #fff;
+            border-radius: 30px 30px 0px 0px;">
+                    <!-- <div class="badge">Hot</div> -->
+                    <div class="headr" style="padding: 10px;
+               display: flex;">
+                        <div style="width: 200px;">
+                            <img style="width: 95%;"
+                                 src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                        </div>
+                        <div style="width: 300px;">
+                            <p style="color: red;
+                     font-weight: bold;
+                     margin-top: 25px;
+                     text-align: center;">
+                                SCAN FOR
+                                <br><span style="font-size: 20px;
+                        color: #000;">MORE OFFER</span>
+                            </p>
+                        </div>
+                        <div style="width: 200px;">
+                            <img style="width: 100px;"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                        </div>
+                    </div>
+                </div>
+                <div style="background: transparent;
+            height: 35px;
+            display: flex;
+            align-items: center;">
+                    <div style="width: 95%;">
+                        <p style="font-size: 20px;
+                  font-weight: bold;
+                  color: yellow;
+                  margin-left: 10px;">"Hurry Up"</p>
+                    </div>
+                    <div style="width: 85%;
+               font-size: 12px;
+               font-weight: bold;
+               color: #fff;
+               letter-spacing: 1px;">
+                        @*<p>DEAL START <span style="color: yellow">@ViewBag.OfferStartDate</span> </p>*@
+                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+
+
+
+                        @*<p>DEAL ENDS <span style="color: yellow">@ViewBag.OfferEndDate</span> </p>*@
+                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                    </div>
+                    @*<div style="width: 20%;
+                        font-weight: bold;
+                        color: yellow;
+                        margin-left: 2rem;">
+                                     <h2>2021</h2>
+                                 </div>*@
+                </div>
                 @if (Model != null)
                 {
                     foreach (var item in Model)
                     {
-                        <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
-                            <!-- <div class="badge">Hot</div>
-                            https://alldealz.ca/ClientLogo/08c86536-71b4-46b5-8083-494b99034bb8.jpeg
-                            -->
-                            <div class="headr" style="padding: 10px; display: flex;">
-                                <div style="width: 200px;">
-                                    <img style="width: 95%;" src="https://alldealz.ca/ClientLogo/08c86536-71b4-46b5-8083-494b99034bb8.jpeg">
+                        <div style="background-color: #fff;
+            border-radius: 0px 0px 30px 30px;">
+                            <div class="product-1-top-details">
+                                <div class="product-1-pricetop">@item.Name</div>
+                            </div>
+                            <div class="product-1-offer-details">
+                                <div class="product-1-pricetop"
+                                     style="position: absolute;
+                  margin-top: 25px;
+                  color: yellow;
+                  margin-left: 22px;
+                  font-size: 17px;
+                  font-weight: bold;">
+                                    SAVE <br><span style="font-size: 22px;">$ @item.SavingPrice</span>
                                 </div>
-                                <div style="width: 300px;">
-                                    <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
-                                        SCAN FOR <br><span style="font-size: 20px;
-    color: #000;">MORE OFFER</span>
-                                    </p>
-                                </div>
-                                <div style="width: 200px;">
-                                    <img style="width: 100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div style="background: transparent; height: 35px;
-    display: flex; align-items: center;">
-                            <div style="width: 35%;">
-                                <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
-                            </div>
-
-                            <div style="width: 35%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
-                                <p>DEAL START <span style="color: yellow">SEP 23</span>	</p>
-                                <p>DEAL ENDS <span style="color: yellow">SEP 31</span>	</p>
-                            </div>
-
-                            <div style="width: 20%; font-weight: bold; color: yellow; margin-left: 2rem;">
-                                <h2>2021</h2>
-                            </div>
-                        </div>
-                        <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
-                            <div class="product-top-details">
-                                <div class="product-pricetop">@item.Name</div>
-
-                            </div>
-
-                            <div class="product-offer-details">
-                                <div class="product-pricetop" style="position: absolute; margin-top: 25px; color: yellow; margin-left: 22px; font-size: 17px; font-weight: bold;">SAVE <br><span style="font-size: 22px;">@item.SavingPercentage</span></div>
                                 <img style="width: 100px;" src="https://i.ibb.co/StFckrv/offer-8.png">
-
                             </div>
-
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>@item.OfferPrice</small>@item.RegularPrice</div>
-                                <div class="product-links">
+                            <div class="product-1-bottom-details">
+                                <div class="product-1-price"><small>$@item.RegularPrice</small>$ @item.OfferPrice</div>
+                                <div class="product-1-links">
                                     <a href=""><i class="fa fa-heart"></i></a>
                                     <a href=""><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
-
-
-                            <div class="product-tumb">
-                                @*<img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRrxm8AYs6IEfe8tvm2-jC5kDAPyRTtZECaZ2Fp3vaoNMlbKrEx9WrDESzyfjE4IKcNL1wQbHiOS27rI6VrDLAf23O_hMMKTQ" style="width: 50%; margin-top: 6rem;" alt="">*@
-                                <img src="data:image/png;base64,@item.image" style="width: 50%; margin-top: 6rem;" alt="">
+                            <div class="product-1-tumb">
+                                <img src="data:image/png;base64,@item.image"
+                                     style="width: 50%;
+                  margin-top: 6rem;" alt="">
                                 <!-- <div class="" style="position: absolute;">
                                 <img style="width: 100%;" src="https://www.seekpng.com/png/full/10-109433_system-purple-brush-stroke-png.png">
                                     </div> -->
                             </div>
                             <div>
                                 <h2 style="position: absolute;
-    margin-left: 9rem;
-    margin-top: 9px; font-size: 30px;">
+                  margin-left: 9rem;
+                  margin-top: 9px;
+                  font-size: 30px;">
                                     @item.SavingPercentage %OFF
                                 </h2>
                                 <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0" style="width: 70%;
-    margin-left: 4rem;
-    margin-bottom: 1rem;">
+                  margin-left: 4rem;
+                  margin-bottom: 1rem;">
                             </div>
-
                         </div>
-                        <div class="product-details">
-                            <span class="product-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                        <div class="product-1-details">
+                            <span class="product-1-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
                             <p>
                                 Contact us for more information<br>
                                 <span style="font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;"><img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png" style="width: 8%; margin-right: 4px;">(905) 913-7667</span>
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;">
+                                    <img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png"
+                                         style="width: 8%;
+                  margin-right: 4px;">(905) 913-7667
+                                </span>
                             </p>
-
                         </div>
                     }
                 }
             </div>
         </div>
+    </div>
+    <div id="product-2" class="d-none">
+        <div class="product-2-card">
+            <div id="htmltoimage2" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
 
+                <!-- Header Section -->
+                <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
+
+                    <div class="headr" style="padding: 10px; display: flex;">
+
+
+                        <div style="width: 100px;">
+                            <img style="width: 95%;"
+                                 src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                        </div>
+
+                        <div style="width: 200px;">
+                            <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
+                                SCAN FOR
+                                <br><span style="font-size: 20px;color: #000;">MORE OFFER</span>
+                            </p>
+                        </div>
+
+                        <div style="width: 100px;">
+                            <img style="width: 100px;"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Header Section End-->
+                <!-- Hurry up section -->
+                <div style="background: transparent; height: 35px; display: flex; align-items: center;">
+                    <div style="width: 95%;">
+                        <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
+                    </div>
+
+                    <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
+                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                    </div>
+
+
+
+                </div>
+                <!-- Hurry up section end -->
+                <!-- Inner Main Section -->
+
+                <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
+
+                    <div style="width: 100%; display: flex;">
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div style="width: 50%; padding: 10px; border-right: 1px solid #000;">
+                                    <div class="product-2-top-details">
+                                        <div class="product-2-pricetop">
+                                            <span style="font-weight: 400;">
+                                                @item.Name
+                                            </span><span style="color: red;"> @item.Quantity</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-2-bottom-details">
+                                        <div class="product-2-price"><small>$@item.RegularPrice</small>$ @item.OfferPrice</div>
+                                        <div class="product-2-links">
+                                            <a href=""><i class="fa fa-heart"></i></a>
+                                            <a href=""><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="product-2-tumb">
+                                        <img src="data:image/png;base64,@item.image"
+                                             style="width: 95%; margin-top: 4rem;" alt="">
+
+                                    </div>
+
+                                    <div>
+                                        <h2 style="position: absolute; margin-left: 3.5rem; margin-top: 5px; font-size: 14px;">
+                                            @item.SavingPercentage %OFF
+                                        </h2>
+                                        <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
+                                             style="width: 75%;
+             margin-left: 1rem; margin-bottom: 0;">
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+                <!-- Inner Main Section End-->
+                <!-- Contact Section -->
+                <div class="product-2-details">
+                    <span class="product-2-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                    <p>
+                        Contact us for more information<br>
+                        <span style="font-size: 16px; display: flex; justify-content: center;align-items: center;">
+                            <img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png"
+                                 style="width: 8%; margin-right: 4px;">(905) 913-7667
+                        </span>
+                    </p>
+                </div>
+                <!-- Contact Section End-->
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="product-3" class="d-none">
+        <div class="product-3-card">
+            <div id="htmltoimage3" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
+
+                <!-- Header Section -->
+                <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
+
+                    <div class="headr" style="padding: 10px; display: flex;">
+
+
+                        <div style="width: 100px;">
+                            <img style="width: 95%;"
+                                 src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                        </div>
+
+                        <div style="width: 200px;">
+                            <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
+                                SCAN FOR
+                                <br><span style="font-size: 20px;color: #000;">MORE OFFER</span>
+                            </p>
+                        </div>
+
+                        <div style="width: 100px;">
+                            <img style="width: 100px;"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Header Section End-->
+                <!-- Hurry up section -->
+                <div style="background: transparent; height: 35px; display: flex; align-items: center;">
+                    <div style="width: 95%;">
+                        <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
+                    </div>
+
+                    <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
+                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                    </div>
+
+                </div>
+                <!-- Hurry up section end -->
+                <!-- Inner Main Section -->
+                <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
+
+
+                    <div class="content-box-3">
+
+                        <!-- Product 1 -->
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="content-main-3">
+
+                                    <div class="product-price-details">
+
+                                        <div class="product-top-item">
+                                            <div class="product-4-pricetop">
+                                                <span style="font-weight: 400;">
+                                                    @item.Name
+                                                </span><span style="color: red;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-bottom-price">
+                                            <div class="product-4-price"><small>$@item.RegularPrice</small><br />$ @item.OfferPrice</div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="product-4-tumb">
+                                        <img src="data:image/png;base64,@item.image" alt="">
+
+                                    </div>
+
+                                    <div class="offr-3">
+                                        <h2 class="offr-3-content">
+                                            @item.SavingPercentage %OFF
+                                        </h2>
+                                        <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
+                                             style="width: 100%;">
+                                    </div>
+                                </div>
+                                <!-- Product 1 end -->
+
+
+
+                            }
+                        }
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Inner Main Section End-->
+                <!-- Contact Section -->
+                <div class="product-3-details">
+                    <span class="product-3-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                    <p>
+                        Contact us for more information<br>
+                        <span style="font-size: 16px; display: flex; justify-content: center;align-items: center;">
+                            <img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png"
+                                 style="width: 8%; margin-right: 4px;">(905) 913-7667
+                        </span>
+                    </p>
+                </div>
+                <!-- Contact Section End-->
+
+            </div>
+        </div>
+    </div>
+    <div id="product-4" class="d-none">
+        <div class="product-4-card">
+            <div id="htmltoimage4" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
+
+                <!-- Header Section -->
+                <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
+
+                    <div class="headr" style="padding: 10px; display: flex;">
+
+
+                        <div style="width: 100px;">
+                            <img style="width: 95%;"
+                                 src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                        </div>
+
+                        <div style="width: 200px;">
+                            <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
+                                SCAN FOR
+                                <br><span style="font-size: 20px;color: #000;">MORE OFFER</span>
+                            </p>
+                        </div>
+
+                        <div style="width: 100px;">
+                            <img style="width: 100px;"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Header Section End-->
+                <!-- Hurry up section -->
+                <div style="background: transparent; height: 35px; display: flex; align-items: center;">
+                    <div style="width: 95%;">
+                        <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
+                    </div>
+
+                    <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
+                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                    </div>
+
+                </div>
+                <!-- Hurry up section end -->
+                <!-- Inner Main Section -->
+                <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
+
+
+                    <div class="content-box-4">
+
+                        <!-- Product 1 -->
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="content-main-4">
+
+                                    <div class="product-price-details">
+
+                                        <div class="product-top-item">
+                                            <div class="product-4-pricetop">
+                                                <span style="font-weight: 400;">
+                                                    @item.Name
+                                                </span><span style="color: red;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-bottom-price">
+                                            <div class="product-4-price"><small>$@item.RegularPrice</small><br />$ @item.OfferPrice</div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="product-4-tumb">
+                                        <img src="data:image/png;base64,@item.image" alt="">
+
+                                    </div>
+
+                                    <div class="offr-3">
+                                        <h2 class="offr-4-content">
+                                            @item.SavingPercentage %OFF
+                                        </h2>
+                                        <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
+                                             style="width: 100%;">
+                                    </div>
+                                </div>
+                                <!-- Product 1 end -->
+
+
+
+                            }
+                        }
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Inner Main Section End-->
+                <!-- Contact Section -->
+                <div class="product-4-details">
+                    <span class="product-4-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                    <p>
+                        Contact us for more information<br>
+                        <span style="font-size: 16px; display: flex; justify-content: center;align-items: center;">
+                            <img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png"
+                                 style="width: 8%; margin-right: 4px;">(905) 913-7667
+                        </span>
+                    </p>
+                </div>
+                <!-- Contact Section End-->
+
+            </div>
+        </div>
+    </div>
+    <div id="product-7" class="d-none">
+        <div class="product-4-card">
+            <div id="htmltoimage7" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%); padding: 5px; width: 400px;">
+
+                <!-- Header Section -->
+                <div style="background-color: #fff; border-radius: 30px 30px 0px 0px;">
+
+                    <div class="headr" style="padding: 10px; display: flex;">
+
+
+                        <div style="width: 100px;">
+                            <img style="width: 95%;"
+                                 src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                        </div>
+
+                        <div style="width: 200px;">
+                            <p style="color: red; font-weight: bold; margin-top: 25px; text-align: center;">
+                                SCAN FOR
+                                <br><span style="font-size: 20px;color: #000;">MORE OFFER</span>
+                            </p>
+                        </div>
+
+                        <div style="width: 100px;">
+                            <img style="width: 100px;"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Header Section End-->
+                <!-- Hurry up section -->
+                <div style="background: transparent; height: 35px; display: flex; align-items: center;">
+                    <div style="width: 95%;">
+                        <p style="font-size: 20px; font-weight: bold; color: yellow; margin-left: 10px;">"Hurry Up"</p>
+                    </div>
+
+                    <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
+                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                    </div>
+
+                </div>
+                <!-- Hurry up section end -->
+                <!-- Inner Main Section -->
+                <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
+
+
+                    <div class="content-box-7">
+
+                        <!-- Product 1 -->
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="content-main-7">
+
+                                    <div class="product-price-details">
+
+                                        <div class="product-top-item">
+                                            <div class="product-4-pricetop">
+                                                <span style="font-weight: 400;">
+                                                    @item.Name
+                                                </span><span style="color: red;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-bottom-price">
+                                            <div class="product-4-price"><small>$@item.RegularPrice</small><br />$ @item.OfferPrice</div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="product-4-tumb">
+                                        <img src="data:image/png;base64,@item.image" alt="">
+
+                                    </div>
+
+                                    <div class="offr-7">
+                                        <h2 class="offr-7-content">
+                                            @item.SavingPercentage %OFF
+                                        </h2>
+                                        <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
+                                             style="width: 100%;">
+                                    </div>
+                                </div>
+                                <!-- Product 1 end -->
+
+
+
+                            }
+                        }
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Inner Main Section End-->
+                <!-- Contact Section -->
+                <div class="product-4-details">
+                    <span class="product-4-catagory">4525, Ebenezer Road, unit #6, Brampton, ONT, L69 2k8.</span>
+                    <p>
+                        Contact us for more information<br>
+                        <span style="font-size: 16px; display: flex; justify-content: center;align-items: center;">
+                            <img src="https://toppng.com/public/uploads/thumbnail/593-transparent-background-phone-icon-white-11562889130j9sl4rmews.png"
+                                 style="width: 8%; margin-right: 4px;">(905) 913-7667
+                        </span>
+                    </p>
+                </div>
+                <!-- Contact Section End-->
+
+            </div>
+        </div>
     </div>
     <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button>
-    
+    <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/App/html2canvas.js"></script>
+    <script type="text/javascript">
+
+        function downloadimage() {
+            //var container = document.getElementById("htmltoimage");; // full page
+            //if (requestedPage == null) {
+            //    var container = document.getElementById('htmltoimage'); // full page
+            //}
+            //else {
+            //var container = document.getElementById('htmltoimage' + requestedPage); // full page
+            //}
+            var container= '@Session["FlyerType"]'
+                html2canvas(container, { useCORS: true }).then(function (canvas) {
+                var imgBase64 = canvas.toDataURL();
+
+                var imgURL = "data:image/" + imgBase64;
+                var triggerDownload = $("<a>").attr("href", imgURL).attr("download", "layout_" + new Date().getTime() + ".jpeg").appendTo("body");
+                triggerDownload[0].click();
+                triggerDownload.remove();
+            });
+        }
+        var requestedPage = null;
+        $(document).ready(function () {
+
+            //let loc = $(location).attr('href');
+            //var parts = loc.split('/');
+            //var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+            //console.log(lastSegment);
+            //requestedPage = lastSegment;
+            //console.log(requestedPage);
+            var requestedPage= '@Session["FlyerType"]';
+            $('#product-' + requestedPage).removeClass('d-none');
+        });
+
+        /**/</script>
 </body>
 
 

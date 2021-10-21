@@ -79,7 +79,7 @@ namespace AceVowAdminDashBoard.Controllers
             return Json(lstClientinfo, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult AddCategory(Category obj)
+        public JsonResult AddCategory(Category obj)
 
         {
             string msg = "";
@@ -96,8 +96,8 @@ namespace AceVowAdminDashBoard.Controllers
             {
                 msg = "Error Occured, Please check it.";
             }
-            TempData["CatMess"] = msg;
-            return View();
+           // TempData["CatMess"] = msg;
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult UpdateComments(ClientUser obj)
@@ -204,7 +204,7 @@ namespace AceVowAdminDashBoard.Controllers
             catch (Exception ex)
             {
                 TempData["Alertmsg"] = "please contact Administrator";
-                throw;
+                throw ex;
             }
 
             return RedirectToAction("Index", "Home");
@@ -256,7 +256,7 @@ namespace AceVowAdminDashBoard.Controllers
                             {
 
                                 SchedulePostsJson = JsonConvert.SerializeObject(lstValueList[i]);
-                                //returnCode = objBAL.BulkInsertSchedulePosts("", SchedulePostsJson, UserId, out ErrorMsg);
+                                returnCode = objBAL.BulkInsertSchedulePosts("", SchedulePostsJson, UserId, out ErrorMsg);
                             }
                             transactionScope.Complete();
                             transactionScope.Dispose();
@@ -275,15 +275,15 @@ namespace AceVowAdminDashBoard.Controllers
                     }
                     else
                     {
-                        TempData["Alertmsg"] = "please contact Administrator";
+                        TempData["Alertmsg"] = "";
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                TempData["Alertmsg"] = "please contact Administrator";
-                throw;
+                TempData["Alertmsg"] = "";
+                throw ex;
             }
 
             return RedirectToAction("ClientPost", "Home");
@@ -703,16 +703,29 @@ namespace AceVowAdminDashBoard.Controllers
             return Json(lstRecipe, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult DeactivateClient(string UserId)
+        public JsonResult DeactivateClient(ClientUser objUser)
         {
 
             int ReturnCode = 0;
-            int Uid = UserId == "" || UserId == null ? 0 : Convert.ToInt32(UserId);
+            int Uid = Convert.ToInt32(objUser.UserId);
 
             objBAL = new DataModel();
-            ReturnCode = objBAL.DeactivateClient(Uid);
+            ReturnCode = objBAL.DeactivateClient(objUser);
 
-            string Msg = ReturnCode > 0 ? "DeActivated" : "Error occure,Contact Admin";
+            string Msg = ReturnCode > 0 ? "Submitted Successfully" : "Error occure,Contact Admin";
+            return Json(Msg, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeactivateRecipe(Recipes objRecipe)
+        {
+
+            int ReturnCode = 0;
+           // int Uid = Convert.ToInt32(objUser.UserId);
+
+            objBAL = new DataModel();
+            ReturnCode = objBAL.DeactivateRecipe(objRecipe);
+
+            string Msg = ReturnCode > 0 ? "Submitted Successfully" : "Error occure,Contact Admin";
             return Json(Msg, JsonRequestBehavior.AllowGet);
         }
     }

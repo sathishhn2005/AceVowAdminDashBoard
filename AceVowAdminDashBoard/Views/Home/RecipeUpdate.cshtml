@@ -37,6 +37,7 @@
                                 <th>Ingredients</th>
 
                                 <th>Action</th>
+                                <th>Active/Deactive</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -92,9 +93,9 @@
         GetRecipe();
     });
     function GetRecipe() {
-        var param = { UserId: $('#ddlUserList').val()};
+        var param = { UserId: $('#ddlUserList').val() };
         $("#tblRecipe").find("tr:not(:first)").remove();
-       
+
         $.ajax({
 
             type: "GET",
@@ -108,9 +109,16 @@
                     $.each(Result, function (key, value) {
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
+                        var hdnToggleId = "hdnobjJSonVal_" + value.RecipeId;
                         var hdId = i;
                         var JVal = JSON.stringify(value);
-                        $('#tblRecipe').append('<tr> <td>' + value.RecipeName + '</td><td>' + value.RecipeCategory + '</td><td class="text-center"><input class="form-control" type="text" name="txtIngridients" id="txtIngridients" onblur="clearComments(' + "'" + key + "'" + ')" value=' + "'" + value.Ingredients + "'" + '></td><td><button class="btn btn-primary-secondary" type="button" onclick=UpdateRecipe("' + value.RecipeId + '")><i class="mdi mdi-reply"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblRecipe').append('<tr> <td>' + value.RecipeName + '</td><td>' + value.RecipeCategory + '</td><td class="text-center"><input class="form-control" type="text" name="txtIngridients" id="txtIngridients" onblur="clearComments(' + "'" + key + "'" + ')" value=' + "'" + value.Ingredients + "'" + '></td><td><button class="btn btn-primary-secondary" type="button" onclick=UpdateRecipe("' + value.RecipeId + '")><i class="mdi mdi-reply"></i></button></td><td><div class="checkbox switcher"><label for=' + hdnToggleId + ' class="mb-0"><input onchange="Deactivate(' + value.RecipeId + ',' + value.IsActive + ')" type="checkbox" id=' + hdnToggleId + ' value=' + value.UserId + '><span><small></small></span></label></div><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        if (value.IsActive == 0) {
+                            $("#" + hdnToggleId).prop('checked', false);
+                        }
+                        else {
+                            $("#" + hdnToggleId).prop('checked', true);
+                        }
                     });
                 }
                 else {
@@ -120,6 +128,30 @@
             },
             error: function () {
 
+            }
+        })
+    }
+    function Deactivate(id, isactive) {
+        var hdnID = "hdnobjJSonVal_" + id;
+        var isactive;
+        if ($('input:checkbox[id=' + hdnID + ']').is(':checked') == true) {
+            isactive = true;
+        }
+        else { isactive = false; };
+        var Rid = '' + id;
+        var objUser = { RecipeId: Rid, IsActive: isactive };
+        $.ajax({
+            type: "POST",
+            url: "DeactivateRecipe",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: objUser,
+            success: function (Result) {
+                alert(Result);
+                GetRecipe();
+            },
+            error: function () {
+                alert('Error while activate/deactivate recipe!.');
             }
         })
     }

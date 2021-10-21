@@ -25,7 +25,7 @@ namespace AceVowUtility
             catch (Exception ex)
             {
                 returnCode = 1000;
-
+                throw ex;
             }
             finally
             {
@@ -114,7 +114,7 @@ namespace AceVowUtility
                         }
                         catch (Exception ex)
                         {
-
+                            throw ex;
 
                         }
                     }

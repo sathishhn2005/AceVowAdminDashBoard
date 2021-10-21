@@ -5,6 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
+        <div class="card">
+            <img src="~/Content/Theme/images/1.png" class="card-img-top" alt="..." />
+            <p class="card-text">
+                <div class="form-check form-switch">
+                    <input class="form-check-input addProduct" type="radio" name="themeSelect" id="themeId1" value="1">
+                    <label class="form-check-label" for="themeId1">Select Theme</label>
+                </div>
+            </p>
+        </div>
+        <div class="card">
+            <img src="~/Content/Theme/images/2.png" class="card-img-top" alt="..." />
+            <p class="card-text">
+                <div class="form-check form-switch">
+                    <input class="form-check-input addProduct" type="radio" name="themeSelect" id="themeId2" value="2">
+                    <label class="form-check-label" for="themeId2">Select Theme</label>
+                </div>
+            </p>
+        </div>
+        <div class="card">
+            <img src="~/Content/Theme/images/31.png" class="card-img-top" alt="..." />
+            <p class="card-text">
+                <div class="form-check form-switch">
+                    <input class="form-check-input addProduct" type="radio" name="themeSelect" id="themeId3" value="3">
+                    <label class="form-check-label" for="themeId3">Select Theme</label>
+                </div>
+            </p>
+        </div>
+        <div class="card">
+            <img src="~/Content/Theme/images/4.png" class="card-img-top" alt="..." />
+            <p class="card-text">
+                <div class="form-check form-switch">
+                    <input class="form-check-input addProduct" type="radio" name="themeSelect" id="themeId4" value="4">
+                    <label class="form-check-label" for="themeId4">Select Theme</label>
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
 <div class="container pb-70 col-lg-12 col-md-12">
     <div class="shop-bottom-area">
 
@@ -96,29 +139,64 @@
     </div>
 </div>
 <script>
-    var lstProducts = [];
-    $('.addProduct').click(function () {
-        //see all the checked checkboxs and loop through them
-        $('input[type=checkbox]:checked').each(function () {
+//const { EALREADY } = require("constants");
 
-            var checked = $(this).val();
-            if ($(this).is(':checked')) {
-                lstProducts.push({"ProductId": checked });
-            } else {
-                lstProducts.splice($.inArray(checked, tmp), 1);
+    var lstProducts = [];
+    $('input:checkbox').change(function () {
+
+        if ($(this).is(':checked')) {
+            var ProductId = $(this).val();
+            if (lstProducts.length == 0) {
+                lstProducts.push({ "ProductId": ProductId });
+                return;
             }
-        });
+            lstProducts.push({ "ProductId": ProductId });
+        }
+        else {
+            var ProductId = $(this).val();
+
+            lstProducts = lstProducts.filter(function (obj) {
+                return obj.ProductId !== ProductId;
+            });
+
+        }
+
+    });
+    $('input:radio').change(function () {
+
+        var ThemeId = $('input[name="themeSelect"]:checked').val();
+       // alert(val);
+
     });
     $(document).ready(function () {
 
         $('#btnCat').on('click', function () {
+            //console.log(lstProducts);
+            //return;
 
+             let loc = $(location).attr('href');
+            var parts = loc.split('/');
+            var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+            console.log(lastSegment);
+            requestedPage = lastSegment;
+            console.log(requestedPage);
+            var DealId = requestedPage;
+
+            var ThemeId = $('input[name="themeSelect"]:checked').val();
+            if (ThemeId != lstProducts.length) {
+                alert('Mismatch between theme and Product Selection');
+                return;
+            }
+            //$.each(lstProducts, function (key, value) {
+            //    lstProducts.push({"ProductId":value.ProductId, "ThemeId": ThemeId });
+            //})
+            var param = { lstPreview: lstProducts, ThemeId: ThemeId, DealId: DealId};
             $.ajax({
                 type: "POST",
                 url: "/Deals/SingleProductFlyer",
                 dataType: "json",
                 contentType: 'application/json',
-                data: JSON.stringify(lstProducts ),
+                data: JSON.stringify(param),
                 success: function (res) {
                    window.location = '@Url.Action("SingleProductFlyer", "Deals")'
                 },

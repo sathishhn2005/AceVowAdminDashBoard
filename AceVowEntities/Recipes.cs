@@ -17,7 +17,8 @@ namespace AceVowEntities
         public string RecipeCategory { get; set; }
         public string Credits { get; set; }
         public string Serving { get; set; }
-         
+        public bool IsActive { get; set; }
+
         public string CategoryName { get; set; }
         public string UserName { get; set; }
         public string RecipeName { get; set; }

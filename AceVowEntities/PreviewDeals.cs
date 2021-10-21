@@ -8,9 +8,16 @@ namespace AceVowEntities
 {
     public class PreviewDeals
     {
+        public ClientUser ClientUsers { get; set; }
         public int Id { get; set; }
+        public int ThemeId { get; set; }
         public int ProductId { get; set; }
         public string Name { get; set; }
+        public string DealsUrl { get; set; }
+        
+        public string ClientLogo { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public string image { get; set; }
         public Nullable<decimal> RegularPrice { get; set; }
@@ -26,6 +33,6 @@ namespace AceVowEntities
         public decimal Price { get; set; }
         public string ParentCategory { get; set; }
         public int CategoryId { get; set; }
-        public int ClientLogo { get; set; }
+        
     }
 }

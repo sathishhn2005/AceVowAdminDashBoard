@@ -159,7 +159,8 @@
 
                                             <th>BulkUpload</th>
                                             <th>Add Category</th>
-                                            <th>Action</th>
+                                            <th>Edit</th>
+                                            <th>Active/Deactive</th>
 
                                         </tr>
                                     </thead>
@@ -333,7 +334,7 @@
 
 
 <script>
-    
+
     $(document).ready(function () {
         GetClient();
         // window.location.href = "/Home/EditClient";
@@ -354,6 +355,7 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: param,
             success: function (Result) {
+                var checked = false;
                 if (Result.length > 0) {
                     var i = 0;
                     $.each(Result, function (key, value) {
@@ -362,28 +364,19 @@
                         var hdId = i;
                         var JVal = JSON.stringify(value);
 
-                        //var v = new Date(parseInt(value.PolicyFromDate.replace("/Date(", "").replace(")/", ""), 10));
-                        ////Fromvalue = value.toDateString()
-                        //Fromvalue = v.toISOString();
-
-                        //var Str =
-
-                        //    ("00" + value.getDate()).slice(-2)
-                        //    + "-" + ("00" + (value.getMonth() + 1)).slice(-2)
-                        //    + "-" + value.getFullYear()
-
-                        //$('#PolicyFromDate').val(Str);
-                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveClient(this,' + value.UserId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
-
+                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.UserId + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i></td><td><div class="checkbox switcher"><label for=' + hdnID + ' class="mb-0"><input onchange="Deactivate(' + value.UserId + ',' + value.IsActive + ')" type="checkbox" id=' + hdnID + ' value=' + value.UserId + '><span><small></small></span></label></div><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        if (value.IsActive == 0) {
+                            $("#" + hdnID).prop('checked', false);
+                        }
+                        else {
+                            $("#" + hdnID).prop('checked', true);
+                        }
 
                     })
                 }
                 else {
                     $('#tblClient').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
                 }
-                //$("#tblRIMaster tr").filter(function () {
-                //    $(this).toggle($(this).text().toLowerCase().indexOf(formData) > -1)
-                //});
 
             },
             error: function () {
@@ -391,21 +384,28 @@
             }
         })
     }
-    function DeActiveClient(obj, Uid) {
-
-        var UId = '' + Uid;
-        var param = { UserId: UId };
+    
+    function Deactivate(id, isactive) {
+        var hdnID = "hdnobjJSonVal_" + id;
+        var isactive;
+        if ($('input:checkbox[id=' + hdnID+']').is(':checked') == true) {
+            isactive = true;
+        }
+        else { isactive = false; };
+        var UId = '' + id;
+        var objUser = { UserId: UId, IsActive: isactive };
         $.ajax({
             type: "POST",
             url: "DeactivateClient",
             dataType: "json",
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: param,
+            data: objUser,
             success: function (Result) {
                 if (Result == "DeActivated") {
-                    $(obj).closest('tr').remove();
+                    //$(obj).closest('tr').remove();
                     alert("DeActivated successfully");
-                    return false;
+                    GetClient();
+                    //return false;
                 }
                 else { alert(Result); }
             },
@@ -413,6 +413,11 @@
                 console.log('Error while Registring the Company!.');
             }
         })
+    }
+
+    function DeActiveClient(obj, Uid) {
+       
+        
 
     }
     function SetId(id) {
@@ -680,22 +685,11 @@
                 contentType: 'application/json',
                 data: JSON.stringify(param),
                 success: function (res) {
-                    if (res > 0) {
-
-                    }
-                    else if (res == -2) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: '',
-                            text: "Please provide all mandatory fields.",
-                        })
-                        //alert('Please provide all mandatory fields')
-                        return false;
-                    }
+                    alert(res);
                     $('#formCat').reset();
                 },
                 error: function () {
-                    // $("#lblMessage").html('Error while Registring the Company!.');
+                    alert("Error");
                     $('#formCat').reset();
                 }
             })
