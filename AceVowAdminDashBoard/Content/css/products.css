@@ -480,6 +480,9 @@ a {
 
 
 .product-4-tumb {
+      display: flex;
+    justify-content: center;
+    
 }
 
     .product-4-tumb img {
@@ -645,11 +648,12 @@ a {
     }
 
 .offr-3 {
-    display: inline-block;
+    display: flex;
     position: relative;
-    width: 75%;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
+    justify-content:center;
 }
 
 .offr-3-content {
@@ -748,11 +752,12 @@ a {
     }
 
 .offr-7 {
-    display: inline-block;
+    display: flex;
     position: relative;
-    width: 75%;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
+    justify-content:center;
 }
 
 .offr-7-content {

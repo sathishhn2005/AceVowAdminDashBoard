@@ -196,9 +196,12 @@
 </head>
 
 <body>
+    <div class="offset-3 col-lg-6">
+        <button onclick="downloadimage()" class="btn btn-secondary">Click To Download Image</button>
+    </div>
     <div id="product-1" class="d-none">
         <div class="product-1-card">
-            <div id="htmltoimage" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%);
+            <div id="htmltoimage1" style="background: linear-gradient(360deg, rgba(174,40,138,1) 0%, rgba(234,60,119,1) 100%);
          padding: 5px;
          width: 400px;">
 
@@ -223,7 +226,7 @@
                         </div>
                         <div style="width: 200px;">
                             <img style="width: 100px;"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                 src="data:image/jpeg;base64,@ViewBag.QRCode">
                         </div>
                     </div>
                 </div>
@@ -243,12 +246,15 @@
                color: #fff;
                letter-spacing: 1px;">
                         @*<p>DEAL START <span style="color: yellow">@ViewBag.OfferStartDate</span> </p>*@
-                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        @if (ViewBag.OfferStartDate != null && ViewBag.OfferEndDate != null)
+                        {
+                            <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
 
 
 
-                        @*<p>DEAL ENDS <span style="color: yellow">@ViewBag.OfferEndDate</span> </p>*@
-                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                            @*<p>DEAL ENDS <span style="color: yellow">@ViewBag.OfferEndDate</span> </p>*@
+                            <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        }
                     </div>
                     @*<div style="width: 20%;
                         font-weight: bold;
@@ -348,7 +354,7 @@
 
                         <div style="width: 100px;">
                             <img style="width: 100px;"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                 src="data:image/jpeg;base64,@ViewBag.QRCode">
                         </div>
 
 
@@ -364,8 +370,11 @@
                     </div>
 
                     <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
-                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
-                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        @if (ViewBag.OfferStartDate != null && ViewBag.OfferEndDate != null)
+                        {
+                            <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                            <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        }
                     </div>
 
 
@@ -376,54 +385,52 @@
 
                 <div style="background-color: #fff; border-radius: 0px 0px 30px 30px;">
 
-                    <div style="width: 100%; display: flex;">
+
+                    <div class="content-box-4">
+
+                        <!-- Product 1 -->
                         @if (Model != null)
                         {
                             foreach (var item in Model)
                             {
-                                <div style="width: 50%; padding: 10px; border-right: 1px solid #000;">
-                                    <div class="product-2-top-details">
-                                        <div class="product-2-pricetop">
-                                            <span style="font-weight: 400;">
-                                                @item.Name
-                                            </span><span style="color: red;"> @item.Quantity</span>
+                                <div class="content-main-4">
+
+                                    <div class="product-price-details">
+
+                                        <div class="product-top-item">
+                                            <div class="product-4-pricetop">
+                                                <span style="font-weight: 400;">
+                                                    @item.Name
+                                                </span><span style="color: red;"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-bottom-price">
+                                            <div class="product-4-price"><small>$@item.RegularPrice</small><br />$ @item.OfferPrice</div>
+
                                         </div>
                                     </div>
 
-                                    <div class="product-2-bottom-details">
-                                        <div class="product-2-price"><small>$@item.RegularPrice</small>$ @item.OfferPrice</div>
-                                        <div class="product-2-links">
-                                            <a href=""><i class="fa fa-heart"></i></a>
-                                            <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="product-2-tumb">
-                                        <img src="data:image/png;base64,@item.image"
-                                             style="width: 95%; margin-top: 4rem;" alt="">
+                                    <div class="product-4-tumb">
+                                        <img src="data:image/png;base64,@item.image" alt="">
 
                                     </div>
 
-                                    <div>
-                                        <h2 style="position: absolute; margin-left: 3.5rem; margin-top: 5px; font-size: 14px;">
+                                    <div class="offr-3">
+                                        <h2 class="offr-4-content">
                                             @item.SavingPercentage %OFF
                                         </h2>
                                         <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
-                                             style="width: 75%;
-             margin-left: 1rem; margin-bottom: 0;">
+                                             style="width: 75%;">
                                     </div>
                                 </div>
+                                <!-- Product 1 end -->
+
+
 
                             }
                         }
-
-
-
                     </div>
-
-
-
 
                 </div>
 
@@ -470,7 +477,7 @@
 
                         <div style="width: 100px;">
                             <img style="width: 100px;"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                 src="data:image/jpeg;base64,@ViewBag.QRCode">
                         </div>
 
 
@@ -486,9 +493,12 @@
                     </div>
 
                     <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
-                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
-                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
-                    </div>
+                        @if (ViewBag.OfferStartDate != null && ViewBag.OfferEndDate != null)
+                        {
+                            <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                            <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        }
+                        </div>
 
                 </div>
                 <!-- Hurry up section end -->
@@ -531,7 +541,7 @@
                                             @item.SavingPercentage %OFF
                                         </h2>
                                         <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
-                                             style="width: 100%;">
+                                             style="width: 75%;">
                                     </div>
                                 </div>
                                 <!-- Product 1 end -->
@@ -589,7 +599,7 @@
 
                         <div style="width: 100px;">
                             <img style="width: 100px;"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                 src="data:image/jpeg;base64,@ViewBag.QRCode">
                         </div>
 
 
@@ -605,8 +615,11 @@
                     </div>
 
                     <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
-                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
-                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        @if (ViewBag.OfferStartDate != null && ViewBag.OfferEndDate != null)
+                        {
+                            <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                            <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        }
                     </div>
 
                 </div>
@@ -650,7 +663,7 @@
                                             @item.SavingPercentage %OFF
                                         </h2>
                                         <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
-                                             style="width: 100%;">
+                                             style="width: 75%;">
                                     </div>
                                 </div>
                                 <!-- Product 1 end -->
@@ -708,7 +721,7 @@
 
                         <div style="width: 100px;">
                             <img style="width: 100px;"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png">
+                                 src="data:image/jpeg;base64,@ViewBag.QRCode">
                         </div>
 
 
@@ -724,9 +737,12 @@
                     </div>
 
                     <div style="width: 85%; font-size: 12px; font-weight: bold; color: #fff; letter-spacing: 1px;">
-                        <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
-                        <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
-                    </div>
+                        @if (ViewBag.OfferStartDate != null && ViewBag.OfferEndDate != null)
+                        {
+                            <p>DEAL START <span style="color: yellow"> @(((DateTime)ViewBag.OfferStartDate).ToString("dd-MMM-yyyy"))</span> </p>
+                            <p>DEAL END <span style="color: yellow"> @(((DateTime)ViewBag.OfferEndDate).ToString("dd-MMM-yyyy"))</span> </p>
+                        }
+                        </div>
 
                 </div>
                 <!-- Hurry up section end -->
@@ -769,7 +785,7 @@
                                             @item.SavingPercentage %OFF
                                         </h2>
                                         <img src="https://i.ibb.co/k3Kf8mq/Asset-23-3x-8.png" alt="Asset-23-3x-8" border="0"
-                                             style="width: 100%;">
+                                             style="width: 75%;">
                                     </div>
                                 </div>
                                 <!-- Product 1 end -->
@@ -803,20 +819,20 @@
             </div>
         </div>
     </div>
-    <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button>
+
     <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
     <script src="~/Scripts/App/html2canvas.js"></script>
     <script type="text/javascript">
 
         function downloadimage() {
-            //var container = document.getElementById("htmltoimage");; // full page
-            //if (requestedPage == null) {
-            //    var container = document.getElementById('htmltoimage'); // full page
-            //}
-            //else {
-            //var container = document.getElementById('htmltoimage' + requestedPage); // full page
-            //}
             var container= '@Session["FlyerType"]'
+            if (container == null) {
+                container = document.getElementById('htmltoimage'); // full page
+            }
+            else {
+                var container = document.getElementById('htmltoimage' + container); // full page
+            }
+
                 html2canvas(container, { useCORS: true }).then(function (canvas) {
                 var imgBase64 = canvas.toDataURL();
 

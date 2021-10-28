@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
 using QRCoder;
+using System.Configuration;
 
 namespace AceVowAdminDashBoard.Controllers
 {
@@ -35,7 +36,7 @@ namespace AceVowAdminDashBoard.Controllers
             }
             return View(model);
         }
-        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview,int? ThemeId,int? DealId)
+        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview, int? ThemeId, int? DealId)
         {
 
             string clientLogo = string.Empty;
@@ -46,12 +47,14 @@ namespace AceVowAdminDashBoard.Controllers
                 List<PreviewDeals> lstResponse = null;
                 lstResponse = objBAL.GetSingleProductFlyer(PreviewJson, DealId);
                 CalcPrice(lstResponse);
+                string path = ConfigurationManager.AppSettings["ProductImage"];
                 // string Path = "ProductImages/" + lstResponse[0].image;
+                //C:\inetpub\wwwroot\AllDealz_Prod\ProductImages
                 // Image image = Image.FromFile(Server.MapPath("~/Content/img/toendra.JPG"));
 
                 foreach (var item in lstResponse)
                 {
-                    using (Image image = Image.FromFile(Server.MapPath("~/ProductImages/" + item.image)))
+                    using (Image image = Image.FromFile(path + item.image))
                     {
                         using (MemoryStream m = new MemoryStream())
                         {
@@ -69,7 +72,8 @@ namespace AceVowAdminDashBoard.Controllers
                 }
                 if (!string.IsNullOrEmpty(lstResponse[0].ClientLogo))
                 {
-                    using (Image image = Image.FromFile(Server.MapPath("~/ProductImages/" + lstResponse[0].ClientLogo)))
+                    string ClientLogoPath = ConfigurationManager.AppSettings["ClientLogo"];
+                    using (Image image = Image.FromFile(ClientLogoPath + lstResponse[0].ClientLogo))
                     {
                         using (MemoryStream m = new MemoryStream())
                         {
@@ -83,8 +87,10 @@ namespace AceVowAdminDashBoard.Controllers
                         }
                     }
                 }
+                //  string QRCode = GenerateQR(lstResponse[0].DealsUrl);
                 ViewBag.OfferStartDate = lstResponse[0].StartDate;
-                ViewBag.OfferEndDate = lstResponse[0].StartDate;
+                ViewBag.OfferEndDate = lstResponse[0].EndDate;
+                //   ViewBag.QRCode = QRCode;
                 if (!string.IsNullOrEmpty(lstResponse[0].ClientLogo))
                 {
                     ViewBag.ClientLogo = clientLogo;
@@ -97,9 +103,12 @@ namespace AceVowAdminDashBoard.Controllers
             if (Session["PreviewFlyer"] != null)
             {
                 lstPreview = (List<PreviewDeals>)Session["PreviewFlyer"];
+                string QRCode = GenerateQR(lstPreview[0].DealsUrl);
                 ViewBag.OfferStartDate = lstPreview[0].StartDate;
-                ViewBag.OfferEndDate = lstPreview[0].StartDate;
-                using (Image image = Image.FromFile(Server.MapPath("~/ProductImages/" + lstPreview[0].ClientLogo)))
+                ViewBag.OfferEndDate = lstPreview[0].EndDate;
+                ViewBag.QRCode = QRCode;
+                string ClientLogoPath = ConfigurationManager.AppSettings["ClientLogo"];
+                using (Image image = Image.FromFile(ClientLogoPath + lstPreview[0].ClientLogo))
                 {
                     using (MemoryStream m = new MemoryStream())
                     {
@@ -113,7 +122,7 @@ namespace AceVowAdminDashBoard.Controllers
                         // return base64String;
                     }
                 }
-               
+
             }
             return View(lstPreview);
 
@@ -142,13 +151,26 @@ namespace AceVowAdminDashBoard.Controllers
         }
         private string GenerateQR(string url)
         {
-            string qrCodeName = HostingEnvironment.MapPath("~/ProductImages/" + Guid.NewGuid().ToString() + ".png");
+            string qrCodeName = HostingEnvironment.MapPath("~/ProductImages/" + Guid.NewGuid().ToString() + ".jpeg");
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.L);
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, false);
             Bitmap resized = new Bitmap(qrCodeImage, new Size(50, 50));
             resized.Save(qrCodeName);
+            using (Image image = Image.FromFile(qrCodeName))
+            {
+                using (MemoryStream m = new MemoryStream())
+                {
+                    image.Save(m, image.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+
+                    // Convert byte[] to Base64 String
+                    string base64String = Convert.ToBase64String(imageBytes);
+                    qrCodeName = base64String;
+                    // return base64String;
+                }
+            }
             return qrCodeName;
         }
     }
