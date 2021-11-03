@@ -1,70 +1,132 @@
 ﻿
-<style type="text/css">
-    .ui-autocomplete {
-        /*max-height: 100px;
-        overflow-y: auto;*/
-        /* prevent horizontal scrollbar */
-        /*overflow-x: hidden;*/
-        position: absolute;
-        cursor: default;
-        z-index: 4000 !important
-    }
 
-    /* IE 6 doesn't support max-height
-    * we use height instead, but this forces the menu to always be this tall
-    */
-    * html .ui-autocomplete {
-        height: 100px;
-    }
+<div class="page-content">
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+                <!-- Page title + Go Back button -->
+                <div class="d-inline-block">
+                    <h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Client List</h5>
+                </div>
+                <!-- Additional info -->
+                <div class="align-items-center ml-4 d-inline-flex">
+                    <span class="h4 text-info mb-0 mr-2">9</span>
+                    <span class="text-sm opacity-7 text-white">New products</span>
+                </div>
+                <!-- Optional link -->
+                <a href="card-listing.html" class="text-sm text-info d-none d-lg-inline-block ml-4">
+                    See
+                    cards
+                </a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+                <div class="actions actions-dark d-inline-block">
+                    <a href="#" class="action-item ml-md-4">
+                        <i class="far fa-file-export mr-2"></i>Export
+                    </a>
+                    <a href="#" class="action-item ml-3">
+                        <i class="far fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+                <a href="#" class="btn btn-sm btn-white btn-icon-only rounded-circle ml-4">
+                    <span class="btn-inner--icon"><i class="far fa-plus"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Listing -->
+    <div class="card">
+        <!-- Card header -->
+        <div class="card-header actions-toolbar border-0">
+            <div class="actions-search" id="actions-search">
+                <div class="input-group input-group-merge input-group-flush">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-transparent"><i class="far fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-flush"
+                           placeholder="Type and hit enter ...">
+                    <div class="input-group-append">
+                        <a href="#" class="input-group-text bg-transparent" data-action="search-close"
+                           data-target="#actions-search"><i class="far fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <h6 class="d-inline-block mb-0">Client List</h6>
+                </div>
+                <div class="col text-right">
+                    <div class="actions">
+                        <a href="#" class="action-item mr-3" data-action="search-open"
+                           data-target="#actions-search"><i class="far fa-search"></i></a>
+                        <div class="dropdown mr-3">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-filter"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-amount-down"></i>Newest
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-down"></i>From A-Z
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-up"></i>From Z-A
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown" data-toggle="dropdown">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item">Refresh</a>
+                                <a href="#" class="dropdown-item">Manage Widgets</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table id="tblClient" class="table align-items-center">
+                <thead>
+                    <tr>
+                        <th>StoreName</th>
+                        <th>Contact Name</th>
+                        <th>Email Id</th>
+                        <th>Address</th>
 
-    .fixed-height {
-        padding: 1px;
-        max-height: 200px;
-        overflow: auto;
-    }
-</style>
-<div class="p-t-30">
+                        <th>BulkUpload</th>
+                        <th>Add Category</th>
+                        <th>Edit</th>
+                        <th>Active/Deactive</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Load more -->
+    <div class="mt-4 text-center">
+        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">
+            Load more
+            ...
+        </a>
+    </div>
+</div>
+<div class="d-none p-t-30">
 
     <div class="row">
-        <!-- Widget Item -->
-        <div class="col-xl-3 col-12">
-            <div class="box box-body pb-10 bl-4 border-primary pull-up">
-                <h6 class="text-uppercase">Total clients</h6>
-                <div class="d-flex justify-content-between">
-                    <span class=" font-size-30">154</span>
-                    <span class="font-size-30 text-info mdi mdi-city"></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-12">
-            <div class="box box-body pb-10 bl-4 border-success pull-up">
-                <h6 class="text-uppercase">Client Approved</h6>
-                <div class="d-flex justify-content-between">
-                    <span class=" font-size-30">412</span>
-                    <span class="font-size-30 text-primary mdi mdi-seal"></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-12">
-            <div class="box box-body pb-10 bl-4 border-danger pull-up">
-                <h6 class="text-uppercase">Client Rejected</h6>
-                <div class="d-flex justify-content-between">
-                    <span class=" font-size-30">1</span>
-                    <span class="font-size-30 text-danger mdi mdi-city"></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-12">
-            <div class="box box-body pb-10 bl-4 border-warning pull-up">
-                <h6 class="text-uppercase">Client Pending</h6>
-                <div class="d-flex justify-content-between">
-                    <span class=" font-size-30">10</span>
-                    <span class="font-size-30 text-warning mdi mdi-home"></span>
-                </div>
-            </div>
-        </div>
+      
         <div class="col-md-12">
-            <div class="box ">
+            <div class="box d-none">
                 <div class="box-header">
                     <h4>Client Search</h4>
                     <div class="row">
@@ -84,55 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box d-none">
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Contact Name</th>
-                                    <th>Email Id</th>
-                                    <th>Contact No.</th>
-                                    <th>Store Name</th>
-                                    <th>Store Url</th>
-                                    <th>Address</th>
-
-                                    <th>City</th>
-                                    <th>Postal Code</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            @*@using (Html.BeginForm("UploadProductImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.Label("BrowseFiles","", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextBox("files", "", new { @type = "file", @multiple = "multiple" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="ImageUpload" class="btn btn-primary" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10 text-success">
-                                @ViewBag.UploadStatus
-                            </div>
-                        </div>
-
-                    </div>
-                }*@
+            
             <div class="box">
                 <!-- /.box-header -->
                 <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
@@ -169,46 +183,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane" id="profile8" role="tabpanel">
-                            <div class="tab-pane table-responsive active" id="All">
-                                <table class="table m-b-0 table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Patients ID</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Reason</th>
-                                            <th>Number</th>
-                                            <th>Requested Date</th>
-                                            <th>Approved Date</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="list-name">KU 00598</span></td>
-                                            <td>Daniel</td>
-                                            <td>32</td>
-                                            <td>Surgery</td>
-                                            <td>404-447-6013</td>
-                                            <td>11 Feb 2021</td>
-                                            <td>--</td>
-                                            <td><span class="badge badge-warning">Awaiting Approval </span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-name">KU 00598</span></td>
-                                            <td>Daniel</td>
-                                            <td>32</td>
-                                            <td>Surgery</td>
-                                            <td>404-447-6013</td>
-                                            <td>15 Feb 2021</td>
-                                            <td>--</td>
-                                            <td><span class="badge badge-warning">Awaiting Approval</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -344,6 +319,7 @@
         GetClient();
     });
     function GetClient() {
+        
         var param = { ClientName: $('#txtClientName').val(), StoreUrl: $('#txtStoreUrl').val(), City: $('#txtClientCity').val() };
         $("#tblClient").find("tr:not(:first)").remove();
 

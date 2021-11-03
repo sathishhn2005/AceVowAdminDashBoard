@@ -4,9 +4,9 @@
     ViewBag.Title = "PreviewFlyer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />
+@*<link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />*@
 
-<div class="container">
+<div class="d-none container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
         <div class="card">
             <img src="~/Content/Theme/images/1.png" class="card-img-top" alt="..." />
@@ -57,7 +57,7 @@
 </div>
 <!-- /.container -->
 
-<div class="container pb-70 col-lg-12 col-md-12">
+<div class="d-none container pb-70 col-lg-12 col-md-12">
     <div class="shop-bottom-area">
 
         <!-- Shop Tab Content Start -->
@@ -145,6 +145,97 @@
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" id="btnCat">
+    </div>
+</div>
+
+<div class="page-content">
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+                <!-- Page title + Go Back button -->
+                <div class="d-inline-block">
+                    <h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Products</h5>
+                </div>
+                <!-- Additional info -->
+                <div class="align-items-center ml-4 d-inline-flex">
+                    <span class="h4 text-info mb-0 mr-2">9</span>
+                    <span class="text-sm opacity-7 text-white">New users</span>
+                </div>
+                <!-- Optional link -->
+                <a href="table-listing.html" class="text-sm text-info d-none d-lg-inline-block ml-4">See table</a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+                <!-- Filter input -->
+                <form class="bg-neutral rounded-pill d-inline-block">
+                    <div class="input-group input-group-sm input-group-merge input-group-flush">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent"><i class="far fa-filter"></i></span>
+                        </div>
+                        <input type="text" class="form-control form-control-flush" placeholder="Filter results">
+                    </div>
+                </form>
+                <a href="#modal-user-create" class="btn btn-sm btn-white btn-icon-only rounded-circle ml-4" data-toggle="modal">
+                    <span class="btn-inner--icon"><i class="far fa-plus"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-product">
+                        <div class="card-header border-0">
+                            <h2 class="h6">
+                                <a href="#">@item.Name</a>
+                            </h2>
+                        </div>
+                        <!-- Product image -->
+                        <figure class="figure">
+                            <img alt="Image placeholder" src="https://alldealz.ca/ProductImages/@item.image" class="img-center img-fluid">
+                        </figure>
+                        <div class="card-body">
+                            <!-- Price -->
+                            <div class="d-flex align-items-center mt-4">
+
+                                <span class="h6 mb-0">$ @item.RegularPrice</span>
+                                <span class="badge badge-success rounded-pill ml-auto">In stock</span>
+
+
+                            </div>
+                        </div>
+                        <div class="p-4 border-top">
+                            <div class="row">
+                                <div class="col-6 text-center">
+                                    <span class="h5 mb-0"> @item.SavingPercentage</span><sup>%</sup>
+                                    <span class="d-block text-sm">Last week</span>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <span class="h5 mb-0">18</span><sup>%</sup>
+                                    <span class="d-block text-sm">Last month</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="actions d-flex justify-content-between">
+                                <a href="#" class="action-item">
+                                    <i class="far fa-star"></i>
+                                </a>
+                                <a href="#" class="action-item">
+                                    <i class="far fa-chart-pie"></i>
+                                </a>
+                                <a href="#" class="action-item text-danger">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 <script>

@@ -3,42 +3,125 @@
     ViewBag.Title = "ClientPost";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="box">
-    <!-- /.box-header -->
-    <h1 class="text-center text-success">@TempData["Alertmsg"]</h1>
-
-    <div class="box-body">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home8" role="tab"><span><i class="mdi mdi-hotel mr-10"></i>Client Post</span></a> </li>
-            <li class="d-none nav-item"> <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><span class="noti-dot"><i class="mdi mdi-checkbox-marked-circle-outline mr-10"></i>Recent Approvals</span></a> </li>
-        </ul>
-
-
-        <div class="tab-content tabcontent-border">
-            <div class="tab-pane active" id="home8" role="tabpanel">
-                <div class="tab-pane table-responsive active" id="All">
-                    <table id="tblClient" class="table m-b-0 table-hover">
-                        <thead class="text-center">
-                            <tr>
-
-                                <th>User Name</th>
-                                <th>Email Address</th>
-                                <th>Phone Number</th>
-
-                                <th>User Id</th>
-                                <th>PostBulkUpload</th>
-
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                        </tbody>
-                    </table>
+<div class="page-content">
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+                <!-- Page title + Go Back button -->
+                <div class="d-inline-block">
+                    <h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Products</h5>
                 </div>
+                <!-- Additional info -->
+                <div class="align-items-center ml-4 d-inline-flex">
+                    <span class="h4 text-info mb-0 mr-2">9</span>
+                    <span class="text-sm opacity-7 text-white">New products</span>
+                </div>
+                <!-- Optional link -->
+                <a href="card-listing.html" class="text-sm text-info d-none d-lg-inline-block ml-4">
+                    See
+                    cards
+                </a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+                <div class="actions actions-dark d-inline-block">
+                    <a href="#" class="action-item ml-md-4">
+                        <i class="far fa-file-export mr-2"></i>Export
+                    </a>
+                    <a href="#" class="action-item ml-3">
+                        <i class="far fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+                <a href="#" class="btn btn-sm btn-white btn-icon-only rounded-circle ml-4">
+                    <span class="btn-inner--icon"><i class="far fa-plus"></i></span>
+                </a>
             </div>
         </div>
     </div>
+    <!-- Listing -->
+    <div class="card">
+        <!-- Card header -->
+        <div class="card-header actions-toolbar border-0">
+            <div class="actions-search" id="actions-search">
+                <div class="input-group input-group-merge input-group-flush">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-transparent"><i class="far fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-flush"
+                           placeholder="Type and hit enter ...">
+                    <div class="input-group-append">
+                        <a href="#" class="input-group-text bg-transparent" data-action="search-close"
+                           data-target="#actions-search"><i class="far fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <h6 class="d-inline-block mb-0">Products</h6>
+                </div>
+                <div class="col text-right">
+                    <div class="actions">
+                        <a href="#" class="action-item mr-3" data-action="search-open"
+                           data-target="#actions-search"><i class="far fa-search"></i></a>
+                        <div class="dropdown mr-3">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-filter"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-amount-down"></i>Newest
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-down"></i>From A-Z
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-up"></i>From Z-A
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown" data-toggle="dropdown">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item">Refresh</a>
+                                <a href="#" class="dropdown-item">Manage Widgets</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table id="tblClient" class="table align-items-center">
+                <thead>
+                    <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">User Id</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody class="list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Load more -->
+    <div class="mt-4 text-center">
+        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">
+            Load more
+            ...
+        </a>
+    </div>
 </div>
+
 
 @using (Html.BeginForm("BulkPostUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -108,7 +191,7 @@
                             // Heater validation
                             if (cells.length == 5) {
 
-                                				
+
 
                                 if (cells[0] != "FacebookPost") {
                                     $('#fileUploadPost').val('');
@@ -223,8 +306,8 @@
         $.ajax({
 
             type: "GET",
-            //url: "https://localhost:44396/api/admin/getClientsAdminDashBoard",
-            url: "https://social.alldealz.ca/api/admin/getClientsAdminDashBoard",
+            url: "https://localhost:44396/api/admin/getClientsAdminDashBoard",
+            //  url: "https://social.alldealz.ca/api/admin/getClientsAdminDashBoard",
             dataType: "json",
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (Result) {
@@ -236,7 +319,7 @@
                         var hdId = i;
                         var JVal = JSON.stringify(value);
 
-                        $('#tblClient').append('<tr> <td>' + value.userName + '</td><td>' + value.emailAddress + '</td><td>' + value.phoneNumber + '</td><td>' + value.userId + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + "'" + value.userId + "'" + ') data-target="#uploadPostBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td>' + value.userName + '</td><td>' + value.emailAddress + '</td><td>' + value.phoneNumber + '</td><td>' + value.userId + '</td><td class="text-right"><div class="actions ml-3">  <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Quick view"> <i class="far fa-external-link-alt"></i></a></td><td class="d-none"><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + "'" + value.userId + "'" + ') data-target="#uploadPostBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
                         //emailAddress: "sathish@gmail.com"
                         //fbConnected: false
