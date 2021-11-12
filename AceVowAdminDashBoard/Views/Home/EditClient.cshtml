@@ -1,737 +1,325 @@
 ﻿@model AceVowEntities.ClientUser
-
-@{
-
-    Layout = null;
-}
-<link href="~/Content/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="@Url.Content("~/Content/Theme/css/plugins/ionicons.min.css")" />
-<link href="~/Content/Theme/fonts/boxicons-2.0.7/boxicons-2.0.7/css/boxicons.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<style type="text/css">
-
-    body {
-        font-family: "Open Sans",sans-serif;
-        font-size: 14px;
-        color: #000;
-        line-height: 24px;
-        background: #fff;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
-    i {
-        margin-right: 10px;
-    }
-
-    /*------------------------*/
-    input:focus,
-    button:focus,
-    .form-control:focus {
-        outline: none;
-        box-shadow: none;
-    }
-
-    .form-control:disabled, .form-control[readonly] {
-        background-color: #fff;
-    }
-    /*----------step-wizard------------*/
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-center {
-        justify-content: center;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    /*---------signup-step-------------*/
-    .bg-color {
-        background-color: #333;
-    }
-
-    .signup-step-container {
-        padding: 80px 0px;
-        padding-bottom: 60px;
-    }
-
-
-
-
-    .wizard .nav-tabs {
-        position: relative;
-        margin-bottom: 0;
-        border-bottom-color: transparent;
-    }
-
-    .wizard > div.wizard-inner {
-        position: relative;
-        margin-bottom: 50px;
-        text-align: center;
-    }
-
-    .connecting-line {
-        height: 2px;
-        background: #e0e0e0;
-        position: absolute;
-        width: 75%;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        top: 15px;
-        z-index: 1;
-    }
-
-    .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
-        color: #555555;
-        cursor: default;
-        border: 0;
-        border-bottom-color: transparent;
-    }
-
-    span.round-tab {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        display: inline-block;
-        border-radius: 50%;
-        background: #fff;
-        z-index: 2;
-        position: absolute;
-        left: 0;
-        text-align: center;
-        font-size: 16px;
-        color: #0e214b;
-        font-weight: 500;
-        border: 1px solid #ddd;
-    }
-
-        span.round-tab i {
-            color: #555555;
-        }
-
-    .wizard li.active span.round-tab {
-        background: #c44118;
-        color: #fff;
-        border-color: #c44118;
-    }
-
-        .wizard li.active span.round-tab i {
-            color: #5bc0de;
-        }
-
-    .wizard .nav-tabs > li.active > a i {
-        color: #c44118;
-    }
-
-    .wizard .nav-tabs > li {
-        width: 25%;
-    }
-
-    .wizard li:after {
-        content: " ";
-        position: absolute;
-        left: 46%;
-        opacity: 0;
-        margin: 0 auto;
-        bottom: 0px;
-        border: 5px solid transparent;
-        border-bottom-color: red;
-        transition: 0.1s ease-in-out;
-    }
-
-
-
-    .wizard .nav-tabs > li a {
-        width: 30px;
-        height: 30px;
-        margin: 20px auto;
-        border-radius: 100%;
-        padding: 0;
-        background-color: transparent;
-        position: relative;
-        top: 0;
-    }
-
-        .wizard .nav-tabs > li a i {
-            position: absolute;
-            top: -15px;
-            font-style: normal;
-            font-weight: 400;
-            white-space: nowrap;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .wizard .nav-tabs > li a:hover {
-            background: transparent;
-        }
-
-    .wizard .tab-pane {
-        position: relative;
-        padding-top: 20px;
-    }
-
-
-    .wizard h3 {
-        margin-top: 0;
-    }
-
-    .prev-step,
-    .next-step {
-        font-size: 13px;
-        padding: 8px 24px;
-        border: none;
-        border-radius: 4px;
-        margin-top: 30px;
-        color: white;
-    }
-
-    .next-step {
-        background-color: #c44118;
-    }
-
-    .skip-btn {
-        background-color: #cec12d;
-    }
-
-    .step-head {
-        font-size: 20px;
-        text-align: center;
-        font-weight: 500;
-        margin-bottom: 20px;
-    }
-
-    .term-check {
-        font-size: 14px;
-        font-weight: 400;
-    }
-
-    .custom-file {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        height: 40px;
-        margin-bottom: 0;
-    }
-
-    .custom-file-input {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        height: 40px;
-        margin: 0;
-        opacity: 0;
-    }
-
-    .custom-file-label {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1;
-        height: 40px;
-        padding: .375rem .75rem;
-        font-weight: 400;
-        line-height: 2;
-        color: #495057;
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-    }
-
-        .custom-file-label::after {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 3;
-            display: block;
-            height: 38px;
-            padding: .375rem .75rem;
-            line-height: 2;
-            color: #495057;
-            content: "Browse";
-            background-color: #e9ecef;
-            border-left: inherit;
-            border-radius: 0 .25rem .25rem 0;
-        }
-
-    .footer-link {
-        margin-top: 30px;
-    }
-
-    .all-info-container {
-    }
-
-    .list-content {
-        margin-bottom: 10px;
-    }
-
-        .list-content a {
-            padding: 10px 15px;
-            width: 100%;
-            display: inline-block;
-            background-color: #f5f5f5;
-            position: relative;
-            color: #565656;
-            font-weight: 400;
-            border-radius: 4px;
-        }
-
-            .list-content a[aria-expanded="true"] i {
-                transform: rotate(180deg);
-            }
-
-            .list-content a i {
-                text-align: right;
-                position: absolute;
-                top: 15px;
-                right: 10px;
-                transition: 0.5s;
-            }
-
-    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-        background-color: #fdfdfd;
-    }
-
-    .list-box {
-        padding: 10px;
-    }
-
-    .signup-logo-header .logo_area {
-        width: 200px;
-    }
-
-    .signup-logo-header .nav > li {
-        padding: 0;
-    }
-
-    .signup-logo-header .header-flex {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .list-inline li {
-        display: inline-block;
-    }
-
-    .pull-right {
-        float: right;
-    }
-    /*-----------custom-checkbox-----------*/
-    /*----------Custom-Checkbox---------*/
-    input[type="checkbox"] {
-        position: relative;
-        display: inline-block;
-        margin-right: 5px;
-    }
-
-        input[type="checkbox"]::before,
-        input[type="checkbox"]::after {
-            position: absolute;
-            content: "";
-            display: inline-block;
-        }
-
-        input[type="checkbox"]::before {
-            height: 16px;
-            width: 16px;
-            border: 1px solid #999;
-            left: 0px;
-            top: 0px;
-            background-color: #fff;
-            border-radius: 2px;
-        }
-
-        input[type="checkbox"]::after {
-            height: 5px;
-            width: 9px;
-            left: 4px;
-            top: 4px;
-        }
-
-        input[type="checkbox"]:checked::after {
-            content: "";
-            border-left: 1px solid #fff;
-            border-bottom: 1px solid #fff;
-            transform: rotate(-45deg);
-        }
-
-        input[type="checkbox"]:checked::before {
-            background-color: #18ba60;
-            border-color: #18ba60;
-        }
-</style>
-<div>
-
-    <section class="signup-step-container">
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-12">
-                    <div class="wizard">
-                        <div class="wizard-inner">
-                            <div class="connecting-line"></div>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>BASIC INFO</i></a>
-                                </li>
-                                <li role="presentation" class="disabled">
-                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">2</span> <i>CONTACT DETAILS</i></a>
-                                </li>
-                                <li role="presentation" class="disabled">
-                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">3</span> <i>CATEGORY UPDATE</i></a>
-                                </li>
-                                <li role="presentation" class="disabled">
-                                    <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">4</span> <i>LOGO & BANNER UPLOAD</i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.HiddenFor(model => model.Id)
-                            <div class="tab-content" id="main_form">
-                                <div class="tab-pane active" role="tabpanel" id="step1">
-                                    <h4 class="text-center">Basic Info</h4>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Industry</label>
-
-                                                @Html.TextBoxFor(model => model.Industry, new { @class = "form-control w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Store Name</label>
-                                                @Html.TextBoxFor(model => model.StoreName, new { @class = "form-control w-full", @placeholder = "Enter StoreName Name", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Store URL</label>
-                                                @Html.TextBoxFor(model => model.StoreURL, new { @class = "form-control w-full", @placeholder = "Enter StoreURL", @maxlength = "200" })
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control w-full", @placeholder = "Enter StoreURL", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Confirm Password</label>
-                                                <input class="form-control" type="text" name="ConfirmPassword" placeholder="Confirm Password">
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <ul class="list-inline pull-right">
-                                        <li><button type="button" class="default-btn next-step">Continue to next step</button></li>
-                                    </ul>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="step2">
-                                    <h4 class="text-center">Contact Info</h4>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Contact Name
-                                                </label>
-                                                @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control w-full", @placeholder = "Enter Contact Name", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Position</label>
-                                                @Html.TextBoxFor(model => model.Positon, new { @class = "form-control w-full", @placeholder = "Enter Postion", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Primary Contact Number
-                                                </label>
-                                                @Html.TextBoxFor(model => model.PirmaryContact, new { @class = "form-control w-full", @placeholder = "Enter Primary Contact", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    EmailId
-                                                </label>
-                                                @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control w-full", @placeholder = "Enter EmailId", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Address Line 1
-                                                </label>
-                                                @Html.TextBoxFor(model => model.AddressLine1, new { @class = "form-control w-full", @placeholder = "Enter Address 1", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Address Line 2
-                                                </label>
-                                                @Html.TextBoxFor(model => model.AddressLine2, new { @class = "form-control w-full", @placeholder = "Enter Address 2", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                @Html.TextBoxFor(model => model.City, new { @class = "form-control w-full", @placeholder = "Enter City", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Postal Code</label>
-                                                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control w-full", @placeholder = "Enter PostalCode", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4 class="text-center">Other Info</h4>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>
-                                                    Targeted Cities
-                                                </label>
-                                                @Html.TextBoxFor(model => model.TargetedCities, new { @class = "form-control w-full", @placeholder = "Enter Targeted Cities", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Targeted Communities
-                                                </label>
-                                                @Html.TextBoxFor(model => model.TargetedCommunities, new { @class = "form-control w-full", @placeholder = "Enter Targeted Communities", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>
-                                                    Welcome Message
-                                                </label>
-                                                @Html.TextBoxFor(model => model.WelcomeMessage, new { @class = "form-control w-full", @placeholder = "Enter Welcome Message", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>
-                                                    Trolly Count
-                                                </label>
-                                                @Html.TextBoxFor(model => model.TrolleryCount, new { @class = "form-control w-full", @placeholder = "Enter Trolly Count", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>
-                                                    Basket Count
-                                                </label>
-                                                @Html.TextBoxFor(model => model.BasketCount, new { @class = "form-control w-full", @placeholder = "Enter Basket Count", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4 class="text-center">Your Social Media Links</h4>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>
-                                                    Facebook Url
-                                                </label>
-                                            </div>
-                                            <div class="input-group mb-3">
-
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon3">
-                                                        <i class="fab fa-facebook-square"></i>
-                                                    </span>
-                                                </div>
-
-                                                @Html.TextBoxFor(model => model.ClientFBUrl, new { @class = "form-control w-full", @placeholder = "Enter Facebook Url", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>
-                                                    Twitter Url
-                                                </label>
-                                            </div>
-                                            <div class="input-group mb-3">
-
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon3">
-                                                        <i class="fab fa-twitter"></i>
-                                                    </span>
-                                                </div>
-
-                                                @Html.TextBoxFor(model => model.ClientTwitterUrl, new { @class = "form-control w-full", @placeholder = "Enter Twitter Url", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>
-                                                    Instagram Url
-                                                </label>
-                                            </div>
-                                            <div class="input-group mb-3">
-
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon3">
-                                                        <i class="fab fa-instagram"></i>
-                                                    </span>
-                                                </div>
-
-                                                @Html.TextBoxFor(model => model.ClientInstaUrl, new { @class = "form-control w-full", @placeholder = "Enter Instagram Url", @maxlength = "200" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <ul class="list-inline pull-right">
-                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                        <li><button type="button" class="default-btn next-step skip-btn">Skip</button></li>
-                                        <li><button type="button" class="default-btn next-step">Continue</button></li>
-                                    </ul>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="step3">
-                                    <h4 class="text-center">Categories</h4>
-
-                                    <div class="myaccount-info-wrapper">
-                                        <div class="entries-wrapper">
-                                            <div class="row">
-                                                @if (Model.lstCategory!=null)
-                                                {
-                                                    foreach (var childCat in Model.lstCategory)
-                                                    {
-                                                    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                        <div class="entries-info text-center">
-                                                            @*<h4>@row.Name</h4>*@
-
-
-                                                            <input type="checkbox" checked class="chkCat" value="@childCat.Id" />
-                                                            <label>@childCat.Name</label>
-
-
-                                                        </div>
-                                                    </div>
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="list-inline pull-right">
-                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                        <li><button type="button" class="default-btn next-step skip-btn">Skip</button></li>
-                                        <li><button type="button" class="default-btn next-step">Continue</button></li>
-                                    </ul>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="step4">
-                                    <h4 class="text-center">Logo & Banner upload</h4>
-                                    <div class="all-info-container">
-                                        <div class="modal-body">
-                                            <div id="img-area" class="panel-collapse show">
-                                                <div class="panel-body">
-                                                    <div class="myaccount-info-wrapper">
-                                                        <div class="entries-wrapper">
-
-                                                            <div class="row">
-                                                                <div class="form-group  col-sm-12">
-                                                                    <label for="exampleFormControlFile1">Client Banner</label>
-                                                                    <input type="file" name="ImageFileBanner" accept= ".jpg,.png,.jpg,.jpeg" class="form-control-file">
-                                                                </div>
-                                                                <div class="form-group col-sm-12">
-                                                                    <label for="exampleFormControlFile1">Client Logo</label>
-                                                                    <input type="file" name="ImageFileLogo" accept= ".jpg,.png,.jpg,.jpeg" class="form-control-file">
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <ul class="list-inline pull-right">
-                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                        <li><input type="submit" value="Finish" class="default-btn next-step" /></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-
-                        }
-                    </div>
+<link href="~/Content/assets/libs/material-wizard/css/material-bootstrap-wizard.css" rel="stylesheet" />
+<div class="page-content">
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+                <!-- Page title + Go Back button -->
+                <div class="d-inline-block">
+                    <h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Edit Client</h5>
                 </div>
+                <!-- Additional info -->
+                <div class="align-items-center ml-4 d-inline-flex">
+                    <span class="h4 text-info mb-0 mr-2">9</span>
+                    <span class="text-sm opacity-7 text-white">New products</span>
+                </div>
+                <!-- Optional link -->
+                <a href="card-listing.html" class="text-sm text-info d-none d-lg-inline-block ml-4">
+                    See
+                    cards
+                </a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+                <div class="actions actions-dark d-inline-block">
+                    <a href="#" class="action-item ml-md-4">
+                        <i class="far fa-file-export mr-2"></i>Export
+                    </a>
+                    <a href="#" class="action-item ml-3">
+                        <i class="far fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+                <a href="#" class="btn btn-sm btn-white btn-icon-only rounded-circle ml-4">
+                    <span class="btn-inner--icon"><i class="far fa-plus"></i></span>
+                </a>
             </div>
         </div>
-    </section>
-    
-</div>
-<script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
-<script src="~/Content/vendor/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript">
-    // ------------step-wizard-------------
-    $(document).ready(function () {
-        $('.nav-tabs > li a[title]').tooltip();
+    </div>
+    <div class="card wizard-card" data-color="red" id="wizard">
+        <form action="" method="">
+            <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
 
-        //Wizard
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            <div class="wizard-header">
+                <h3 class="wizard-title">
+                    Edit Client Details
+                </h3>
+            </div>
+            <div class="wizard-navigation">
+                <ul>
+                    <li><a href="#basicInfo" data-toggle="tab">Basic Info</a></li>
+                    <li><a href="#contactDetails" data-toggle="tab">Contact Details</a></li>
+                    <li><a href="#categories" data-toggle="tab">Categories</a></li>
+                    <li><a href="#logoBannerUpload" data-toggle="tab">Logo and Banner Upload</a></li>
+                </ul>
+            </div>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+@Html.HiddenFor(model => model.Id)
+                <div class="tab-content">
+                    <div class="tab-pane" id="basicInfo">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Industry</label>
 
-            var target = $(e.target);
+                                    @Html.TextBoxFor(model => model.Industry, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Store Name</label>
+                                    @Html.TextBoxFor(model => model.StoreName, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter StoreName Name", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Store URL</label>
+                                    @Html.TextBoxFor(model => model.StoreURL, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter StoreURL", @maxlength = "200" })
+                                </div>
+                            </div>
 
-            if (target.parent().hasClass('disabled')) {
-                return false;
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter StoreURL", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input class="form-control form-control-sm" type="text" name="ConfirmPassword" placeholder="Confirm Password">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="contactDetails">
+                        <h4 class="mb-3">Contact Info</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Contact Name
+                                    </label>
+                                    @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Contact Name", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Position</label>
+                                    @Html.TextBoxFor(model => model.Positon, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Postion", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Primary Contact Number
+                                    </label>
+                                    @Html.TextBoxFor(model => model.PirmaryContact, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Primary Contact", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        EmailId
+                                    </label>
+                                    @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter EmailId", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Address Line 1
+                                    </label>
+                                    @Html.TextBoxFor(model => model.AddressLine1, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Address 1", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Address Line 2
+                                    </label>
+                                    @Html.TextBoxFor(model => model.AddressLine2, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Address 2", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    @Html.TextBoxFor(model => model.City, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter City", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Postal Code</label>
+                                    @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter PostalCode", @maxlength = "200" })
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-3">Other Info</h4>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        Targeted Cities
+                                    </label>
+                                    @Html.TextBoxFor(model => model.TargetedCities, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Targeted Cities", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Targeted Communities
+                                    </label>
+                                    @Html.TextBoxFor(model => model.TargetedCommunities, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Targeted Communities", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Welcome Message
+                                    </label>
+                                    @Html.TextBoxFor(model => model.WelcomeMessage, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Welcome Message", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        Trolly Count
+                                    </label>
+                                    @Html.TextBoxFor(model => model.TrolleryCount, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Trolly Count", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        Basket Count
+                                    </label>
+                                    @Html.TextBoxFor(model => model.BasketCount, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Basket Count", @maxlength = "200" })
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="mb-3">Your Social Media Links</h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Facebook Url
+                                    </label>
+                                </div>
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <i class="fab fa-facebook-square"></i>
+                                        </span>
+                                    </div>
+
+                                    @Html.TextBoxFor(model => model.ClientFBUrl, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Facebook Url", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Twitter Url
+                                    </label>
+                                </div>
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <i class="fab fa-twitter"></i>
+                                        </span>
+                                    </div>
+
+                                    @Html.TextBoxFor(model => model.ClientTwitterUrl, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Twitter Url", @maxlength = "200" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        Instagram Url
+                                    </label>
+                                </div>
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <i class="fab fa-instagram"></i>
+                                        </span>
+                                    </div>
+
+                                    @Html.TextBoxFor(model => model.ClientInstaUrl, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter Instagram Url", @maxlength = "200" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="categories">
+                        <h4 class="mb-3">Select Categories</h4>
+
+                        <div class="myaccount-info-wrapper">
+                            <div class="entries-wrapper">
+                                <div class="row">
+                                    @if (Model.lstCategory != null)
+                                    {
+                                        foreach (var childCat in Model.lstCategory)
+                                        {
+                    <div class="col-lg-6 col-md-6">
+                        <div class="entries-info">
+                            @*<h4>@row.Name</h4>*@
+
+
+                            <input type="checkbox" checked class="chkCat" value="@childCat.Id" />
+                            <label>@childCat.Name</label>
+
+
+                        </div>
+                    </div>}
             }
-        });
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="logoBannerUpload">
+                        <h4 class="mb-3">Logo & Banner upload</h4>
+                        <div id="img-area" class="panel-collapse show">
+                            <div class="panel-body">
+                                <div class="myaccount-info-wrapper">
+                                    <div class="entries-wrapper">
 
-        $(".next-step").click(function (e) {
+                                        <div class="row">
+                                            <div class="form-group  col-sm-12">
+                                                <label for="exampleFormControlFile1">Client Banner</label>
+                                                <input type="file" name="ImageFileBanner" accept=".jpg,.png,.jpg,.jpeg" class="form-control-file">
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label for="exampleFormControlFile1">Client Logo</label>
+                                                <input type="file" name="ImageFileLogo" accept=".jpg,.png,.jpg,.jpeg" class="form-control-file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+            <div class="wizard-footer row mb-4">
+                <div class="col-6">
+                    <input type='button' class='btn btn-previous btn-fill btn-default btn-sm' name='previous' value='Previous' />
+                </div>
+                <div class="col-6 text-right">
+                    <input type='button' class='btn btn-next btn-fill btn-primary btn-sm' name='next' value='Next' />
+                    <input type='button' class='btn btn-finish btn-fill btn-primary btn-sm' name='finish' value='Finish' />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
 
-            var active = $('.wizard .nav-tabs li.active');
-            active.next().removeClass('disabled');
-            nextTab(active);
 
-        });
-        $(".prev-step").click(function (e) {
-
-            var active = $('.wizard .nav-tabs li.active');
-            prevTab(active);
-
-        });
-    });
-
-    function nextTab(elem) {
-        $(elem).next().find('a[data-toggle="tab"]').click();
-    }
-    function prevTab(elem) {
-        $(elem).prev().find('a[data-toggle="tab"]').click();
-    }
-
-
-    $('.nav-tabs').on('click', 'li', function () {
-        $('.nav-tabs li.active').removeClass('active');
-        $(this).addClass('active');
-    });
-
-
-
-</script>
+</div>
+<script src="~/Content/assets/libs/material-wizard/js/jquery.bootstrap.js"></script>
+<script src="~/Content/assets/libs/material-wizard/js/jquery.validate.min.js"></script>
+<script src="~/Content/assets/libs/material-wizard/js/material-bootstrap-wizard.js"></script>

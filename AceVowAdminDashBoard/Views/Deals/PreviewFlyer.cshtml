@@ -7,7 +7,7 @@
 @*<link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />*@
 
 <div class="d-none container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
+    @*<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
         <div class="card">
             <img src="~/Content/Theme/images/1.png" class="card-img-top" alt="..." />
             <p class="card-text">
@@ -53,7 +53,7 @@
                 </div>
             </p>
         </div>
-    </div>
+    </div>*@
 </div>
 <!-- /.container -->
 
@@ -124,10 +124,10 @@
                                         </div>
                                         <div class="card-footer">
                                             <p class="card-text">
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input addProduct" type="checkbox" name="flexSwitchCheckChecked" id="@item.ProductId" value="@item.ProductId">
-                                                    <label class="form-check-label" for="@item.ProductId">Add Product</label>
-                                                </div>
+                                                @*<div class="form-check form-switch">
+                                                        <input class="form-check-input addProduct" type="checkbox" name="flexSwitchCheckChecked" id="@item.ProductId" value="@item.ProductId">
+                                                        <label class="form-check-label" for="@item.ProductId">Add Product</label>
+                                                    </div>*@
                                             </p>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
         <!--  Pagination Area End -->
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" id="btnCat">
+        @*<input type="submit" class="btn btn-primary" id="btnCat">*@
     </div>
 </div>
 
@@ -195,13 +195,13 @@
                         </div>
                         <!-- Product image -->
                         <figure class="figure">
-                            <img alt="Image placeholder" src="https://alldealz.ca/ProductImages/@item.image" class="img-center img-fluid">
+                            <img alt="Image placeholder" src="https://alldealz.ca/ProductImages/@item.image" class="img-center img-fluid h-150">
                         </figure>
                         <div class="card-body">
                             <!-- Price -->
                             <div class="d-flex align-items-center mt-4">
-
-                                <span class="h6 mb-0">$ @item.RegularPrice</span>
+                                <span class="h6 mb-0 text-decoration-strike text-muted">$2.00</span>
+                                <span class="h6 mb-0 mx-2 font-weight-bolder">$@item.RegularPrice</span>
                                 <span class="badge badge-success rounded-pill ml-auto">In stock</span>
 
 
@@ -209,17 +209,12 @@
                         </div>
                         <div class="p-4 border-top">
                             <div class="row">
-                                <div class="col-6 text-center">
-                                    <span class="h5 mb-0"> @item.SavingPercentage</span><sup>%</sup>
-                                    <span class="d-block text-sm">Last week</span>
-                                </div>
-                                <div class="col-6 text-center">
-                                    <span class="h5 mb-0">18</span><sup>%</sup>
-                                    <span class="d-block text-sm">Last month</span>
+                                <div class="col-12 text-center">
+                                    <span class="h5 mb-0 text-success"> @item.SavingPercentage</span><sup>% </sup>saved on this product
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer d-none">
                             <div class="actions d-flex justify-content-between">
                                 <a href="#" class="action-item">
                                     <i class="far fa-star"></i>
@@ -230,12 +225,54 @@
                                 <a href="#" class="action-item text-danger">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="flexSwitchCheckChecked" id="@item.ProductId" value="@item.ProductId">
+                                    <label class="custom-control-label" for="@item.ProductId">Add Product</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             }
         }
+    <div class="col-12 text-center">
+        <button type="button" class="btn btn-primary rounded-pill" data-toggle="modal" data-target=".load-theme-modal">Load Theme</button>
+    </div>
+    </div>
+</div>
+<div class="modal fade load-theme-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title h6" id="myLargeModalLabel">Select Theme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="themeSelect" id="themeId1" autocomplete="off" value="1" checked> Theme 1
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="themeSelect" id="themeId2" value="2" autocomplete="off"> Theme 2
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="themeSelect" id="themeId3" value="3" autocomplete="off"> Theme 3
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="themeSelect" id="themeId4" value="4" autocomplete="off"> Theme 4
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="themeSelect" id="themeId7" value="7" autocomplete="off"> Theme 7
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnCat" >Preview Template</button>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -251,6 +288,7 @@
                 return;
             }
             lstProducts.push({ "ProductId": ProductId });
+            console.log("JJ"+ lstProducts);
         }
         else {
             var ProductId = $(this).val();
@@ -308,5 +346,28 @@
         //qrCount(0);
 
     });
-
+    $('.card-product').click(function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            $(this).addClass('selected');
+        }
+        $(this).find('.custom-control-input').prop("checked", !$(this).find('.custom-control-input').prop("checked"));
+        if ($(this).find('.custom-control-input').is(':checked')) {
+            var ProductId = $(this).find('.custom-control-input').val();
+            if (lstProducts.length == 0) {
+                lstProducts.push({ "ProductId": ProductId });
+                return;
+            }
+            lstProducts.push({ "ProductId": ProductId });
+            console.log(JSON.stringify(lstProducts));
+        }
+        else {
+            var ProductId = $(this).find('.custom-control-input').val();
+            lstProducts = lstProducts.filter(function (obj) {
+                return obj.ProductId !== ProductId;
+            });
+            console.log(JSON.stringify(lstProducts));
+        }
+    });
 </script>

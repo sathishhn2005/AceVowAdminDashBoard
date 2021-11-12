@@ -229,7 +229,7 @@
 @using (Html.BeginForm("BulkUpdate", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
@@ -237,32 +237,29 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" id="hdnId" name="hdnId" value="0" />
-                    <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="text-right">
+                <div class="modal-body text-center">
+                    <h2>Bulk File Upload for Client</h2>
+                    <p class="lead">Number of Files Attached<b> 5</b></p>
 
-                                <a href="~/Masters/SampleFormat.csv" class="btn btn-dark btn-sm" download>
-                                    <i class="mdi mdi-download"></i> Download Sample format
-                                </a>
+                    <!-- Upload  -->
+                    <div id="file-upload-form" class="uploader">
+                        <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+
+                        <label for="file-upload" id="file-drag">
+                            <img id="file-image" src="#" alt="Preview" class="hidden">
+                            <div id="start">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <div>Select a file or drag here</div>
+                                <div id="notimage" class="hidden">Please select an image</div>
+                                <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
                             </div>
-
-                            <div class="fileuploader fileuploader-theme-dragdrop">
-
-                                <input type="file" name="CSVFile" id="fileUploadRIMaster" accept=".csv" />
-
-                                <div class="mt-2">
-
-                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
-                                        <span>Upload</span>
-                                    </i>
-                                    <button id="uploadFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
-                                </div>
+                            <div id="response" class="hidden">
+                                <div id="messages"></div>
+                                <progress class="progress" id="file-progress" value="0">
+                                    <span>0</span>%
+                                </progress>
                             </div>
-
-
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -340,7 +337,7 @@
                         var hdId = i;
                         var JVal = JSON.stringify(value);
 
-                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.UserId + ') data-target="#CategoryUpdate"><i class="mdi mdi-library-plus"></i></button></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i></td><td><div class="checkbox switcher"><label for=' + hdnID + ' class="mb-0"><input onchange="Deactivate(' + value.UserId + ',' + value.IsActive + ')" type="checkbox" id=' + hdnID + ' value=' + value.UserId + '><span><small></small></span></label></div><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td><a href="javascript:qrCount(' + value.Id + ');">' + value.StoreName + '</a></td><td>' + value.ContactName + '</td><td>' + value.EmailId + '</td><td>' + value.AddressLine1 + '</td><td><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" onclick=SetId(' + value.Id + ') data-target="#uploadBulk"><i class="fas fa-cloud-upload-alt"></i></button></td><td><button class="btn btn-secondary-login" type="button" data-toggle="modal" onclick=SetId(' + value.UserId + ') data-target="#CategoryUpdate"><i class="fas fa-layer-group"></i></button></td><td class="text-center"><i class="fas fa-pencil-alt text-primary mx-3" onclick="EditClientMaster(' + "'" + value.Id + "'" + ')"></i></td><td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id=' + hdnID + ' onchange="Deactivate(' + value.UserId + ',' + value.IsActive + ')" value = ' + value.UserId + ' > <label class="custom-control-label" for=' + hdnID + '></label> </div ><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
                         if (value.IsActive == 0) {
                             $("#" + hdnID).prop('checked', false);
                         }

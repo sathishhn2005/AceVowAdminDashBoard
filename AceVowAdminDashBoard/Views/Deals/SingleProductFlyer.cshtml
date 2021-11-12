@@ -2,16 +2,9 @@
 
 @{
     ViewBag.Title = "SingleProductFlyer";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HTML TO IMAGE</title>
-    <link href="~/Content/Fonts/roboto.css" rel="stylesheet" />
-    <link href="~/Content/css/products.css" rel="stylesheet" />
     <style>
         #htmltoimage {
             width: 65%;
@@ -193,9 +186,6 @@
                 }
     </style>
 
-</head>
-
-<body>
     <div class="offset-3 col-lg-6">
         <button onclick="downloadimage()" class="btn btn-secondary">Click To Download Image</button>
     </div>
@@ -819,9 +809,7 @@
             </div>
         </div>
     </div>
-
-    <script src="~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/App/html2canvas.js"></script>
+    <script src="~/Content/assets/libs/html2canavas/html2canvas.js"></script>
     <script type="text/javascript">
 
         function downloadimage() {
