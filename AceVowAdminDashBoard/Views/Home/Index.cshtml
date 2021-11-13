@@ -93,6 +93,8 @@
             </div>
         </div>
         <!-- Table -->
+        <h1 class="text-center text-success">@TempData["UserMess"]</h1>
+        
         <div class="table-responsive">
             <table id="tblClient" class="table align-items-center">
                 <thead>
@@ -203,6 +205,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="hdnId" name="hdnId" value="0" />
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">From Date:</label>
@@ -239,28 +242,29 @@
                 </div>
                 <div class="modal-body text-center">
                     <h2>Bulk File Upload for Client</h2>
-                    <p class="lead">Number of Files Attached<b> 5</b></p>
+                    @*<p class="lead">Number of Files Attached<b> 5</b></p>*@
 
                     <!-- Upload  -->
-                    <div id="file-upload-form" class="uploader">
-                        <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+                <div id="file-upload-form" class="uploader">
+                    <input id="fileUploadRIMaster" type="file" name="CSVFile" accept=".csv" />
 
-                        <label for="file-upload" id="file-drag">
-                            <img id="file-image" src="#" alt="Preview" class="hidden">
-                            <div id="start">
-                                <i class="fa fa-download" aria-hidden="true"></i>
-                                <div>Select a file or drag here</div>
-                                <div id="notimage" class="hidden">Please select an image</div>
-                                <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
-                            </div>
-                            <div id="response" class="hidden">
-                                <div id="messages"></div>
-                                <progress class="progress" id="file-progress" value="0">
-                                    <span>0</span>%
-                                </progress>
-                            </div>
-                        </label>
-                    </div>
+                    @*name="CSVFile" id="fileUploadRIMaster" accept=".csv"*@
+                    <label for="fileUploadRIMaster" id="file-drag">
+                        <img id="file-image" src="#" alt="Preview" class="hidden">
+                        <div id="start">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            <div>Select a file or drag here</div>
+                            <div id="notimage" class="hidden">Please select an image</div>
+                            <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                        </div>
+                        <div id="response" class="hidden">
+                            <div id="messages"></div>
+                            <progress class="progress" id="file-progress" value="0">
+                                <span>0</span>%
+                            </progress>
+                        </div>
+                    </label>
+                </div>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -673,16 +677,15 @@
     function EditClientMaster(id) {
         // window.location.href = "/Home/EditClient?Id='" + id + "'";
         $('#hdnId').val(id);
-        // window.location.href = "/Home/EditClient?hdnId=" + id + "";
-        window.open(
-            "/Home/EditClient?hdnId=" + id + "",
-            '_blank' // <- This is what makes it open in a new window.
-        );
+        window.location.href = "/Home/EditClient?hdnId=" + id + "";
+        //window.open(
+        //    "/Home/EditClient?hdnId=" + id + ""// <- This is what makes it open in a new window.
+        //);
 
     }
     function qrCount(id) {
         $('#exampleModal').modal('show');
-        // SetId(id);
+        //SetId(id);
 
         if (id == 0 || id == undefined) {
             id = $('#hdnId').val();

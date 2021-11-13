@@ -148,7 +148,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\css\products.css" />
     <Content Include="Content\assets\css\purpose.css" />
+    <Content Include="Content\assets\img\brand\logo.png" />
     <Content Include="Content\assets\img\icons\essential\detailed\DOC_File.svg" />
     <Content Include="Content\assets\img\icons\essential\detailed\Mobile_UI.svg" />
     <Content Include="Content\assets\img\icons\flags\es.svg" />
@@ -174,9 +176,20 @@
     <Content Include="Content\assets\libs\%40fortawesome\all.min.css" />
     <Content Include="Content\assets\libs\animate.css\animate.min.css" />
     <Content Include="Content\assets\libs\apexcharts\dist\apexcharts.min.js" />
+    <Content Include="Content\assets\libs\Autocomplete\jquery-ui.css" />
+    <Content Include="Content\assets\libs\Autocomplete\jquery-ui.js" />
     <Content Include="Content\assets\libs\fontawesome\all.min.css" />
     <Content Include="Content\assets\libs\fullcalendar\dist\fullcalendar.min.css" />
     <Content Include="Content\assets\libs\fullcalendar\dist\fullcalendar.min.js" />
+    <Content Include="Content\assets\libs\html2canavas\html2canvas.js" />
+    <Content Include="Content\assets\libs\material-wizard\css\bootstrap.min.css" />
+    <Content Include="Content\assets\libs\material-wizard\css\demo.css" />
+    <Content Include="Content\assets\libs\material-wizard\css\material-bootstrap-wizard.css" />
+    <Content Include="Content\assets\libs\material-wizard\js\bootstrap.min.js" />
+    <Content Include="Content\assets\libs\material-wizard\js\jquery-2.2.4.min.js" />
+    <Content Include="Content\assets\libs\material-wizard\js\jquery.bootstrap.js" />
+    <Content Include="Content\assets\libs\material-wizard\js\jquery.validate.min.js" />
+    <Content Include="Content\assets\libs\material-wizard\js\material-bootstrap-wizard.js" />
     <Content Include="Content\assets\libs\moment\min\moment.min.js" />
     <Content Include="Content\assets\libs\progressbar.js\dist\progressbar.min.js" />
     <Content Include="favicon.ico" />
@@ -1081,7 +1094,6 @@
     <Content Include="Content\assets\libs\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\libs\webfonts\fa-solid-900.woff2" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
-    <Content Include="SingleProduct.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1107,7 +1119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\assets\img\brand\" />
     <Folder Include="LogoBannerUpload\" />
     <Folder Include="Models\" />
     <Folder Include="ProductUploadCsv\TempFiles\" />

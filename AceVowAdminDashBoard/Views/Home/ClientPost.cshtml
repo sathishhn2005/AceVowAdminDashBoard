@@ -96,16 +96,18 @@
             </div>
         </div>
         <!-- Table -->
+      
         <div class="table-responsive">
             <table id="tblClient" class="table align-items-center">
                 <thead>
                     <tr>
-                        <th scope="col">User Name</th>
-                        <th scope="col">Email Address</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">User Id</th>
+                        <th>User Name</th>
+                        <th>Email Address</th>
+                        <th>Phone Number</th>
+                        <th>User Id</th>
                         <th>Action</th>
-                        
+                        <th></th>
+
                     </tr>
                 </thead>
                 <tbody class="list">
@@ -307,7 +309,7 @@
 
             type: "GET",
             url: "https://localhost:44396/api/admin/getClientsAdminDashBoard",
-            //  url: "https://social.alldealz.ca/api/admin/getClientsAdminDashBoard",
+            // url: "https://social.alldealz.ca/api/admin/getClientsAdminDashBoard",
             dataType: "json",
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (Result) {
@@ -319,7 +321,7 @@
                         var hdId = i;
                         var JVal = JSON.stringify(value);
 
-                        $('#tblClient').append('<tr> <td>' + value.userName + '</td><td>' + value.emailAddress + '</td><td>' + value.phoneNumber + '</td><td>' + value.userId + '</td><td class="text-right"><div class="actions ml-3">  <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Quick view"> <i class="far fa-external-link-alt"></i></a></td><td class="d-none"><button class="btn btn-primary-login" type="button" data-toggle="modal" onclick=SetId(' + "'" + value.userId + "'" + ') data-target="#uploadPostBulk"><i class="mdi mdi-cloud-upload"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblClient').append('<tr> <td>' + value.userName + '</td><td>' + value.emailAddress + '</td><td>' + value.phoneNumber + '</td><td>' + value.userId + '</td><td><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" onclick=SetId(' + "'" + value.userId + "'" + ') data-target="#uploadPostBulk"><i class="fas fa-cloud-upload-alt"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
                         //emailAddress: "sathish@gmail.com"
                         //fbConnected: false

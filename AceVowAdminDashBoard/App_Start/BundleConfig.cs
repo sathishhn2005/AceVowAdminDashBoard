@@ -12,11 +12,13 @@ namespace AceVowAdminDashBoard.App_Start
                         "~/Content/assets/js/purpose.core.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/main").Include(
-                      "~/Content/assets/js/purpose.js"));
+                      "~/Content/assets/js/purpose.js",
+                      "~/Content/assets/libs/Autocomplete/jquery-ui.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/assets/libs/fontawesome/all.min.css",
-                      "~/Content//assets/css/purpose.css"));
+                      "~/Content/assets/libs/Autocomplete/jquery-ui.css",
+                      "~/Content/assets/css/purpose.css"));
         }
     }
 }

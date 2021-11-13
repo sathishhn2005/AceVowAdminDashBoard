@@ -5,53 +5,55 @@
 
 <link href="~/Content/assets/css/purpose.css" rel="stylesheet" />
 <!-- Begin page -->
-<div class="accountbg"></div>
-<div class="wrapper-page">
-    <div class="card card-pages shadow-none">
-        <div class="card-body">
-            <div class="text-center m-t-0 m-b-15">
-                <a href="index.html" class="logo logo-admin"><img width="200" src="~/Content/assets/img/brand/logo.png" alt=""></a>
+<div class="container">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="card card-pages shadow-none">
+            <div class="card-body">
+                <div class="text-center m-t-0 m-b-15">
+                    <a href="index.html" class="logo logo-admin"><img width="200" src="~/Content/assets/img/brand/logo.png" alt=""></a>
+                </div>
+
+                <form class="form-horizontal m-t-30">
+                    @using (Html.BeginForm("Login", "Home", FormMethod.Get))
+                    {
+
+                        <div class="form-group">
+                            <div class="col-12">
+                                <label>Username</label>
+                                @Html.TextBox("UserName", "", new { oninvalid = "this.setCustomValidity('Please enter Username')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Username..." })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-12">
+                                <label>Password</label>
+                                @Html.Password("Password", "", new { oninvalid = "this.setCustomValidity('Enter Password:xxxxxxx')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Password" })
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center m-t-20">
+                            <div class="col-12">
+                                <button class="btn btn-primary rounded-pill" type="submit">Log In</button>
+                            </div>
+                        </div>
+
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="text-center form-group m-t-30 m-b-0">
+                            <h6 id="lblMes" class="text-danger errorID">
+                                @ViewBag.Message
+                            </h6>
+                        </div>
+                    }
+                </form>
             </div>
 
-            <form class="form-horizontal m-t-30">
-                @using (Html.BeginForm("Login", "Home", FormMethod.Get))
-                {
-
-                    <div class="form-group">
-                        <div class="col-12">
-                            <label>Username</label>
-                            @Html.TextBox("UserName", "", new { oninvalid = "this.setCustomValidity('Please enter Username')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Username..." })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-12">
-                            <label>Password</label>
-                            @Html.Password("Password", "", new { oninvalid = "this.setCustomValidity('Enter Password:xxxxxxx')", oninput = "setCustomValidity('')", @required = "required", @class = "form-control", placeholder = "Password" })
-                        </div>
-                    </div>
-
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-12">
-                            <button class="btn btn-primary-login btn-block waves-effect waves-light" type="submit">Log In</button>
-                        </div>
-                    </div>
-
-                }
-                @if (ViewBag.Message != null)
-                {
-                    <div class="text-center form-group m-t-30 m-b-0">
-                        <h6 id="lblMes" class="text-danger errorID">
-                            @ViewBag.Message
-                        </h6>
-                    </div>
-                }
-            </form>
         </div>
-
     </div>
 </div>
 <!-- END wrapper -->
+
 
 
 
