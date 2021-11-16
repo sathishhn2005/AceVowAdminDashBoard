@@ -1,14 +1,9 @@
 ﻿using AceVowEntities;
-
 using System.Web.Hosting;
 using System.Web.Mvc;
 using AceVowBusinessLayer;
 using System.Collections.Generic;
 using System;
-using System.Drawing.Imaging;
-using SelectPdf;
-using System.Threading;
-using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;

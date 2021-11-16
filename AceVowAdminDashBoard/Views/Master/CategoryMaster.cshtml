@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "CategoryMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Industry</label>
+
+            @Html.TextBox("ParentCategory","", new { @class = "form-control form-control-sm w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
+        </div>
+    </div>
+</div>
+
