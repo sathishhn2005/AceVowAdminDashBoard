@@ -323,9 +323,6 @@
 
     $(document).ready(function () {
         GetClient();
-        // window.location.href = "/Home/EditClient";
-    });
-    $(document).ready(function () {
         $("#fileUploadRIMaster").click(function () {
             $(this).val("");
         });
@@ -343,6 +340,7 @@
             $("#start").addClass('hidden');
         });
     });
+
     $('#btnSearch').on('click', function () {
         GetClient();
     });

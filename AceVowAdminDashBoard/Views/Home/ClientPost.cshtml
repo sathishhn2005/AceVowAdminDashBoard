@@ -96,7 +96,7 @@
             </div>
         </div>
         <!-- Table -->
-      
+
         <div class="table-responsive">
             <table id="tblClient" class="table align-items-center">
                 <thead>
@@ -128,7 +128,7 @@
 @using (Html.BeginForm("BulkPostUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div id="uploadPostBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="uploadPostBulkLabel">Upload Bulk Post</h5>
@@ -136,33 +136,40 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" id="hdnId" name="hdnId" value="0" />
-                    <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="text-right">
-
-                                <a href="~/Masters/PostUploadFormat.csv" class="btn btn-dark btn-sm" download>
-                                    <i class="mdi mdi-download"></i> Download PostUpload format
-                                </a>
+                <div class="modal-body text-center">
+                    <h2>Post BulkUpload</h2>
+                    <p class="lead">Supported File Formats <b> .XLS, .CSV, .XLSX</b></p>
+                    <div id="fileUploadRIMaster-form" class="uploader">
+                        <input type="hidden" id="hdnId" name="hdnId" value="0" />
+                        <input type="file" name="PostCSVFile" id="fileUploadPost" accept=".csv" />
+                        <label for="fileUploadRIMaster" id="file-drag">
+                            <img id="file-image" src="#" alt="Preview" class="hidden">
+                            <div id="start">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <div>Select a file or drag here</div>
+                                <div id="notimage" class="hidden">Please select an file to upload</div>
+                                <span id="fileUploadRIMaster-btn" class="btn btn-primary">Select a file</span>
                             </div>
-
-                            <div class="fileuploader fileuploader-theme-dragdrop">
-
-                                <input type="file" name="PostCSVFile" id="fileUploadPost" accept=".csv" />
-
-                                <div class="mt-2">
-
-                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFilePostUpload();">
-                                        <span>Upload Post</span>
-                                    </i>
-                                    <button id="uploadPostFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
+                            <div id="response" class="hidden">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <div id="messages"></div>
+                                <div>
+                                    <progress class="progress" id="file-progress" value="0" max="100">
+                                        <span>0</span>%
+                                    </progress>
+                                    <i id="deleteSelection" class="fa fa-trash-alt text-danger mx-2 " aria-hidden="true"></i>
                                 </div>
                             </div>
 
-
-                        </div>
+                        </label>
                     </div>
+                </div>
+                <div class="card-footer text-right">
+                    <i class="fa fa-upload fa-sm btn btn-sm btn-success">
+                        <span>Load Files</span>
+                    </i>
+                    @*onclick="csvFileUpload();"*@
+                    <button id="uploadPostFiles" onclick="csvFilePostUpload();" class="btn btn-primary btn-sm mx-3 hide">Upload Selected File</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -295,6 +302,22 @@
     }
     $(document).ready(function () {
         GetClient();
+        $("#fileUploadRIMaster").click(function () {
+            $(this).val("");
+        });
+        $("#deleteSelection").click(function () {
+            $("#fileUploadRIMaster").val("");
+            $("#response").addClass('hidden');
+            //$("#messages").text("");
+            $("#start").removeClass('hidden');
+        });
+        $("#fileUploadRIMaster").change(function () {
+            //alert($(this).val());
+            var filename = $('#fileUploadRIMaster').val().split('\\').pop();
+            $("#response").removeClass('hidden');
+            $("#messages").text(filename);
+            $("#start").addClass('hidden');
+        });
 
     });
     function SetId(id) {
