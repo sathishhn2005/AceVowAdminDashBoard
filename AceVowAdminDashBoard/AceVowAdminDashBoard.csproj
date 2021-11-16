@@ -149,7 +149,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\assets\css\products.css" />
     <Content Include="Content\assets\css\purpose.css" />
     <Content Include="Content\assets\img\brand\logo.png" />
     <Content Include="Content\assets\img\icons\essential\detailed\DOC_File.svg" />

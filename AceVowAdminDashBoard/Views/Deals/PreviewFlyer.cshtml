@@ -4,6 +4,10 @@
     ViewBag.Title = "PreviewFlyer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*<link href="~/Content/css/FlyerStyle.css" rel="stylesheet" />*@
+
+
+
 
 <div class="page-content">
     <!-- Page title -->
@@ -57,9 +61,19 @@
                         <div class="card-body">
                             <!-- Price -->
                             <div class="d-flex align-items-center mt-4">
-                                <span class="h6 mb-0 mx-2 font-weight-bolder">@item.OfferPrice</span>
-                                <span class="h6 mb-0 text-decoration-strike text-muted">$@item.RegularPrice</span>
-                                <span class="badge badge-success rounded-pill ml-auto">In stock</span>
+                                @if (item.OfferPrice > 0)
+                                {
+                                    <span class="h6 mb-0 text-decoration-strike text-muted">$ @item.RegularPrice</span>
+                                    <span class="h6 mb-0 mx-2 font-weight-bolder">$ @item.OfferPrice</span>
+                                    <span class="badge badge-success rounded-pill ml-auto">In stock</span>
+                                }
+                                else
+                                {
+                                    
+                                    <span class="h6 mb-0 mx-2 font-weight-bolder">$ @item.RegularPrice</span>
+                                    <span class="badge badge-success rounded-pill ml-auto">In stock</span>
+                                }
+
 
 
                             </div>

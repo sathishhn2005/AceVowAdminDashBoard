@@ -82,7 +82,7 @@ namespace AceVowAdminDashBoard.Controllers
                         }
                     }
                 }
-                //  string QRCode = GenerateQR(lstResponse[0].DealsUrl);
+                
                 ViewBag.OfferStartDate = lstResponse[0].StartDate;
                 ViewBag.OfferEndDate = lstResponse[0].EndDate;
                 //   ViewBag.QRCode = QRCode;

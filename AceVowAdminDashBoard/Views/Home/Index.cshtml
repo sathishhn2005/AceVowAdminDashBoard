@@ -231,46 +231,56 @@
 </div>
 @using (Html.BeginForm("BulkUpdate", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <h2>Bulk File Upload for Client</h2>
-                    @*<p class="lead">Number of Files Attached<b> 5</b></p>*@
+<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="uploadBulkLabel">Bulk Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h2>Bulk File Upload for Client</h2>
+                <p class="lead">Supported File Formats <b> .XLS, .CSV, .XLSX</b></p>
 
-                    <!-- Upload  -->
-                <div id="file-upload-form" class="uploader">
-                    <input id="fileUploadRIMaster" type="file" name="CSVFile" accept=".csv" />
-
-                    @*name="CSVFile" id="fileUploadRIMaster" accept=".csv"*@
+                <!-- Upload  -->
+                <div id="fileUploadRIMaster-form" class="uploader">
+                    @*<input id="file-upload" type="file" name="fileUpload" accept="image/*" />*@
+                    <input type="file" name="CSVFile" id="fileUploadRIMaster" accept=".csv" />
                     <label for="fileUploadRIMaster" id="file-drag">
                         <img id="file-image" src="#" alt="Preview" class="hidden">
                         <div id="start">
                             <i class="fa fa-download" aria-hidden="true"></i>
                             <div>Select a file or drag here</div>
-                            <div id="notimage" class="hidden">Please select an image</div>
-                            <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                            <div id="notimage" class="hidden">Please select an file to upload</div>
+                            <span id="fileUploadRIMaster-btn" class="btn btn-primary">Select a file</span>
                         </div>
                         <div id="response" class="hidden">
+                            <i class="fa fa-download" aria-hidden="true"></i>
                             <div id="messages"></div>
-                            <progress class="progress" id="file-progress" value="0">
-                                <span>0</span>%
-                            </progress>
+                            <div>
+                                <progress class="progress" id="file-progress" value="0" max="100">
+                                    <span>0</span>%
+                                </progress>
+                                <i id="deleteSelection" class="fa fa-trash-alt text-danger mx-2 " aria-hidden="true"></i>
+                            </div>
                         </div>
                     </label>
                 </div>
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="card-footer text-right">
+                <i class="fa fa-upload fa-sm btn btn-sm btn-success">
+                    <span>Load Files</span>
+                </i>
+                @*onclick="csvFileUpload();"*@
+                <button id="uploadFiles" onclick="csvFileUpload();" class="btn btn-primary btn-sm mx-3 hide">Upload Selected File</button>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
+</div>
 }
 
 <div id="CategoryUpdate" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -315,7 +325,24 @@
         GetClient();
         // window.location.href = "/Home/EditClient";
     });
-
+    $(document).ready(function () {
+        $("#fileUploadRIMaster").click(function () {
+            $(this).val("");
+        });
+        $("#deleteSelection").click(function () {
+            $("#fileUploadRIMaster").val("");
+            $("#response").addClass('hidden');
+            //$("#messages").text("");
+            $("#start").removeClass('hidden');
+        });
+        $("#fileUploadRIMaster").change(function () {
+            //alert($(this).val());
+            var filename = $('#fileUploadRIMaster').val().split('\\').pop();
+            $("#response").removeClass('hidden');
+            $("#messages").text(filename);
+            $("#start").addClass('hidden');
+        });
+    });
     $('#btnSearch').on('click', function () {
         GetClient();
     });

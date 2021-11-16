@@ -7307,7 +7307,10 @@ a.bg-neutral:focus, a.bg-neutral:hover, a.bg-white:focus, a.bg-white:hover, butt
 .rounded-left {
     border-top-left-radius: .25rem !important
 }
-
+.rounded-top-2 {
+    border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
+}
 .rounded-lg {
     border-radius: .375rem !important
 }
@@ -12483,7 +12486,7 @@ figcaption, figure, main {
 
 figure {
     max-width: 100%;
-    min-height: 1px
+    min-height: 170px;
 }
 
 main {
@@ -14417,7 +14420,9 @@ a.bg-black:focus, a.bg-black:hover, button.bg-black:focus, button.bg-black:hover
     .mt--150 {
         margin-top: -150px !important
     }
-
+    .mt-50 {
+        margin-top: 50px;
+    }
     .mb--150 {
         margin-bottom: -150px !important
     }
@@ -17244,7 +17249,8 @@ a.text-muted:hover {
             -webkit-transition: all .2s ease;
             transition: all .2s ease;
             -webkit-transition-delay: .2s;
-            transition-delay: .2s
+            transition-delay: .2s;
+            height: 170px;
         }
 
 @media (prefers-reduced-motion:reduce) {
@@ -27764,7 +27770,11 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
             margin-bottom: 1rem;
             transition: all 0.2s ease-in-out;
         }
-
+    .uploader #response i.fa-download {
+        font-size: 50px;
+        margin-bottom: 1rem;
+        transition: all 0.2s ease-in-out;
+    }
     .uploader #response {
         float: left;
         clear: both;
@@ -27864,3 +27874,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     }
 
 /*End of Upload*/
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
