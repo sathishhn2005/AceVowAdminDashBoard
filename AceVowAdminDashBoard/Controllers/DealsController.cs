@@ -85,6 +85,9 @@ namespace AceVowAdminDashBoard.Controllers
                 
                 ViewBag.OfferStartDate = lstResponse[0].StartDate;
                 ViewBag.OfferEndDate = lstResponse[0].EndDate;
+                ViewBag.Address = lstResponse[0].Address;
+                ViewBag.PirmaryContact = lstResponse[0].PirmaryContact;
+                
                 //   ViewBag.QRCode = QRCode;
                 if (!string.IsNullOrEmpty(lstResponse[0].ClientLogo))
                 {
@@ -101,6 +104,8 @@ namespace AceVowAdminDashBoard.Controllers
                 string QRCode = GenerateQR(lstPreview[0].DealsUrl);
                 ViewBag.OfferStartDate = lstPreview[0].StartDate;
                 ViewBag.OfferEndDate = lstPreview[0].EndDate;
+                ViewBag.Address = lstPreview[0].Address;
+                ViewBag.PirmaryContact = lstPreview[0].PirmaryContact;
                 ViewBag.QRCode = QRCode;
                 string ClientLogoPath = ConfigurationManager.AppSettings["ClientLogo"];
                 using (Image image = Image.FromFile(ClientLogoPath + lstPreview[0].ClientLogo))

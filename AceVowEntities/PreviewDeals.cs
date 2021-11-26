@@ -32,7 +32,11 @@ namespace AceVowEntities
         public decimal SavingPercentage { get; set; }
         public decimal Price { get; set; }
         public string ParentCategory { get; set; }
+        public string Address { get; set; }
+        public string PirmaryContact { get; set; }
         public int CategoryId { get; set; }
+
         
+
     }
 }
