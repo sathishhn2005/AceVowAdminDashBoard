@@ -27877,3 +27877,111 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .flex-wrap {
     flex-wrap: wrap;
 }
+.Offer_POS-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 170px;
+    height: 170px;
+    margin: 20px;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center;
+    color: #fff;
+    flex-direction: column;
+}
+    .Offer_POS-1 .Offer-percentage-text {
+        font-size: 45px;
+        font-weight: bold;
+        padding-top: 15px;
+        line-height: 25px;
+        letter-spacing: 5px;
+    }
+    .Offer_POS-1 .Offer-Off-Text {
+        font-weight: bold;
+        font-size: 30px;
+        padding-left: 15px;
+    }
+
+.Offer_POS-2 {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center;
+    color: #fff;
+    flex-direction: column;
+}
+
+    .Offer_POS-2 .Offer-percentage-text {
+        font-size: 30px;
+        font-weight: bold;
+        padding-top: 15px;
+        line-height: 25px;
+    }
+
+    .Offer_POS-2 .Offer-Off-Text {
+        font-weight: bold;
+        font-size: 20px;
+        padding-left: 15px;
+    }
+.Offer_POS-4 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center;
+    color: #fff;
+    flex-direction: column;
+}
+
+    .Offer_POS-4 .Offer-percentage-text {
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 10px;
+        line-height: 15px;
+    }
+
+    .Offer_POS-4 .Offer-Off-Text {
+        font-weight: bold;
+        font-size: 10px;
+        padding-left: 10px;
+    }
+.Offer_POS-6 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center;
+    color: #fff;
+    flex-direction: column;
+}
+
+    .Offer_POS-6 .Offer-percentage-text {
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 10px;
+        line-height: 15px;
+    }
+
+    .Offer_POS-6 .Offer-Off-Text {
+        font-weight: bold;
+        font-size: 10px;
+        padding-left: 10px;
+    }

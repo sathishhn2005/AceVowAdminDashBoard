@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span><span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">24<sup>th</sup> OCT </span>to <span style="color: #ff0;">3<sup>rd</sup> NOV</span> 2021</span></span></li>
+                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span><span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>                                </span>                            </li>
                         </ul>
                         @if (Model != null)
                         {
@@ -44,7 +44,12 @@
                                                 <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid " style="height: 100%;" />
                                             </a>
                                         </figure>
-                                        <img alt="Image placeholder" src="~/Content/assets/img/offers/3.png" class="img-center img-fluid w-100" style="position: absolute;right: 0;width: 200px !important;bottom: 0;" />
+                                        <img alt="Image placeholder" src="~/Content/assets/img/offers/3_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; margin: 20px; width: 170px !important; top: 0;" />
+                                        <div class="Offer_POS-1">
+                                            <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                            <span class="align-self-center Offer-Off-Text">OFF</span>
+                                        </div>
+                                        
                                     </div>
                                     <p class="h5 font-weight-500"><a href="#" style="font-size: 30px;color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"> </span></a></p>
 
@@ -96,31 +101,35 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span><span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">24<sup>th</sup> OCT </span>to <span style="color: #ff0;">3<sup>rd</sup> NOV</span> 2021</span></span></li>
+                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;">                                <span class="d-flex justify-content-between">                                    <span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span>                                    <span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>                                </span>                            </li>
                         </ul>
                         <div class="d-flex align-items-center bg-white" style="position: relative; height: 579.03px">
                             @if (Model != null)
                             {
                                 foreach (var item in Model)
                                 {
-                                    <div class="card-body text-left pt-0 bg-white col-6">
-                                        <div class="card-image d-flex justify-content-center">
+                                    <div class="card-body text-left pt-0 bg-white col-6 d-flex flex-column" style="height: 580px;">
+                                        <div class="card-image d-flex justify-content-center" style="height: 100%;">
                                             <figure class="figure d-flex align-items-center">
                                                 <a href="#">
-                                                    <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100">
+                                                    <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100 mt-6">
                                                 </a>
                                             </figure>
-                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/5.png" class="img-center img-fluid w-100" style="position: absolute;left: 0;width: 100px !important;top: 0;" />
+                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/5_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 100px !important; top: 30px; margin: 10px;" />
+                                            <div class="Offer_POS-2">
+                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                <span class="align-self-center Offer-Off-Text">OFF</span>
+                                            </div>
                                         </div>
                                         <p class="h5 font-weight-500"><a href="#" style="color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"> </span></a></p>
 
                                         @if (item.OfferPrice > 0)
                                         {
-                                            <span class="h3 text-success" style="font-size: 30px;font-weight: bold;">$ @item.OfferPrice<span class="text-line-through text-muted ml-2 h5 font-weight-300">$ @item.RegularPrice</span></span>
+                                            <span class="h3 text-success mb-5" style="font-size: 30px;font-weight: bold;">$ @item.OfferPrice<span class="text-line-through text-muted ml-2 h5 font-weight-300">$ @item.RegularPrice</span></span>
                                         }
                                         else
                                         {
-                                            <span class="h3 text-success" style="font-size: 30px;font-weight: bold;">
+                                            <span class="h3 text-success mb-5" style="font-size: 30px;font-weight: bold;">
                                                 $ @item.RegularPrice
                                             </span>
                                         }
@@ -164,7 +173,7 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span><span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">24<sup>th</sup> OCT </span>to <span style="color: #ff0;">3<sup>rd</sup> NOV</span> 2021</span></span></li>
+                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;">                                <span class="d-flex justify-content-between">                                    <span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span>                                    <span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>                                </span>                            </li>
                         </ul>
                         <div class="d-flex flex-wrap align-items-center bg-white" style="height: 618.03px">
                             @if (Model != null)
@@ -178,7 +187,11 @@
                                                     <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100" style="max-height: 150px;">
                                                 </a>
                                             </figure>
-                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/6.png" class="img-center img-fluid w-100" style="position: absolute;left: 0;width: 70px !important;top: 0;" />
+                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/6_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 70px !important; top: 0; margin: 5px;" />
+                                            <div class="Offer_POS-4">
+                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                <span class="align-self-center Offer-Off-Text">OFF</span>
+                                            </div>
                                         </div>
                                         <p class="h5 font-weight-500"><a href="#" style="font-size: 25px;color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"></span></a></p>
                                         @if (item.OfferPrice > 0)
@@ -232,21 +245,29 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span><span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">24<sup>th</sup> OCT </span>to <span style="color: #ff0;">3<sup>rd</sup> NOV</span> 2021</span></span></li>
+                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;">                                <span class="d-flex justify-content-between">                                    <span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span>                                    <span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>                                </span>                            </li>
                         </ul>
                         <div class="d-flex flex-wrap align-items-center bg-white" style="height: 618.03px">
                             @if (Model != null)
                             {
                                 foreach (var item in Model)
                                 {
-                                    <div class="card-body text-left pt-0 bg-white col-4" style="position: relative; border: 1px solid #efefef;">
-                                        <div class="card-image d-flex justify-content-center">
+                                    <div class="card-body text-left pt-0 bg-white col-4" style="position: relative; border: 1px solid #efefef;height:309px">
+                                        <div class="card-image d-flex justify-content-center" >
                                             <figure class="figure d-flex align-items-center" style="max-height: 150px;">
                                                 <a href="#">
                                                     <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100" style="max-height: 150px;">
                                                 </a>
                                             </figure>
-                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/6.png" class="img-center img-fluid w-100" style="position: absolute;left: 0;width: 70px !important;top: 0;" />
+                                            @if (item.SavingPercentage > 0)
+                                            {
+                                            
+                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/6_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 70px !important; top: 0; margin: 5px;" />
+                                            <div class="Offer_POS-6">
+                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                <span class="align-self-center Offer-Off-Text">OFF</span>
+                                            </div>
+                                            }
                                         </div>
                                         <p class="h5 font-weight-500"><a href="#" style="font-size: 15px;color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"></span></a></p>
                                         @if (item.OfferPrice > 0)
@@ -268,10 +289,10 @@
                         <div class="card-footer bg-transparent text-center">
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="card-text mt-2 text-white font-weight-bold" style="font-size: 20px;">@ViewBag.Address</p>
+                                    <p class="card-text text-white font-weight-bold" style="font-size: 20px;">@ViewBag.Address</p>
                                 </div>
                                 <div class="col-6">
-                                    <p class="card-text text-white mt-2 mb-0 font-weight-bold" style="font-size: 20px;">Contact us for more information</p>
+                                    <p class="card-text text-white mb-0 font-weight-bold" style="font-size: 20px;">Contact us for more information</p>
                                     <p class="font-weight-bold text-white" style="font-size: 20px;"><i class="fas fa-phone fa-rotate-90 mr-2"></i>@ViewBag.PirmaryContact</p>
                                 </div>
                             </div>

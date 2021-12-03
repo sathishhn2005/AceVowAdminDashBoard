@@ -13,6 +13,7 @@ namespace AceVowBusinessLayer
     {
         DBEngine objDBEngine;
         DataTable dtResult;
+        DataSet ds;
         readonly Utility objUtility = new Utility();
 
         public List<PreviewDeals> GetSingleProductFlyer(string PreviewJson,int? DealId)
@@ -54,10 +55,11 @@ namespace AceVowBusinessLayer
             return lstPreviewRes;
         }
 
-        public int GetFlyerPreview(int id, out List<PreviewDeals> lstPreview)
+        public int GetFlyerPreview(int id, out List<PreviewDeals> lstPreview,out List<Category> lstCategory)
         {
             int ReturnCode = 0;
             lstPreview = null;
+            lstCategory = null;
 
             try
             {
@@ -71,13 +73,18 @@ namespace AceVowBusinessLayer
 
                 using (objDBEngine = new DBEngine())
                 {
-                    dtResult = new DataTable();
-                    dtResult = objDBEngine.GetDataTable("pGetFlyerPreview", Param);
+                    ds = new DataSet();
+                    ds = objDBEngine.GetDataSet("pGetFlyerPreview", Param);
 
-                    if (dtResult.Rows.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
                         lstPreview = new List<PreviewDeals>();
-                        DTtoListConverter.ConvertTo(dtResult, out lstPreview);
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstPreview);
+                    }
+                    if (ds.Tables[1].Rows.Count > 0)
+                    {
+                        lstCategory = new List<Category>();
+                        DTtoListConverter.ConvertTo(ds.Tables[1], out lstCategory);
                     }
 
                 }

@@ -17,13 +17,22 @@ namespace AceVowAdminDashBoard.Controllers
     {
         string source = string.Empty;
         DealsModel objBAL;
+        DataModel objDBAL;
         // GET: Deals
         public ActionResult PreviewFlyer(int id)
         {
-            List<PreviewDeals> model = new List<PreviewDeals>();
+         //   List<PreviewDeals> model = new List<PreviewDeals>();
 
+           
             objBAL = new DealsModel();
-            objBAL.GetFlyerPreview(id, out model);
+            objBAL.GetFlyerPreview(id, out List<PreviewDeals> model, out List<Category> lstCategory);
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            foreach (var item in lstCategory)
+            {
+                categoryList.Add(new SelectListItem { Text = item.Name, Value = Convert.ToString(item.Id) });
+            }
+
+            ViewBag.lstCategoryList = categoryList;
             CalcPrice(model);
             if (Session["Flyer"] != null)
             {
@@ -82,12 +91,33 @@ namespace AceVowAdminDashBoard.Controllers
                         }
                     }
                 }
-                
+                int syear = lstResponse[0].StartDate.Year;
+                string smonth = lstResponse[0].StartDate.ToString("MMM");// lstPreview[0].StartDate.Month;
+                int sDay = lstResponse[0].StartDate.Day;
+
+                int eyear = lstResponse[0].EndDate.Year;
+                string emonth = lstResponse[0].EndDate.ToString("MMM");
+                int eDay = lstResponse[0].EndDate.Day;
+
+                var suffixSday = Add_st_nd_rd_thSuffixDay(sDay);
+                var suffixEday = Add_st_nd_rd_thSuffixDay(eDay);
+
+                ViewBag.SYear = syear;
+                ViewBag.SMonth = smonth;
+                ViewBag.SDay = sDay;
+                ViewBag.SSup = suffixSday;
+
+                ViewBag.EYear = eyear;
+                ViewBag.EMonth = emonth;
+                ViewBag.EDay = eDay;
+                ViewBag.ESup = suffixEday;
+
+
                 ViewBag.OfferStartDate = lstResponse[0].StartDate;
                 ViewBag.OfferEndDate = lstResponse[0].EndDate;
                 ViewBag.Address = lstResponse[0].Address;
                 ViewBag.PirmaryContact = lstResponse[0].PirmaryContact;
-                
+
                 //   ViewBag.QRCode = QRCode;
                 if (!string.IsNullOrEmpty(lstResponse[0].ClientLogo))
                 {
@@ -102,6 +132,29 @@ namespace AceVowAdminDashBoard.Controllers
             {
                 lstPreview = (List<PreviewDeals>)Session["PreviewFlyer"];
                 string QRCode = GenerateQR(lstPreview[0].DealsUrl);
+
+                int syear = lstPreview[0].StartDate.Year;
+                string smonth = lstPreview[0].StartDate.ToString("MMM");// lstPreview[0].StartDate.Month;
+                int sDay = lstPreview[0].StartDate.Day;
+
+                int eyear = lstPreview[0].EndDate.Year;
+                string emonth = lstPreview[0].EndDate.ToString("MMM");
+                int eDay = lstPreview[0].EndDate.Day;
+
+                var suffixSday = Add_st_nd_rd_thSuffixDay(sDay);
+                var suffixEday = Add_st_nd_rd_thSuffixDay(eDay);
+
+                ViewBag.SYear = syear;
+                ViewBag.SMonth = smonth;
+                ViewBag.SDay = sDay;
+                ViewBag.SSup = suffixSday;
+
+                ViewBag.EYear = eyear;
+                ViewBag.EMonth = emonth;
+                ViewBag.EDay = eDay;
+                ViewBag.ESup = suffixEday;
+
+
                 ViewBag.OfferStartDate = lstPreview[0].StartDate;
                 ViewBag.OfferEndDate = lstPreview[0].EndDate;
                 ViewBag.Address = lstPreview[0].Address;
@@ -172,6 +225,25 @@ namespace AceVowAdminDashBoard.Controllers
                 }
             }
             return qrCodeName;
+        }
+        
+        private string Add_st_nd_rd_thSuffixDay(int day)
+        {
+            var j = day % 10;
+            var k = day % 100;
+            if (j == 1 && k != 11)
+            {
+                return  "st";
+            }
+            if (j == 2 && k != 12)
+            {
+                return  "nd";
+            }
+            if (j == 3 && k != 13)
+            {
+                return  "rd";
+            }
+            return  "th";
         }
     }
 }

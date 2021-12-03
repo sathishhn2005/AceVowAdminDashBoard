@@ -568,6 +568,7 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
+     
         public int DeactivateClient(ClientUser objUser)
         {
             int intResult = 0;
