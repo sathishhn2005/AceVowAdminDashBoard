@@ -42,20 +42,28 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="form-group my-4">
-            CategoryList
-            <div class="row">
-                <div class="col-lg-4 offset-lg-4">
-                    @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control" })
-                </div>
-            </div>
+    <div class="col-lg-6 offset-lg-3 col-sm-6 col-6 my-4">
+
+        @*<div class="row">
+
+            @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control" })
+
+        </div>*@
+        <div class="row">
+            @using (Html.BeginForm("PreviewFlyer", "Deals"))
+            {
+             //   @Html.Hidden("prodID", item.Id)
+                @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control", onchange = "this.form.submit();" })
+            }
         </div>
+    </div>
+    <div class="row my-4">
+
         @if (Model != null)
         {
             foreach (var item in Model)
             {
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 col-6">
                     <div class="card card-product">
                         <div class="card-header border-0">
                             <h2 class="h6">
@@ -123,36 +131,71 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <div class="modal-header">
+            <div class="modal-header p-3">
                 <h5 class="modal-title h6" id="myLargeModalLabel">Select Theme</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="themeSelect" id="themeId1" autocomplete="off" value="1" checked> Theme 1
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="themeSelect" id="themeId2" value="2" autocomplete="off"> Theme 2
-                    </label>
-                    @*<label  class="d-none btn btn-primary">
-                            <input type="radio" name="themeSelect" id="themeId3" value="3" autocomplete="off"> Theme 3
-                        </label>*@
-                    <label class="btn btn-primary">
-                        <input type="radio" name="themeSelect" id="themeId4" value="4" autocomplete="off"> Theme 4
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="themeSelect" id="themeId6" value="6" autocomplete="off"> Theme 6
-                    </label>
-                    @*<label class="d-none btn btn-primary">
-                            <input type="radio" name="themeSelect" id="themeId7" value="7" autocomplete="off"> Theme 7
-                        </label>*@
+                <div class="row">
+                    <div class="col-7">
+                        <p>Choose Theme</p>
+                        <div class="btn-group btn-group-sm btn-group-toggle mb-3" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="themeSelect" id="themeId1" autocomplete="off" value="1" checked> Theme 1
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId2" value="2" autocomplete="off"> Theme 2
+                            </label>
+                            @*<label  class="d-none btn btn-primary">
+                                    <input type="radio" name="themeSelect" id="themeId3" value="3" autocomplete="off"> Theme 3
+                                </label>*@
+                            <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId4" value="4" autocomplete="off"> Theme 4
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId6" value="6" autocomplete="off"> Theme 6
+                            </label>
+                            @*<label class="d-none btn btn-primary">
+                                    <input type="radio" name="themeSelect" id="themeId7" value="7" autocomplete="off"> Theme 7
+                                </label>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>Choose Template color 1</p>
+                                <div id="cp2" class="input-group input-group-sm mb-3" title="Using input value">
+                                    <input type="text" id="cp2Value" class="form-control form-control-sm input-lg" value="#ae288a" />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p>Choose Template color 2</p>
+                                <div id="cp3" class="input-group input-group-sm mb-3" title="Using input value">
+                                    <input type="text" id="cp3Value" class="form-control form-control-sm input-lg" value="#ea3c77" />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="applyColorfn()">Apply Color</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 mx-auto d-flex">
+                        <div id="set-product-preview" class="product-preview align-self-center">
+                            <img alt="Image placeholder" src="~/Content/assets/img/offers/SampleProduct.png" class="img-center img-fluid w-100" />
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="btnCat">Preview Template</button>
+                <button type="submit" class="btn btn-primary btn-sm" id="btnCat">Preview Template</button>
             </div>
         </div>
     </div>
@@ -210,7 +253,8 @@
             //$.each(lstProducts, function (key, value) {
             //    lstProducts.push({"ProductId":value.ProductId, "ThemeId": ThemeId });
             //})
-            var param = { lstPreview: lstProducts, ThemeId: ThemeId, DealId: DealId};
+            var ThemeColor = "linear-gradient(360deg," + $('#cp2Value').val() + " 0%," + $('#cp3Value').val() + " 100%) ";
+            var param = { lstPreview: lstProducts, ThemeId: ThemeId, DealId: DealId, ThemeColor: ThemeColor};
             $.ajax({
                 type: "POST",
                 url: "/Deals/SingleProductFlyer",
@@ -252,4 +296,50 @@
             console.log(JSON.stringify(lstProducts));
         }
     });
+</script>
+<script>
+    $(function () {
+        $('#cp2').colorpicker({
+            horizontal: true,
+            format: 'hex',
+        }).on('colorpickerChange colorpickerCreate', function (e) {
+            applyColorfn();
+        });
+        $('#cp3').colorpicker({
+            horizontal: true
+        }).on('colorpickerChange colorpickerCreate', function (e) {
+            applyColorfn();
+        });
+    });
+    function applyColorfn() {
+        console.log('Color:', $('#cp2Value').val(), $('#cp3Value').val());
+        console.log("linear - gradient(360deg," + $('#cp2Value').val() + " 0 %, " + $('#cp3Value').val() + " 100 %)");
+        $("#set-product-preview").css({
+            "background": "-webkit-gradient(linear-gradient(360deg," + $('#cp2Value').val() + " 0%," + $('#cp3Value').val() + " 100%))"
+        });
+
+    }
+    $('#ddlCategoryList').change(function () {
+        GetProdList();
+    });
+    function GetProdList() {
+        var param = { id: $('#ddlCategoryList').val(), flag: 1 };
+        
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Deals/PreviewFlyer",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            cache: false, // this is key to make sure JQUERY does not cache your request
+            data: param,
+            success: function (Result) {
+               // @Model = Result;
+            },
+            error: function (err) {
+
+            }
+        })
+    }
 </script>

@@ -27985,3 +27985,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         font-size: 10px;
         padding-left: 10px;
     }
+.product-preview {
+    width: 100%;
+    height: 385px;
+    border-radius: 3px;
+    background: linear-gradient( 360deg, #ae288a 0%, #ea3c77 100%);
+}

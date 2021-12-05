@@ -97,7 +97,48 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
+        public int GetCategoryFlyerPreview(int Categoryid, out List<PreviewDeals> lstPreview, out List<Category> lstCategory)
+        {
+            int ReturnCode = 0;
+            lstPreview = null;
+            lstCategory = null;
 
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Id",SqlDbType.Int),
+
+                                      };
+
+                Param[0].Value = Categoryid;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    ds = new DataSet();
+                    ds = objDBEngine.GetDataSet("pGetCategoryFlyerPreview", Param);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lstPreview = new List<PreviewDeals>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstPreview);
+                    }
+                    if (ds.Tables[1].Rows.Count > 0)
+                    {
+                        lstCategory = new List<Category>();
+                        DTtoListConverter.ConvertTo(ds.Tables[1], out lstCategory);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
         public int GetImage(string source)
         {
             int i = 0;

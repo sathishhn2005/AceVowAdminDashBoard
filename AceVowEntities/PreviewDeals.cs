@@ -13,6 +13,8 @@ namespace AceVowEntities
         public int ThemeId { get; set; }
         public int ProductId { get; set; }
         public string Name { get; set; }
+        public string Domain { get; set; }
+        
         public string DealsUrl { get; set; }
         
         public string ClientLogo { get; set; }

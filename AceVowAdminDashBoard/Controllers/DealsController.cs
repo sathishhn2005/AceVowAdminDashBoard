@@ -17,15 +17,26 @@ namespace AceVowAdminDashBoard.Controllers
     {
         string source = string.Empty;
         DealsModel objBAL;
-        DataModel objDBAL;
+        //  DataModel objDBAL;
         // GET: Deals
-        public ActionResult PreviewFlyer(int id)
+        public ActionResult PreviewFlyer(int id, int flag = 0)
         {
-         //   List<PreviewDeals> model = new List<PreviewDeals>();
+            //   List<PreviewDeals> model = new List<PreviewDeals>();
+          //  Session["Flyer"] = null;
 
-           
             objBAL = new DealsModel();
-            objBAL.GetFlyerPreview(id, out List<PreviewDeals> model, out List<Category> lstCategory);
+            List<PreviewDeals> model;
+            List<Category> lstCategory;
+            if (flag > 0)
+            {
+                objBAL.GetCategoryFlyerPreview(id, out model, out lstCategory);
+                Session["Flyer"] = model;
+            }
+            else
+            {
+                objBAL.GetFlyerPreview(id, out model, out lstCategory);
+              //  Session["Flyer"] = model;
+            }
             List<SelectListItem> categoryList = new List<SelectListItem>();
             foreach (var item in lstCategory)
             {
@@ -38,9 +49,12 @@ namespace AceVowAdminDashBoard.Controllers
             {
                 model = (List<PreviewDeals>)Session["Flyer"];
             }
+            ModelState.Clear();
+
             return View(model);
         }
-        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview, int? ThemeId, int? DealId)
+       
+        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview, int? ThemeId, int? DealId,string ThemeColor)
         {
 
             string clientLogo = string.Empty;
@@ -117,6 +131,7 @@ namespace AceVowAdminDashBoard.Controllers
                 ViewBag.OfferEndDate = lstResponse[0].EndDate;
                 ViewBag.Address = lstResponse[0].Address;
                 ViewBag.PirmaryContact = lstResponse[0].PirmaryContact;
+                ViewBag.DealName = lstResponse[0].Domain;
 
                 //   ViewBag.QRCode = QRCode;
                 if (!string.IsNullOrEmpty(lstResponse[0].ClientLogo))
@@ -127,6 +142,7 @@ namespace AceVowAdminDashBoard.Controllers
                 Session["FlyerType"] = null;
                 Session["FlyerType"] = ThemeId;
                 Session["PreviewFlyer"] = lstPreview;
+                Session["ThemeColor"] = ThemeColor;
             }
             if (Session["PreviewFlyer"] != null)
             {
@@ -160,6 +176,7 @@ namespace AceVowAdminDashBoard.Controllers
                 ViewBag.Address = lstPreview[0].Address;
                 ViewBag.PirmaryContact = lstPreview[0].PirmaryContact;
                 ViewBag.QRCode = QRCode;
+                ViewBag.DealName = lstPreview[0].Domain;
                 string ClientLogoPath = ConfigurationManager.AppSettings["ClientLogo"];
                 using (Image image = Image.FromFile(ClientLogoPath + lstPreview[0].ClientLogo))
                 {
@@ -177,6 +194,10 @@ namespace AceVowAdminDashBoard.Controllers
                 }
 
             }
+            if (ThemeColor == null) {
+                ThemeColor = Session["ThemeColor"].ToString();
+            }
+            ViewBag.ThemeColor = ThemeColor;
             return View(lstPreview);
 
         }
@@ -226,24 +247,24 @@ namespace AceVowAdminDashBoard.Controllers
             }
             return qrCodeName;
         }
-        
+
         private string Add_st_nd_rd_thSuffixDay(int day)
         {
             var j = day % 10;
             var k = day % 100;
             if (j == 1 && k != 11)
             {
-                return  "st";
+                return "st";
             }
             if (j == 2 && k != 12)
             {
-                return  "nd";
+                return "nd";
             }
             if (j == 3 && k != 13)
             {
-                return  "rd";
+                return "rd";
             }
-            return  "th";
+            return "th";
         }
     }
 }
