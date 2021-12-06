@@ -22,20 +22,20 @@ namespace AceVowAdminDashBoard.Controllers
         public ActionResult PreviewFlyer(int id, int flag = 0)
         {
             //   List<PreviewDeals> model = new List<PreviewDeals>();
-          //  Session["Flyer"] = null;
+            //  Session["Flyer"] = null;
 
             objBAL = new DealsModel();
             List<PreviewDeals> model;
             List<Category> lstCategory;
             if (flag > 0)
             {
-                objBAL.GetCategoryFlyerPreview(id, out model, out lstCategory);
+                objBAL.GetCategoryFlyerPreview(flag, id, out model, out lstCategory);
                 Session["Flyer"] = model;
             }
             else
             {
                 objBAL.GetFlyerPreview(id, out model, out lstCategory);
-              //  Session["Flyer"] = model;
+                //  Session["Flyer"] = model;
             }
             List<SelectListItem> categoryList = new List<SelectListItem>();
             foreach (var item in lstCategory)
@@ -50,11 +50,12 @@ namespace AceVowAdminDashBoard.Controllers
                 model = (List<PreviewDeals>)Session["Flyer"];
             }
             ModelState.Clear();
+            Session["Flyer"] = null;
 
             return View(model);
         }
-       
-        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview, int? ThemeId, int? DealId,string ThemeColor)
+
+        public ActionResult SingleProductFlyer(List<PreviewDeals> lstPreview, int? ThemeId, int? DealId, string ThemeColor)
         {
 
             string clientLogo = string.Empty;
@@ -194,7 +195,8 @@ namespace AceVowAdminDashBoard.Controllers
                 }
 
             }
-            if (ThemeColor == null) {
+            if (ThemeColor == null)
+            {
                 ThemeColor = Session["ThemeColor"].ToString();
             }
             ViewBag.ThemeColor = ThemeColor;

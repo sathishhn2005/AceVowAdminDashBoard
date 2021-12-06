@@ -97,7 +97,7 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
-        public int GetCategoryFlyerPreview(int Categoryid, out List<PreviewDeals> lstPreview, out List<Category> lstCategory)
+        public int GetCategoryFlyerPreview(int flag,int Categoryid, out List<PreviewDeals> lstPreview, out List<Category> lstCategory)
         {
             int ReturnCode = 0;
             lstPreview = null;
@@ -108,10 +108,12 @@ namespace AceVowBusinessLayer
 
                 SqlParameter[] Param = {
                                             new SqlParameter("@Id",SqlDbType.Int),
+                                            new SqlParameter("@DealId",SqlDbType.Int),
 
                                       };
 
                 Param[0].Value = Categoryid;
+                Param[1].Value = flag;
 
                 using (objDBEngine = new DBEngine())
                 {

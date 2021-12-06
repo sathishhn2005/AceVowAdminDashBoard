@@ -46,15 +46,14 @@
 
         @*<div class="row">
 
-            @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control" })
+                @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control" })
 
-        </div>*@
+            </div>*@
         <div class="row">
-            @using (Html.BeginForm("PreviewFlyer", "Deals"))
-            {
-             //   @Html.Hidden("prodID", item.Id)
-                @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control", onchange = "this.form.submit();" })
-            }
+
+
+            @Html.DropDownList("ddlCategoryList", new SelectList(CategoryList, "Value", "Text"), "--Select Category--", new { @class = "form-control", onchange = "this.form.submit();" })
+
         </div>
     </div>
     <div class="row my-4">
@@ -231,6 +230,21 @@
        // alert(val);
 
     });
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
     $(document).ready(function () {
 
         $('#btnCat').on('click', function () {
@@ -244,6 +258,10 @@
             requestedPage = lastSegment;
           //  console.log(requestedPage);
             var DealId = requestedPage;
+            if (isNaN(DealId)) {
+                var tech = getUrlParameter('flag');
+                DealId = tech;
+            }
 
             var ThemeId = $('input[name="themeSelect"]:checked').val();
             if (ThemeId != lstProducts.length) {
@@ -312,10 +330,10 @@
         });
     });
     function applyColorfn() {
-        console.log('Color:', $('#cp2Value').val(), $('#cp3Value').val());
-        console.log("linear - gradient(360deg," + $('#cp2Value').val() + " 0 %, " + $('#cp3Value').val() + " 100 %)");
+       // console.log('Color:', $('#cp2Value').val(), $('#cp3Value').val());
+       // console.log("linear - gradient(360deg," + $('#cp2Value').val() + " 0 %, " + $('#cp3Value').val() + " 100 %)");
         $("#set-product-preview").css({
-            "background": "-webkit-gradient(linear-gradient(360deg," + $('#cp2Value').val() + " 0%," + $('#cp3Value').val() + " 100%))"
+            "background": "linear-gradient(360deg," + $('#cp2Value').val() + " 0%," + $('#cp3Value').val() + " 100%)"
         });
 
     }
@@ -323,10 +341,23 @@
         GetProdList();
     });
     function GetProdList() {
-        var param = { id: $('#ddlCategoryList').val(), flag: 1 };
-        
+        let loc = $(location).attr('href');
+        var parts = loc.split('/');
+        var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+        //   console.log(lastSegment);
+        requestedPage = lastSegment;
+        //  console.log(requestedPage);
+        var DealId = requestedPage;
+        if (isNaN(DealId)) {
+            var tech = getUrlParameter('flag');
+            DealId = tech;
+        }
+        var param = { id: $('#ddlCategoryList').val(), flag: DealId };
+        var url = "/Deals/PreviewFlyer/?id=" + param.id + "&flag=" + param.flag;
+        window.location.href = url;
 
-        $.ajax({
+
+        @*$.ajax({
 
             type: "GET",
             url: "/Deals/PreviewFlyer",
@@ -340,6 +371,6 @@
             error: function (err) {
 
             }
-        })
+        })*@
     }
 </script>
