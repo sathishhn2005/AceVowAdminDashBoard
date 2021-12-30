@@ -96,6 +96,7 @@
             </div>
         </div>
         <!-- Table -->
+        <button class="btn btn-primary-login text-right" type="button" data-toggle="modal" data-target="#uploadRecipeBulk"><i class="mdi mdi-cloud-upload"></i>&nbsp; &nbsp;&nbsp;Upload Recipe </button>
         <div class="table-responsive">
             <table id="tblRecipeUpload" class="table align-items-center">
                 <thead>
@@ -165,51 +166,78 @@
 
 @using (Html.BeginForm("BulkRecipeUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div id="uploadRecipeBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="uploadPostBulkLabel">Upload Bulk Recipe</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="hdnId" name="hdnId" value="0" />
-                    <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="text-right">
+<div id="uploadRecipeBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                                <a href="~/Masters/RecipeBulkUpload.csv" class="btn btn-dark btn-sm" download>
-                                    <i class="mdi mdi-download"></i> Download Recipe format
-                                </a>
-                            </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Recipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h2>Upload Bulk Recipe</h2>
+                <p class="lead">Supported File Formats <b> .XLS, .CSV, .XLSX</b></p>
 
-                            <div class="fileuploader fileuploader-theme-dragdrop">
+                <!-- Upload  -->
+                <div id="fileUploadRecipe-form" class="uploader">
+                    @*<input id="file-upload" type="file" name="fileUpload" accept="image/*" />*@
+                    <input type="file" name="RecipeCSVFile" id="fileUploadRecipe" accept=".csv" />
+                    <label for="fileUploadRecipe" id="file-drag">
+                        <img id="file-image" src="#" alt="Preview" class="hidden">
+                        <div id="start">
+                            <i class="fa fa-download" aria-hidden="true"></i>
 
-                                <input type="file" name="RecipeCSVFile" id="fileUploadRecipe" accept=".csv" />
-
-                                <div class="mt-2">
-
-                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileRecipeUpload();">
-                                        <span>Upload Recipe</span>
-                                    </i>
-                                    <button id="uploadPostFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
-                                </div>
-                            </div>
-
-
+                            <div>Select a file or drag here</div>
+                            <div id="notimage" class="hidden">Please select an file to upload</div>
+                            <span id="fileUploadRecipe-btn" class="btn btn-primary">Select a file</span>
                         </div>
-                    </div>
+                        <div id="response" class="hidden">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            <div id="messages"></div>
+                            <div>
+                                <progress class="progress" id="file-progress" value="0" max="100">
+                                    <span>0</span>%
+                                </progress>
+                                <i id="deleteSelection" class="fa fa-trash-alt text-danger mx-2 " aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </label>
                 </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="card-footer text-right">
+                <i class="fa fa-upload fa-sm btn btn-sm btn-success">
+                    <span>Load Files</span>
+                </i>
+                @*onclick="csvFileUpload();"*@
+                <button id="uploadPostFiles" onclick="csvFileRecipeUpload();" class="btn btn-primary btn-sm mx-3 hide">Upload Selected File</button>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
+</div>
 }
 <script>
-
+    $(document).ready(function () {
+        $("#fileUploadRecipe").click(function () {
+            $(this).val("");
+        });
+        $("#deleteSelection").click(function () {
+            $("#fileUploadRecipe").val("");
+            $("#response").addClass('hidden');
+            //$("#messages").text("");
+            $("#start").removeClass('hidden');
+        });
+        $("#fileUploadRecipe").change(function () {
+            //alert($(this).val());
+            var filename = $('#fileUploadRecipe').val().split('\\').pop();
+            $("#response").removeClass('hidden');
+            $("#messages").text(filename);
+            $("#start").addClass('hidden');
+        });
+    });
     function csvFileRecipeUpload() {
 
         var rowCount = 0;
@@ -402,7 +430,7 @@
                         var hdId = i;
                         var JVal = JSON.stringify(value);
                         var LastUpdated = new Date(parseInt(value.LastUpdate.replace("/Date(", "").replace(")/", ""), 10));
-                        console.log(LastUpdated);
+                     //   console.log(LastUpdated);
                         var Str = LastUpdated.toGMTString();
                         value.LastUpdate = Str;
                         $('#tblRecipeUpload').append('<tr> <td>' + value.UserName + '</td><td><a href="' + value.ImageUrl + '">View Image</a></td><td>' + value.Comment + '</td><td class="text-center"><input class="form-control" type="text" name="txtReplyComments" id="txtReplyComments" onblur="clearComments(' + "'" + key + "'" + ')" value=' + "'" + value.ReplyComment + "'" + '></td><td>' + value.LastUpdate + '</td><td><button class="btn btn-primary-secondary" type="button" onclick=SaveComments("' + value.Id + '")><i class="fas fa-reply"></i></button></td><td class="text-center"><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');

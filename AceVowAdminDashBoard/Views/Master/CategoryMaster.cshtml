@@ -1,15 +1,111 @@
-﻿
+﻿@{
+    List<SelectListItem> Users = ViewBag.lstUsers;
+
+}
 @{
     ViewBag.Title = "CategoryMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Industry</label>
+    <div class="col-lg-12">
+        <div class="form-group my-4">
 
-            @Html.TextBox("ParentCategory","", new { @class = "form-control form-control-sm w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <label class="col-form-label">Client List</label>
+                    @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select Users--", new { @class = "form-control" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="col-form-label">CategoryList</label>
+                    <select id="ddlCategoryList" name="ddlCategoryList" class="form-control">
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <label class="col-form-label">Product Name</label>
+                    <input type="text" id="txtProductName" name="ProductName" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="col-form-label">Image Name</label>
+                    <input type="text" id="txtImageName" name="ImageName" class="form-control" />
+                </div>
+                <div class="col-lg-3">
+                    <label class="col-form-label">Regular Price</label>
+                    <input type="text" id="txtRegularPrice" name="RegularPrice" class="form-control" />
+                </div>
+                <div class="col-lg-4 my-5">
+                    <input type="button" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3" id="btnSaveProduct" value="Save Product" />
+                </div>
+            </div>
+            <div class="row my-4">
+              
+
+            </div>
+
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('#ddlUserList').change(function () {
+        GetRecipe();
+    });
+    function GetRecipe() {
+        var param = { UserId: $('#ddlUserList').val() };
+        $.ajax({
+            type: "GET",
+            url: "GetCategory",
+            data: param,
+            success: function (res) {
+
+                $.each(res.lstCategory, function (key, value) {
+                    $("#ddlCategoryList").append($("<option></option>").val(this['Id']).html(this['Name']));
+                });
+            },
+            error: function () {
+                alert('Error while fetching the Category.!');
+            }
+        })
+    }
+    $('#btnSaveProduct').on('click', function () {
+        var UserId = $('#ddlUserList').val();
+        var CategoryId = $('#ddlCategoryList').val();
+        var ProductName = $("#txtProductName").val();
+        var ImageName = $("#txtImageName").val();
+        var RegularPrice = $("#txtRegularPrice").val();
+        if ($.trim($("#txtProductName").val()) == "") {
+            alert("Please enter ProductName");
+            $("#txtProductName").focus();
+            return false;
+        }
+
+        var objBM = new Object();
+        objBM.UserId = UserId;
+        objBM.CategoryId = CategoryId;
+        objBM.Name = ProductName;
+        objBM.image = ImageName;
+        objBM.RegularPrice = RegularPrice;
+        var param = {
+            objBM: objBM
+        };
+        $.ajax({
+            type: "POST",
+            url: "AddUpdateProductMaster",
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+            success: function (res) {
+                alert(res.Status);
+                $('#txtProductName').val('');
+
+            },
+            error: function () {
+              
+                alert(res.Status);
+                $('#txtProductName').val('');
+            }
+        })
+    });
+</script>
 

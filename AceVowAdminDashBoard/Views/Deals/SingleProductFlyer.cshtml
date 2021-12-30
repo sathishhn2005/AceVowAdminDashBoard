@@ -47,11 +47,14 @@
                                                 <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid " style="height: 100%;" />
                                             </a>
                                         </figure>
-                                        <img alt="Image placeholder" src="~/Content/assets/img/offers/3_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; margin: 20px; width: 170px !important; top: 0;" />
-                                        <div class="Offer_POS-1">
-                                            <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
-                                            <span class="align-self-center Offer-Off-Text">OFF</span>
-                                        </div>
+                                        @if (item.SavingPercentage > 0)
+                                        {
+                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/3_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; margin: 20px; width: 170px !important; top: 0;" />
+                                            <div class="Offer_POS-1">
+                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                <span class="align-self-center Offer-Off-Text">OFF</span>
+                                            </div>
+                                        }
 
                                     </div>
                                     <p class="h5 font-weight-500"><a href="#" style="font-size: 30px;color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"> </span></a></p>
@@ -118,11 +121,14 @@
                                                     <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100 mt-6">
                                                 </a>
                                             </figure>
-                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/5_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 100px !important; top: 30px; margin: 10px;" />
-                                            <div class="Offer_POS-2">
-                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
-                                                <span class="align-self-center Offer-Off-Text">OFF</span>
-                                            </div>
+                                            @if (item.SavingPercentage > 0)
+                                            {
+                                                <img alt="Image placeholder" src="~/Content/assets/img/offers/5_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 100px !important; top: 30px; margin: 10px;" />
+                                                <div class="Offer_POS-2">
+                                                    <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                    <span class="align-self-center Offer-Off-Text">OFF</span>
+                                                </div>
+                                            }
                                         </div>
                                         <p class="h5 font-weight-500"><a href="#" style="color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"> </span></a></p>
 
@@ -190,11 +196,14 @@
                                                     <img alt="Image placeholder" src="data:image/png;base64,@item.image" class="img-center img-fluid w-100" style="max-height: 150px;">
                                                 </a>
                                             </figure>
-                                            <img alt="Image placeholder" src="~/Content/assets/img/offers/6_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 70px !important; top: 0; margin: 5px;" />
-                                            <div class="Offer_POS-4">
-                                                <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
-                                                <span class="align-self-center Offer-Off-Text">OFF</span>
-                                            </div>
+                                            @if (item.SavingPercentage > 0)
+                                            {
+                                                <img alt="Image placeholder" src="~/Content/assets/img/offers/6_1.png" class="img-center img-fluid w-100" style="position: absolute; left: 0; width: 70px !important; top: 0; margin: 5px;" />
+                                                <div class="Offer_POS-4">
+                                                    <div class="align-self-center Offer-percentage-text"><span>@item.SavingPercentage</span>%</div>
+                                                    <span class="align-self-center Offer-Off-Text">OFF</span>
+                                                </div>
+                                            }
                                         </div>
                                         <p class="h5 font-weight-500"><a href="#" style="font-size: 25px;color: #000;font-weight: bold;">@item.Name<span class="text-warning font-weight-900"></span></a></p>
                                         @if (item.OfferPrice > 0)

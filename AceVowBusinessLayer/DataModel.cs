@@ -568,7 +568,46 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
-     
+        public int GetCategoryList(out List<Category> lstCategory,int UserId)
+        {
+            int ReturnCode = 0;
+            lstCategory = null;
+
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@UserId",SqlDbType.Int),
+
+                                      };
+
+                Param[0].Value = UserId;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    DataSet ds = new DataSet();
+
+                    ds = objDBEngine.GetDataSet("pGetCategory", Param);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lstCategory = new List<Category>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstCategory);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+
         public int DeactivateClient(ClientUser objUser)
         {
             int intResult = 0;
@@ -617,6 +656,31 @@ namespace AceVowBusinessLayer
             }
             return intResult;
         }
-        
+        public long DMLProductMaster(string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+
+                Param[0].Value = JPramValue;
+                Param[1].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLProductMaster", Param, out InsRow);
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
+        }
     }
 }

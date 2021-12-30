@@ -591,6 +591,7 @@ namespace AceVowAdminDashBoard.Controllers
 
                                     RecipeJson = JsonConvert.SerializeObject(lstValueList[i]);
                                     returnCode = objBAL.BulkInsertRecipeMaster("", RecipeJson, out ErrorMsg);
+                                    TempData["Alertmsg"] = "Recipe Uploaded Successfully.!";
                                 }
                                 transactionScope.Complete();
                                 transactionScope.Dispose();
