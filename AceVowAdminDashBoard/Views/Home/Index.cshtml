@@ -704,8 +704,9 @@
     });
     function EditClientMaster(id) {
         // window.location.href = "/Home/EditClient?Id='" + id + "'";
+        var IndustryId = 0;
         $('#hdnId').val(id);
-        window.location.href = "/Home/EditClient?hdnId=" + id + "";
+        window.location.href = "/Home/EditClient?hdnId=" + id + "&IndustryId='" + IndustryId + "'";
         //window.open(
         //    "/Home/EditClient?hdnId=" + id + ""// <- This is what makes it open in a new window.
         //);

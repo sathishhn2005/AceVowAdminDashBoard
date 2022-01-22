@@ -374,14 +374,16 @@ namespace AceVowAdminDashBoard.Controllers
         }
 
 
-        public ActionResult EditClient(string hdnId)
+        public ActionResult EditClient(string hdnId,string IndustryId)
         {
             if (Session["UserName"] != null)
             {
                 int i = Convert.ToInt32(hdnId);
+                long IndId = Convert.ToInt64(IndustryId);
+                
                 ClientUser obj = new ClientUser();
                 objBAL = new DataModel();
-                objBAL.GetClientUser(i, out obj);
+                objBAL.GetClientUser(i, IndId, out obj);
                 return View(obj);
             }
             else

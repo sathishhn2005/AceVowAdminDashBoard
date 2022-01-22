@@ -61,8 +61,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Industry</label>
-
-                                @Html.TextBoxFor(model => model.Industry, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
+                                @if (Model != null)
+                                {
+                                    <select class="form-control" id="ddlIndustry">
+                                        <option value="0">-Select-</option>
+                                        @foreach (var childCat in Model.lstIndustry)
+                                        {
+                                            @*<input type="checkbox" checked class="chkCat" value="@childCat.Id" />
+                                                <label>@childCat.Name</label>*@
+                                            <option value="@childCat.IndustryId">@childCat.Name</option>
+                                        }
+                                    </select>
+                                }
+                                @*  @Html.TextBoxFor(model => model.Industry, new { @class = "form-control form-control-sm w-full", @placeholder = "Enter RI Name", @maxlength = "200" })*@
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -266,15 +277,12 @@
                                     {
                                         <div class="col-lg-6 col-md-6">
                                             <div class="entries-info">
-                                                @*<h4>@row.Name</h4>*@
-
-
                                                 <input type="checkbox" checked class="chkCat" value="@childCat.Id" />
                                                 <label>@childCat.Name</label>
 
-
                                             </div>
-                                        </div>}
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>
@@ -325,3 +333,32 @@
 <script src="~/Content/assets/libs/material-wizard/js/jquery.bootstrap.js"></script>
 <script src="~/Content/assets/libs/material-wizard/js/jquery.validate.min.js"></script>
 <script src="~/Content/assets/libs/material-wizard/js/material-bootstrap-wizard.js"></script>
+<script type="text/javascript">
+   
+    $("#ddlIndustry").change(function (e) {
+       
+        var IndustryId = 0;
+        var id = 0;
+        IndustryId = $('#ddlIndustry').val();
+        $('#hdnId').val(id);
+        $.ajax({
+            url: "EditClient",
+            data: { hdnId: id, IndustryId: IndustryId },
+            cache: false,
+            type: "GET",
+            success: function (data) {
+
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        //window.location = "/Home/EditClient?hdnId=" + id + "&IndustryId=" + IndustryId + "";
+        //window.open(
+        //    "/Home/EditClient?hdnId=" + id + "&IndustryId=" + IndustryId + ""// <- This is what makes it open in a new window.
+        //);
+
+    });
+
+</script>

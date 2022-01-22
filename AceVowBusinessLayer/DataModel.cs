@@ -216,20 +216,24 @@ namespace AceVowBusinessLayer
             }
             return RIMAsterID;
         }
-        public int GetClientUser(int Id, out ClientUser obj)
+        public int GetClientUser(int Id, long IndustryId, out ClientUser obj)
         {
             int ReturnCode = 0;
-            obj = null;
+            obj = new ClientUser();
             List<Category> lst = null;
+            List<Industry> lstIndures = null;
             SqlCommand cmd = new SqlCommand();
             try
             {
                 SqlParameter[] Param = {
                                             new SqlParameter("@Id",SqlDbType.Int),
+                                            new SqlParameter("@IndustryId",SqlDbType.BigInt),
 
                                       };
 
                 Param[0].Value = Id;
+                Param[1].Value = IndustryId;
+
 
                 objDBEngine = new DBEngine();
 
@@ -243,7 +247,7 @@ namespace AceVowBusinessLayer
                     {
                         List<ClientUser> lstCount = new List<ClientUser>();
                         DTtoListConverter.ConvertTo(ds.Tables[0], out lstCount);
-                        obj = new ClientUser();
+                        
                         obj = lstCount[0];
 
 
@@ -252,8 +256,18 @@ namespace AceVowBusinessLayer
                     {
                         lst = new List<Category>();
                         DTtoListConverter.ConvertTo(ds.Tables[1], out lst);
+                        
+                        obj.lstCategory = lst;
                     }
-                    obj.lstCategory = lst;
+                    if (ds.Tables[2].Rows.Count > 0)
+                    {
+                        lstIndures = new List<Industry>();
+                        DTtoListConverter.ConvertTo(ds.Tables[2], out lstIndures);
+                        
+                        obj.lstIndustry = lstIndures;
+                    }
+                    
+                    
                 }
 
                 ReturnCode = 1;
@@ -533,7 +547,7 @@ namespace AceVowBusinessLayer
         {
             int ReturnCode = 0;
             lstUsers = null;
-            
+
             SqlCommand cmd = new SqlCommand();
             try
             {
@@ -557,7 +571,7 @@ namespace AceVowBusinessLayer
                         lstUsers = new List<ClientUser>();
                         DTtoListConverter.ConvertTo(ds.Tables[0], out lstUsers);
                     }
-                  
+
                 }
 
                 ReturnCode = 1;
@@ -568,7 +582,7 @@ namespace AceVowBusinessLayer
             }
             return ReturnCode;
         }
-        public int GetCategoryList(out List<Category> lstCategory,int UserId)
+        public int GetCategoryList(out List<Category> lstCategory, int UserId)
         {
             int ReturnCode = 0;
             lstCategory = null;

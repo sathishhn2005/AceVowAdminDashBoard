@@ -47,6 +47,7 @@ namespace AceVowEntities
         public int CatUserId { get; set; }
         public bool IsActive { get; set; }
         public List<Category> lstCategory{ get; set; }
+        public List<Industry> lstIndustry { get; set; }
         [JsonIgnore]
         public HttpPostedFileBase ImageFileLogo { get; set; }
         [JsonIgnore]
