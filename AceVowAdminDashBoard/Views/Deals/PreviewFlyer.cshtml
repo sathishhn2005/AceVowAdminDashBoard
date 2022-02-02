@@ -145,6 +145,9 @@
                                 <input type="radio" name="themeSelect" id="themeId1" autocomplete="off" value="1" checked> Theme 1
                             </label>
                             <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId1A" value="1a" autocomplete="off"> Theme 1A
+                            </label>
+                            <label class="btn btn-primary">
                                 <input type="radio" name="themeSelect" id="themeId2" value="2" autocomplete="off"> Theme 2
                             </label>
                             @*<label  class="d-none btn btn-primary">
@@ -156,9 +159,13 @@
                             <label class="btn btn-primary">
                                 <input type="radio" name="themeSelect" id="themeId6" value="6" autocomplete="off"> Theme 6
                             </label>
-                            @*<label class="d-none btn btn-primary">
-                                    <input type="radio" name="themeSelect" id="themeId7" value="7" autocomplete="off"> Theme 7
-                                </label>*@
+                            <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId8" value="8" autocomplete="off"> Theme 8
+                            </label>
+
+                            <label class="btn btn-primary">
+                                <input type="radio" name="themeSelect" id="themeId7" value="7" autocomplete="off"> Theme 7
+                            </label>
                         </div>
                         <div class="row">
                             <div class="col-12">
@@ -264,7 +271,10 @@
             }
 
             var ThemeId = $('input[name="themeSelect"]:checked').val();
-            if (ThemeId != lstProducts.length) {
+            if (ThemeId ="1A") {
+
+            }
+            else if (ThemeId != lstProducts.length) {
                 alert('Mismatch between theme and Product Selection');
                 return;
             }

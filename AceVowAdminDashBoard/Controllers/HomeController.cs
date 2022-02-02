@@ -384,7 +384,15 @@ namespace AceVowAdminDashBoard.Controllers
                 ClientUser obj = new ClientUser();
                 objBAL = new DataModel();
                 objBAL.GetClientUser(i, IndId, out obj);
-                return View(obj);
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(obj, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return View(obj);
+                }
+                
             }
             else
                 return RedirectToAction("Login", "Home");
@@ -464,6 +472,8 @@ namespace AceVowAdminDashBoard.Controllers
                     user.ClientBanner = string.Empty;
                 if (string.IsNullOrEmpty(user.ClientLogo))
                     user.ClientLogo = string.Empty;
+                user.EncryptedPassword = _encrypt(user.Password);
+                
                 string JParamVal = JsonConvert.SerializeObject(user);
                 objBAL = new DataModel();
                 RIMasterID = objBAL.DMLUserMaster(JParamVal);

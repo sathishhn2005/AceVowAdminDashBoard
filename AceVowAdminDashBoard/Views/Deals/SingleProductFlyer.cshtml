@@ -5,6 +5,567 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<link href="~/Content/assets/css/products.css" rel="stylesheet" />*@
+<style>
+    /* Start of Product 8*/
+    .template-header {
+        background-color: #36327c;
+        height: 22%;
+        position: relative;
+    }
+
+    .template-footer {
+        background-color: #2e2f61;
+        width: 100%;
+        height: 40px;
+        color: #fff;
+        font-family: Consolas;
+        /* font-family: Comic Sans MS; */
+    }
+
+    .template-leftText {
+        width: 35%;
+        position: absolute;
+        text-align: left;
+        bottom: 0;
+        color: #fff;
+        left: 5%;
+    }
+
+        .template-leftText .text-1 {
+            font-size: 30px;
+            line-height: 100px;
+            margin-left: 20px;
+            font-family: Lucida Handwriting;
+            font-style: italic;
+            color: #fff;
+        }
+
+        .template-leftText .text-2 {
+            font-size: 110px;
+            font-family: 'Brush Script MT', cursive;
+            line-height: 0;
+            margin-bottom: 80px;
+        }
+
+    .template-banner {
+        width: 420px;
+        position: absolute;
+        right: 5%;
+        bottom: 0;
+        background-color: #e12e27;
+        text-align: center;
+    }
+
+        .template-banner .text-1 {
+            font-size: 40px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 25px;
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-family: Franklin Gothic Medium;
+        }
+
+        .template-banner .text-2 {
+            font-size: 100px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 30px;
+            letter-spacing: 10px;
+            margin-bottom: 40px;
+            font-family: Snell Roundhand, cursive;
+        }
+
+        .template-banner .text-3 {
+            color: #fff;
+            font-weight: bold;
+        }
+
+    .arrow-red {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        border-top: 70px solid #e12e27;
+        border-left: 210px solid transparent;
+        border-bottom: 60px solid transparent;
+        border-right: 210px solid transparent;
+    }
+
+    .arrow-blue {
+        position: absolute;
+        width: 0px;
+        margin-left: 100px;
+        margin-top: 20px;
+        height: 0px;
+        border-top: 35px solid #36327c;
+        border-left: 110px solid transparent;
+        border-bottom: 40px solid transparent;
+        border-right: 110px solid transparent;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 50%;
+    }
+
+    .item-1 {
+        padding: 10px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .item-1 img {
+            padding: 0px 40px;
+            height: 180px;
+        }
+
+        .item-1 .price-badge {
+            background: #e02f27;
+            width: 110px;
+            height: 110px;
+            border-radius: 100%;
+            text-align: center;
+            align-items: center !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+            .item-1 .price-badge .price-original {
+                margin-bottom: 20px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-1 .price-badge .span-kg {
+                font-size: 12px;
+                color: #fff;
+                font-family: monospace;
+            }
+
+            .item-1 .price-badge .all-text {
+                font-size: 45px;
+                line-height: 0;
+                font-family: Impact, fantasy;
+            }
+
+            .item-1 .price-badge .dollarSup {
+                font-size: 30px;
+            }
+
+        .item-1 .strikethrough {
+            position: relative;
+        }
+
+            .item-1 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-1 .product-cover {
+            position: absolute;
+            bottom: -60px;
+        }
+
+        .item-1 .product-info {
+            padding-left: 15px;
+            align-self: flex-end !important;
+        }
+
+    .item-2 {
+        padding: 10px;
+        position: relative;
+        padding-top: 110px;
+    }
+
+        .item-2 img {
+            padding: 0px 40px;
+            height: 150px;
+            width: 90%;
+        }
+
+        .item-2 .price-badge {
+            background: #e02f27;
+            width: 110px;
+            height: 110px;
+            border-radius: 100%;
+            text-align: center;
+            align-items: center !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+            .item-2 .price-badge .price-original {
+                margin-bottom: 20px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-2 .price-badge .span-kg {
+                font-size: 12px;
+                color: #fff;
+                font-family: monospace;
+            }
+
+            .item-2 .price-badge .all-text {
+                font-size: 45px;
+                line-height: 0;
+                font-family: Impact, fantasy;
+            }
+
+            .item-2 .price-badge .dollarSup {
+                font-size: 30px;
+            }
+
+        .item-2 .strikethrough {
+            position: relative;
+        }
+
+            .item-2 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-2 .product-cover {
+            position: absolute;
+            top: 60px;
+        }
+
+        .item-2 .product-info {
+            padding-left: 15px;
+            align-self: flex-start !important;
+        }
+
+    .item-3 {
+        padding: 10px;
+        position: relative;
+    }
+
+        .item-3 img {
+            height: 150px;
+        }
+
+        .item-3 .price-badge {
+            background: transparent;
+            width: 110px;
+            height: 90px;
+            border-radius: 100%;
+            text-align: center;
+            align-items: center !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+            .item-3 .price-badge .price-original {
+                margin-bottom: 20px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-3 .price-badge .span-kg {
+                font-size: 12px;
+                color: #e02f27;
+                font-family: monospace;
+            }
+
+            .item-3 .price-badge .all-text {
+                font-size: 45px;
+                line-height: 0;
+                font-family: Impact, fantasy;
+            }
+
+            .item-3 .price-badge .dollarSup {
+                font-size: 30px;
+            }
+
+        .item-3 .strikethrough {
+            position: relative;
+        }
+
+            .item-3 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-3 .product-cover {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+        }
+
+        .item-3 .product-info {
+            padding-left: 15px;
+            align-self: flex-start !important;
+        }
+
+    .item-4 {
+        padding: 10px;
+        position: relative;
+        margin-top: 40px;
+    }
+
+        .item-4 img {
+            width: 150px;
+        }
+
+        .item-4 .price-badge {
+            background: transparent;
+            border-radius: 100%;
+            margin-top: 5px;
+            text-align: center;
+            align-items: center !important;
+        }
+
+            .item-4 .price-badge .price-original {
+                margin-bottom: 0px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-4 .price-badge .span-kg {
+                font-size: 12px;
+                color: #e02f27;
+                font-family: monospace;
+            }
+
+            .item-4 .price-badge .all-text {
+                font-size: 35px;
+                line-height: 18px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-4 .price-badge .dollarSup {
+                font-size: 25px;
+            }
+
+        .item-4 .strikethrough {
+            position: relative;
+        }
+
+            .item-4 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-4 .product-cover {
+            width: 100%;
+        }
+
+        .item-4 .product-info {
+            padding-left: 15px;
+            align-self: flex-start !important;
+        }
+
+    .item-6 {
+        padding: 10px;
+        position: relative;
+        padding-top: 0;
+    }
+
+        .item-6 img {
+            height: 180px;
+        }
+
+        .item-6 .price-badge {
+            background: #e02f27;
+            width: 110px;
+            height: 110px;
+            border-radius: 100%;
+            text-align: center;
+            align-items: center !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+            .item-6 .price-badge .price-original {
+                margin-bottom: 20px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-6 .price-badge .span-kg {
+                font-size: 12px;
+                color: #fff;
+                font-family: monospace;
+            }
+
+            .item-6 .price-badge .all-text {
+                font-size: 45px;
+                line-height: 0;
+                font-family: Impact, fantasy;
+            }
+
+            .item-6 .price-badge .dollarSup {
+                font-size: 30px;
+            }
+
+        .item-6 .strikethrough {
+            position: relative;
+        }
+
+            .item-6 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-6 .product-cover {
+            position: absolute;
+            right: 0px;
+            top: 0;
+        }
+
+        .item-6 .product-info {
+            padding-left: 15px;
+            align-self: flex-end !important;
+            width: 180px;
+        }
+
+    .item-7 {
+        padding: 10px;
+        position: relative;
+        margin-top: 0px;
+    }
+
+        .item-7 img {
+            width: 150px;
+        }
+
+        .item-7 .price-badge {
+            background: transparent;
+            border-radius: 100%;
+            margin-top: 5px;
+            text-align: center;
+            align-items: center !important;
+        }
+
+            .item-7 .price-badge .price-original {
+                margin-bottom: 0px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-7 .price-badge .span-kg {
+                font-size: 12px;
+                color: #e02f27;
+                font-family: monospace;
+            }
+
+            .item-7 .price-badge .all-text {
+                font-size: 35px;
+                line-height: 18px;
+                font-family: Impact, fantasy;
+            }
+
+            .item-7 .price-badge .dollarSup {
+                font-size: 25px;
+            }
+
+        .item-7 .strikethrough {
+            position: relative;
+        }
+
+            .item-7 .strikethrough:before {
+                position: absolute;
+                content: "";
+                left: 20%;
+                width: 70%;
+                top: 45%;
+                right: 0;
+                border-top: 2px solid;
+                border-color: #3e3939;
+                -webkit-transform: rotate(346deg);
+                -moz-transform: rotate(346deg);
+                -ms-transform: rotate(346deg);
+                -o-transform: rotate(346deg);
+                transform: rotate(350deg);
+            }
+
+        .item-7 .product-cover {
+            width: 100%;
+        }
+
+        .item-7 .product-info {
+            padding-left: 15px;
+            align-self: flex-start !important;
+        }
+
+    .text-red {
+        color: #e02f27;
+    }
+
+    .w-50 {
+        width: 50%;
+    }
+
+    .font-verySmall {
+        font-size: 10px;
+        line-height: 15px;
+    }
+
+    .bg-set {
+        background-image: url("img/bg.jpg");
+        background-repeat: repeat;
+        border: 1px solid #efefef;
+    }
+
+    .gradient-effect {
+        background: rgb(2, 0, 36);
+        background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(216, 215, 237, 1) 0%, rgba(255, 255, 255, 1) 65%, rgba(153, 150, 198, 0.9051995798319328) 100%);
+        height: 100%;
+        width: 100%;
+    }
+    /*End of Product 8*/
+</style>
 <div class="container">
     <div class="row">
         @if (Model != null)
@@ -257,7 +818,11 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;">                                <span class="d-flex justify-content-between">                                    <span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span>                                    <span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>                                </span>                            </li>
+                            <li class="list-group-item bg-transparent" style="padding: 0.3rem 1.5rem;">
+                                <span class="d-flex justify-content-between">
+                                    <span class="text-white font-weight-bold" style="font-size: 30px;font-weight: bold;color: yellow !important;margin-left: 10px;">Hurry Up!!</span>                                    <span class="text-white" style="margin-top: 4px;font-weight: bold; font-size: 25px;">Deal Starts <span style="color: #ff0;">@ViewBag.SDay<sup>@ViewBag.SSup</sup> @ViewBag.SMonth </span>to<span style="color: #ff0;"> @ViewBag.EDay<sup>@ViewBag.ESup</sup> @ViewBag.EMonth</span>  @ViewBag.EYear</span>
+                                </span>
+                            </li>
                         </ul>
                         <div class="d-flex flex-wrap align-items-center bg-white" style="height: 618.03px">
                             @if (Model != null)
@@ -316,7 +881,7 @@
             else if (Model.Count() == 7)
             {
                 @*Start of Seven Products*@
-                <div class="col-12 col-md-7 mx-auto">
+                <div class="col-12 col-md-7 mx-auto d-none">
                     <div class="card card-product bg-gradient-primary border-0" id="htmltoimage7" style="padding: 20px;">
                         <div class="card-header d-flex justify-content-between bg-white rounded-top-2">
                             <div class="logo" style="width: 80px;">
@@ -334,12 +899,19 @@
                         <ul class="list-group list-group-flush bg-transparent">
                             <li class="list-group-item bg-transparent"><span class="d-flex justify-content-between"><span class="text-white font-weight-bold">Hurry Up!!</span><span class="text-white">Deal Starts 24<sup>Th</sup> OCT to 3<sup>rd</sup> NOV 2021</span></span></li>
                         </ul>
+
                         <div class="d-flex flex-wrap">
+                            @{int i = 0;}
                             @if (Model != null)
                             {
                                 var last = Model.Last();
+
                                 foreach (var item in Model)
                                 {
+                                    <span>i</span>
+                                    {
+                                        i++;
+                                    }
                                     if (item.Equals(last))
                                     {
                                         <div class="card-body text-left pt-0 bg-white col-12">
@@ -400,6 +972,313 @@
                     </div>
                 </div>
                 @*End of Seven Products*@
+            }
+
+            else if (Model.Count() == 8)
+            {
+
+
+
+                <div class="container">
+                    <div class="card mx-auto mt-5 mb-5 bg-set product-8" style="width: 765px; height: 978px;">
+                        <div class="gradient-effect">
+                            <div class="template-header">
+                                <div class="template-leftText">
+                                    <h4 class="text-1 text-white">Super</h4>
+                                    <h4 class="text-2 text-white ">Sale</h4>
+                                </div>
+                                <div class="template-banner">
+                                    <h4 class="text-1">BIG PRICE</h4>
+                                    <h4 class="text-2">DROP</h4>
+                                    <p class="text-3">On Everyday Item in my store</p>
+                                    <div class="arrow-red"></div>
+                                    <div class="arrow-blue"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex flex-row">
+                                @{int i = 0;
+                                }
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        {
+                                            i++;
+                                        }
+                                        <div class="left-panel">
+                                            @if (i.Equals(1))
+                                            {
+                                                <div class="item-1">
+                                                    <img src="data:image/png;base64,@item.image" width="100%" alt="Products Image">
+                                                    <div class="product-cover">
+                                                        <div class="d-flex justify-content-start">
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-white">
+                                                                        <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-white">
+                                                                            <h4 class="all-text text-white">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
+                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (i.Equals(2))
+                                            {
+                                                <div class="item-2">
+                                                    <img src="data:image/png;base64,@item.image" width="100%" alt="Products Image">
+                                                    <div class="product-cover">
+                                                        <div class="d-flex justify-content-start">
+                                                            <div class="product-info">
+                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
+                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
+                                                            </div>
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-white">
+                                                                        <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-white">
+                                                                            <h4 class="all-text text-white">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (i.Equals(3))
+                                            {
+                                                <div class="item-3">
+                                                    <img src="data:image/png;base64,@item.image" alt="Products Image">
+                                                    <div class="product-cover">
+                                                        <div class="align-self-end">
+                                                            <div class="price-badge">
+                                                                <div class="text-red">
+                                                                    <h4 class="text-red price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                                                    <div class="text-red">
+                                                                        <h4 class="all-text text-red">
+                                                                            <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="">
+                                                            <div class="product-info">
+                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
+                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                        <div class="right-panel">
+                                            <div class="d-flex flex-row">
+                                                @if (i.Equals(4))
+                                                {
+                                                    <div class="item-4 w-50">
+                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
+                                                        <div class="product-cover">
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-red d-flex flex-row justify-content-between">
+                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-red pr-4">
+                                                                            <h4 class="all-text text-red mb-0">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="product-info">
+                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
+                                                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                                                        Lorem Ipsum dolor sit amet amit rupayana
+                                                                        liat
+                                                                        kau
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @if (i.Equals(5))
+                                                {
+                                                    <div class="item-4 w-50">
+                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
+                                                        <div class="product-cover">
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-red d-flex flex-row justify-content-between">
+                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-red pr-4">
+                                                                            <h4 class="all-text text-red mb-0">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="product-info">
+                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
+                                                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                                                        Lorem Ipsum dolor sit amet amit rupayana
+                                                                        liat
+                                                                        kau
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                            @if (i.Equals(6))
+                                            {
+                                                <div class="item-6">
+                                                    <img src="data:image/png;base64,@item.image" alt="Products Image">
+                                                    <div class="product-cover">
+                                                        <div class="d-flex flex-column">
+                                                            <div class="align-self-end mr-5">
+                                                                <div class="price-badge">
+                                                                    <div class="text-white">
+                                                                        <h4 class="text-white price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-white">
+                                                                            <h4 class="all-text text-white">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <h5 class="mb-0 font-weight-bold">@item.Name</h5>
+                                                                <p class="d-none font-verySmall mt-2 mb-0">
+                                                                    Lorem Ipsum dolor sit amet amit rupayana
+                                                                    liat
+                                                                    kau
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+                                            <div class="d-flex flex-row">
+                                                @if (i.Equals(7))
+                                                {
+                                                    <div class="item-7 w-50">
+                                                        <div class="product-cover">
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-red d-flex flex-row justify-content-between">
+                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-red pr-4">
+                                                                            <h4 class="all-text text-red mb-0">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="product-info">
+                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
+                                                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                                                        Lorem Ipsum dolor sit amet amit rupayana
+                                                                        liat
+                                                                        kau
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
+
+                                                    </div>
+                                                }
+                                                @if (i.Equals(8))
+                                                {
+                                                    <div class="item-7 w-50">
+
+                                                        <div class="product-cover">
+                                                            <div class="align-self-end">
+                                                                <div class="price-badge">
+                                                                    <div class="text-red d-flex flex-row justify-content-between">
+                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                                                        <div class="text-red pr-4">
+                                                                            <h4 class="all-text text-red mb-0">
+                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="product-info">
+                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
+                                                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                                                        Lorem Ipsum dolor sit amet amit rupayana
+                                                                        liat
+                                                                        kau
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                            <div class="template-footer d-flex flex-row justify-content-around">
+                                <p class="align-self-center m-0">contact us: <span>0280 132 4465</span></p>
+                                <p class="align-self-center m-0">website: <span>www.sample.com</span></p>
+                                <p class="align-self-center m-0">mail to: <span>sample@sample.com</span></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            }
+            else if (Model.Count() == 9)
+            {
+
             }
 
         }

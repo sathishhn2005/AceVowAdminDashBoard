@@ -25,6 +25,7 @@ namespace AceVowEntities
         public string PirmaryContact { get; set; }
         public string EmailId { get; set; }
         public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }
