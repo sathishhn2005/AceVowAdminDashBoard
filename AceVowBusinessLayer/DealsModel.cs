@@ -25,13 +25,13 @@ namespace AceVowBusinessLayer
             {
 
                 SqlParameter[] Param = {
-                                            new SqlParameter("@PreviewJson",SqlDbType.NVarChar),
+                                            //new SqlParameter("@PreviewJson",SqlDbType.NVarChar),
                                             new SqlParameter("@DealId",SqlDbType.Int),
 
                                       };
 
-                Param[0].Value = PreviewJson;
-                Param[1].Value = DealId;
+              //  Param[0].Value = PreviewJson;
+                Param[0].Value = DealId;
 
                 using (objDBEngine = new DBEngine())
                 {

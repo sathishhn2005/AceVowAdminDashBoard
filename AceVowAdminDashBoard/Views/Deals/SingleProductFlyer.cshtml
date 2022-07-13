@@ -7,12 +7,24 @@
 @*<link href="~/Content/assets/css/products.css" rel="stylesheet" />*@
 <style>
     /* Start of Product 8*/
+    h4 {
+        font-weight: 500;
+    }
     .template-header {
         background-color: #36327c;
         height: 22%;
         position: relative;
     }
-
+    h4.font-black, h6.font-black, h5.font-black {
+        color: #000;
+        font-size: 20px;
+        font-weight: 700 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+    h6.font-black, h5.font-black {
+        font-size: 16px;
+        font-weight: 700 !important;
+    }
     .template-footer {
         background-color: #2e2f61;
         width: 100%;
@@ -117,7 +129,7 @@
 
         .item-1 img {
             padding: 0px 40px;
-            height: 180px;
+            height: 100%;
         }
 
         .item-1 .price-badge {
@@ -143,7 +155,7 @@
             }
 
             .item-1 .price-badge .all-text {
-                font-size: 45px;
+                font-size: 25px;
                 line-height: 0;
                 font-family: Impact, fantasy;
             }
@@ -190,7 +202,7 @@
 
         .item-2 img {
             padding: 0px 40px;
-            height: 150px;
+            height: 100%;
             width: 90%;
         }
 
@@ -217,7 +229,7 @@
             }
 
             .item-2 .price-badge .all-text {
-                font-size: 45px;
+                font-size: 20px;
                 line-height: 0;
                 font-family: Impact, fantasy;
             }
@@ -262,7 +274,7 @@
     }
 
         .item-3 img {
-            height: 150px;
+            height: 100%;
         }
 
         .item-3 .price-badge {
@@ -288,13 +300,13 @@
             }
 
             .item-3 .price-badge .all-text {
-                font-size: 45px;
+                font-size: 20px;
                 line-height: 0;
                 font-family: Impact, fantasy;
             }
 
             .item-3 .price-badge .dollarSup {
-                font-size: 30px;
+                font-size: 20px;
             }
 
         .item-3 .strikethrough {
@@ -321,7 +333,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 60%;
+            width: 53%;
         }
 
         .item-3 .product-info {
@@ -336,7 +348,7 @@
     }
 
         .item-4 img {
-            width: 150px;
+            height: 100%;
         }
 
         .item-4 .price-badge {
@@ -359,13 +371,13 @@
             }
 
             .item-4 .price-badge .all-text {
-                font-size: 35px;
+                font-size: 25px;
                 line-height: 18px;
                 font-family: Impact, fantasy;
             }
 
             .item-4 .price-badge .dollarSup {
-                font-size: 25px;
+                font-size: 20px;
             }
 
         .item-4 .strikethrough {
@@ -404,7 +416,7 @@
     }
 
         .item-6 img {
-            height: 180px;
+            height: 100%;
         }
 
         .item-6 .price-badge {
@@ -430,13 +442,13 @@
             }
 
             .item-6 .price-badge .all-text {
-                font-size: 45px;
+                font-size: 20px;
                 line-height: 0;
                 font-family: Impact, fantasy;
             }
 
             .item-6 .price-badge .dollarSup {
-                font-size: 30px;
+                font-size: 20px;
             }
 
         .item-6 .strikethrough {
@@ -478,7 +490,7 @@
     }
 
         .item-7 img {
-            width: 150px;
+            height: 100%;
         }
 
         .item-7 .price-badge {
@@ -501,13 +513,13 @@
             }
 
             .item-7 .price-badge .all-text {
-                font-size: 35px;
+                font-size: 25px;
                 line-height: 18px;
                 font-family: Impact, fantasy;
             }
 
             .item-7 .price-badge .dollarSup {
-                font-size: 25px;
+                font-size: 20px;
             }
 
         .item-7 .strikethrough {
@@ -980,10 +992,13 @@
 
 
                 <div class="container">
-                    <div class="card mx-auto mt-5 mb-5 bg-set product-8" style="width: 765px; height: 978px;">
+                    <div class="card mx-auto mt-5 mb-5 bg-set product-8" id="htmltoimage8" style="width: 765px; height: 978px; background: @ViewBag.ThemeColor !important;">
                         <div class="gradient-effect">
                             <div class="template-header">
                                 <div class="template-leftText">
+                                    <div class="logo" style="width: 150px;">
+                                        <img style="width: 100%;" src="data:image/jpeg;base64,@ViewBag.ClientLogo">
+                                    </div>
                                     <h4 class="text-1 text-white">Super</h4>
                                     <h4 class="text-2 text-white ">Sale</h4>
                                 </div>
@@ -998,274 +1013,315 @@
 
 
                             <div class="d-flex flex-row">
-                                @{int i = 0;
-                                }
-                                @if (Model != null)
-                                {
-                                    foreach (var item in Model)
+                                <div class="left-panel">
+                                    @{int i = 0;}
+                                    @if (Model != null)
                                     {
+                                        foreach (var item in Model)
                                         {
-                                            i++;
-                                        }
-                                        <div class="left-panel">
-                                            @if (i.Equals(1))
                                             {
-                                                <div class="item-1">
-                                                    <img src="data:image/png;base64,@item.image" width="100%" alt="Products Image">
-                                                    <div class="product-cover">
-                                                        <div class="d-flex justify-content-start">
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-white">
-                                                                        <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-white">
-                                                                            <h4 class="all-text text-white">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
-                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                            @if (i.Equals(2))
-                                            {
-                                                <div class="item-2">
-                                                    <img src="data:image/png;base64,@item.image" width="100%" alt="Products Image">
-                                                    <div class="product-cover">
-                                                        <div class="d-flex justify-content-start">
-                                                            <div class="product-info">
-                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
-                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
-                                                            </div>
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-white">
-                                                                        <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-white">
-                                                                            <h4 class="all-text text-white">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                            @if (i.Equals(3))
-                                            {
-                                                <div class="item-3">
-                                                    <img src="data:image/png;base64,@item.image" alt="Products Image">
-                                                    <div class="product-cover">
-                                                        <div class="align-self-end">
-                                                            <div class="price-badge">
-                                                                <div class="text-red">
-                                                                    <h4 class="text-red price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
-                                                                    <div class="text-red">
-                                                                        <h4 class="all-text text-red">
-                                                                            <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <div class="product-info">
-                                                                <h4 class="mb-0 font-weight-bold">@item.Name</h4>
-                                                                @*<small>Lorem Ipsum dolor sit amet amit rupayana liat kau</small>*@
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                i++;
                                             }
 
-                                        </div>
-                                        <div class="right-panel">
-                                            <div class="d-flex flex-row">
-                                                @if (i.Equals(4))
-                                                {
-                                                    <div class="item-4 w-50">
-                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
-                                                        <div class="product-cover">
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-red d-flex flex-row justify-content-between">
-                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-red pr-4">
-                                                                            <h4 class="all-text text-red mb-0">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="">
-                                                                <div class="product-info">
-                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
-                                                                    <p class="d-none font-verySmall mt-2 mb-0">
-                                                                        Lorem Ipsum dolor sit amet amit rupayana
-                                                                        liat
-                                                                        kau
-                                                                    </p>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                @if (i.Equals(5))
-                                                {
-                                                    <div class="item-4 w-50">
-                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
-                                                        <div class="product-cover">
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-red d-flex flex-row justify-content-between">
-                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-red pr-4">
-                                                                            <h4 class="all-text text-red mb-0">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="">
-                                                                <div class="product-info">
-                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
-                                                                    <p class="d-none font-verySmall mt-2 mb-0">
-                                                                        Lorem Ipsum dolor sit amet amit rupayana
-                                                                        liat
-                                                                        kau
-                                                                    </p>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-
-
-                                            </div>
-                                            @if (i.Equals(6))
+                                            if (i.Equals(1))
                                             {
-                                                <div class="item-6">
-                                                    <img src="data:image/png;base64,@item.image" alt="Products Image">
-                                                    <div class="product-cover">
-                                                        <div class="d-flex flex-column">
-                                                            <div class="align-self-end mr-5">
-                                                                <div class="price-badge">
-                                                                    <div class="text-white">
-                                                                        <h4 class="text-white price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-white">
-                                                                            <h4 class="all-text text-white">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <h5 class="mb-0 font-weight-bold">@item.Name</h5>
-                                                                <p class="d-none font-verySmall mt-2 mb-0">
-                                                                    Lorem Ipsum dolor sit amet amit rupayana
-                                                                    liat
-                                                                    kau
-                                                                </p>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-
-
-                                            <div class="d-flex flex-row">
-                                                @if (i.Equals(7))
-                                                {
-                                                    <div class="item-7 w-50">
-                                                        <div class="product-cover">
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-red d-flex flex-row justify-content-between">
-                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-red pr-4">
-                                                                            <h4 class="all-text text-red mb-0">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="">
-                                                                <div class="product-info">
-                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
-                                                                    <p class="d-none font-verySmall mt-2 mb-0">
-                                                                        Lorem Ipsum dolor sit amet amit rupayana
-                                                                        liat
-                                                                        kau
-                                                                    </p>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
-
-                                                    </div>
-                                                }
-                                                @if (i.Equals(8))
-                                                {
-                                                    <div class="item-7 w-50">
-
-                                                        <div class="product-cover">
-                                                            <div class="align-self-end">
-                                                                <div class="price-badge">
-                                                                    <div class="text-red d-flex flex-row justify-content-between">
-                                                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
-                                                                        <div class="text-red pr-4">
-                                                                            <h4 class="all-text text-red mb-0">
-                                                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="">
-                                                                <div class="product-info">
-                                                                    <h6 class="mb-0 font-weight-bold">@item.Name</h6>
-                                                                    <p class="d-none font-verySmall mt-2 mb-0">
-                                                                        Lorem Ipsum dolor sit amet amit rupayana
-                                                                        liat
-                                                                        kau
-                                                                    </p>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <img src="data:image/png;base64,@item.image" alt="Products Image">
-                                                    </div>
-                                                }
-
-
+                    <div class="item-1">
+                        <div style="width: 361px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 180px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="d-flex justify-content-start">
+                                <div class="align-self-end">
+                                    <div class="price-badge">
+                                        <div class="text-white">
+                                            <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                            <div class="text-white">
+                                                <h4 class="all-text text-white">
+                                                    <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                </h4>
                                             </div>
                                         </div>
-                                    }
-                                }
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="mb-0 font-weight-bold font-black">@item.Name</h4>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
+                if (i.Equals(2))
+                {
+                    <div class="item-2">
+                        <div style="width: 325px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 150px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="d-flex justify-content-start">
+                                <div class="product-info">
+                                    <h4 class="mb-0 font-weight-bold font-black">@item.Name</h4>
+
+                                </div>
+                                <div class="align-self-end">
+                                    <div class="price-badge">
+                                        <div class="text-white">
+                                            <h4 class="price-original text-white strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                            <div class="text-white">
+                                                <h4 class="all-text text-white">
+                                                    <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
+                if (i.Equals(3))
+                {
+                    <div class="item-3">
+                        <div style="width: 181px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 150px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="align-self-end">
+                                <div class="price-badge">
+                                    <div class="text-red">
+                                        <h4 class="text-red price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                        <div class="text-red">
+                                            <h4 class="all-text text-red">
+                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="product-info">
+                                    <h4 class="mb-0 font-weight-bold font-black">@item.Name</h4>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>}
+            }
+
+            { i = 0; }
+        }
+                                </div>
+                                @*foreach (var item in Model.Select((value, i) => ( value, i )))
+                {
+                var value = item.value;
+                var index = item.i;
+                }*@
+                                <div class="right-panel">
+                                    <div class="d-flex flex-row">
+                                        @if (Model != null)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                {
+                                                    i++;
+                                                }
+                                                if (i.Equals(4))
+                                                {
+                    <div class="item-4 w-50">
+                        <div style="width: 150px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 89px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="align-self-end">
+                                <div class="price-badge">
+                                    <div class="text-red d-flex flex-row justify-content-between">
+                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                        <div class="text-red pr-4">
+                                            <h4 class="all-text text-red mb-0">
+                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="product-info">
+                                    <h6 class="mb-0 font-weight-bold font-black">@item.Name</h6>
+                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                        Lorem Ipsum dolor sit amet amit rupayana
+                                        liat
+                                        kau
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>}
+                if (i.Equals(5))
+                {
+                    <div class="item-4 w-50">
+                        <div style="width: 150px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 89px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="align-self-end">
+                                <div class="price-badge">
+                                    <div class="text-red d-flex flex-row justify-content-between">
+                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                        <div class="text-red pr-4">
+                                            <h4 class="all-text text-red mb-0">
+                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="product-info">
+                                    <h6 class="mb-0 font-weight-bold font-black">@item.Name</h6>
+                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                        Lorem Ipsum dolor sit amet amit rupayana
+                                        liat
+                                        kau
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>}
+            }
+            { i = 0; }
+        }
+                                    </div>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            {
+                                                i++;
+                                            }
+                                            if (i.Equals(6))
+                                            {
+                    <div class="item-6">
+                        <div style="width: 224px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 180px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                        <div class="product-cover">
+                            <div class="d-flex flex-column">
+                                <div class="align-self-end mr-5">
+                                    <div class="price-badge">
+                                        <div class="text-white">
+                                            <h4 class="text-white price-original strikethrough"><sup>$</sup>@item.RegularPrice</h4>
+                                            <div class="text-white">
+                                                <h4 class="all-text text-white">
+                                                    <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h5 class="mb-0 font-weight-bold font-black">@item.Name</h5>
+                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                        Lorem Ipsum dolor sit amet amit rupayana
+                                        liat
+                                        kau
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>}
+
+            }
+            { i = 0; }
+        }
+                                    <div class="d-flex flex-row">
+                                        @if (Model != null)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                {
+                                                    i++;
+                                                }
+                                                if (i.Equals(7))
+                                                {
+                    <div class="item-7 w-50">
+                        <div class="product-cover">
+                            <div class="align-self-end">
+                                <div class="price-badge">
+                                    <div class="text-red d-flex flex-row justify-content-between">
+                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                        <div class="text-red pr-4">
+                                            <h4 class="all-text text-red mb-0">
+                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="product-info">
+                                    <h6 class="mb-0 font-weight-bold font-black">@item.Name</h6>
+                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                        Lorem Ipsum dolor sit amet amit rupayana
+                                        liat
+                                        kau
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="width: 150px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 89px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+
+                    </div>}
+                if (i.Equals(8))
+                {
+                    <div class="item-7 w-50">
+
+                        <div class="product-cover">
+                            <div class="align-self-end">
+                                <div class="price-badge">
+                                    <div class="text-red d-flex flex-row justify-content-between">
+                                        <h4 class="text-red price-original strikethrough px-4"><sup>$</sup>@item.RegularPrice</h4>
+                                        <div class="text-red pr-4">
+                                            <h4 class="all-text text-red mb-0">
+                                                <sup class="dollarSup">$</sup>@item.OfferPrice<span class="span-kg">/@item.Quantity</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="product-info">
+                                    <h6 class="mb-0 font-weight-bold font-black">@item.Name</h6>
+                                    <p class="d-none font-verySmall mt-2 mb-0">
+                                        Lorem Ipsum dolor sit amet amit rupayana
+                                        liat
+                                        kau
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="width: 150px; text-align: center; background: #f1f1f175; border-radius: 5px; height: 89px; ">
+                            <img src="data:image/png;base64,@item.image" alt="Products Image">
+                        </div>
+                    </div>}
+            }
+        }
+
+
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="template-footer d-flex flex-row justify-content-around">
-                                <p class="align-self-center m-0">contact us: <span>0280 132 4465</span></p>
-                                <p class="align-self-center m-0">website: <span>www.sample.com</span></p>
-                                <p class="align-self-center m-0">mail to: <span>sample@sample.com</span></p>
+
+                                <p class="align-self-center m-0">Contact us: <span>@ViewBag.PirmaryContact</span></p>
+                                <p class="align-self-center m-0">Address: <span>@ViewBag.Address</span></p>
+                                @*<p class="align-self-center m-0">mail to: <span>sample@sample.com</span></p>*@
                             </div>
 
                         </div>

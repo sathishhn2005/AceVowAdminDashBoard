@@ -6,46 +6,261 @@
     ViewBag.Title = "CategoryMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-group my-4">
+<div class="page-content">
+    <div class="page-title">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+                <!-- Page title + Go Back button -->
+                <div class="d-inline-block">
+                    <h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Doctor schedule Entry</h5>
+                </div>
 
-            <div class="row">
+                <!-- Optional link -->
+                <a href="card-listing.html" class="text-sm text-info d-none d-lg-inline-block ml-4">
+                 
+                </a>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+                <div class="actions actions-dark d-inline-block">
+                    <a href="#" class="action-item ml-md-4">
+                        <i class="far fa-file-export mr-2"></i>Export
+                    </a>
 
-                <div class="col-lg-3">
-                    <label class="col-form-label">Client List</label>
-                    @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select Users--", new { @class = "form-control" })
                 </div>
-                <div class="col-lg-3">
-                    <label class="col-form-label">CategoryList</label>
-                    <select id="ddlCategoryList" name="ddlCategoryList" class="form-control">
-                    </select>
-                </div>
-                <div class="col-lg-3">
-                    <label class="col-form-label">Product Name</label>
-                    <input type="text" id="txtProductName" name="ProductName" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <label class="col-form-label">Image Name</label>
-                    <input type="text" id="txtImageName" name="ImageName" class="form-control" />
-                </div>
-                <div class="col-lg-3">
-                    <label class="col-form-label">Regular Price</label>
-                    <input type="text" id="txtRegularPrice" name="RegularPrice" class="form-control" />
-                </div>
-                <div class="col-lg-4 my-5">
-                    <input type="button" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3" id="btnSaveProduct" value="Save Product" />
-                </div>
-            </div>
-            <div class="row my-4">
-              
 
             </div>
-
         </div>
     </div>
+    <div class="card">
+        <!-- Card header -->
+        <div class="card-header actions-toolbar border-0">
+            <div class="actions-search" id="actions-search">
+                <div class="input-group input-group-merge input-group-flush">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-transparent"><i class="far fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-flush"
+                           placeholder="Type and hit enter ...">
+                    <div class="input-group-append">
+                        <a href="#" class="input-group-text bg-transparent" data-action="search-close"
+                           data-target="#actions-search"><i class="far fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <h6 class="d-inline-block mb-0">Medical Representative Info</h6>
+                </div>
+                <div class="col text-right">
+                    <div class="actions">
+                        <a href="#" class="action-item mr-3" data-action="search-open"
+                           data-target="#actions-search"><i class="far fa-search"></i></a>
+                        <div class="dropdown mr-3">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-filter"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-amount-down"></i>Newest
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-down"></i>From A-Z
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="far fa-sort-alpha-up"></i>From Z-A
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown" data-toggle="dropdown">
+                            <a href="#" class="action-item" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item">Refresh</a>
+                                <a href="#" class="dropdown-item">Manage Widgets</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group my-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-2">
+                                <label class="col-form-label">Name of the ZBM</label>
+                                @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select ZBM--", new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">HQ</label>
+                                @*<select id="ddlCategoryList" name="ddlCategoryList" class="form-control">
+                            </select>*@
+                                @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select HQ--", new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="col-form-label">Place of Work</label>
+                                <input type="text" id="txtProductName" name="ProductName" class="form-control" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="col-form-label">Worked With</label>
+                                <input type="text" id="txtImageName" name="ImageName" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Date</label>
+                                <input type="date" id="txtRegularPrice" name="RegularPrice" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <h6 class="d-inline-block mb-0">Doctors Visit Info</h6>
+                </div>
+
+            </div>
+            @*Pvit Tab	Pvit Syp	Pvit-D	ESBIO	Racure	6SMOM	UGF-Z	LPRO	BPT	GPT	JTM	INCM	HISSU*@
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group my-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Doctor Name</label>
+                                @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select Doctor--", new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Qualification</label>
+                                @*<select id="ddlCategoryList" name="ddlCategoryList" class="form-control">
+                            </select>*@
+                                @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select Qualification--", new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Category</label>
+                                @*<select id="ddlCategoryList" name="ddlCategoryList" class="form-control">
+                            </select>*@
+                                @Html.DropDownList("ddlUserList", new SelectList(Users, "Value", "Text"), "--Select Category--", new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Date of visit</label>
+                                <input type="date" id="txtRegularPrice" name="RegularPrice" class="form-control" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Birthday</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">Wedding day</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+                           
+                        </div>
+                        <div class="row my-4">
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <h6 class="d-inline-block mb-0">Sample issued details</h6>
+                </div>
+
+            </div>
+            @*												HISSU*@
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group my-4">
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Pvit Tab</label>
+                                <input type="date" id="txtRegularPrice" name="RegularPrice" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Pvit Syp</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Pvit-D</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">ESBIO</label>
+                                <input type="date" id="txtRegularPrice" name="RegularPrice" class="form-control" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-3">
+                                <label class="col-form-label">LPRO</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Racure</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">6SMOM</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">UGF-Z</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+
+                          
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-3">
+                                <label class="col-form-label">BPT</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">GPT</label>
+                                <input type="text" id="txtBirthday" name="Birthday" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">JTM</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">INCM</label>
+                                <input type="text" id="txtWedding" name="Wedding" class="form-control" />
+                            </div>
+
+                            <div class="col-lg-4 my-5">
+                                <input type="button" class="btn btn-sm btn-primary rounded-pill shadow hover-translate-y-n3" id="btnSaveProduct" value="Save Product" />
+                            </div>
+                        </div>
+                        <div class="row my-4">
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script type="text/javascript">
     $('#ddlUserList').change(function () {
@@ -101,7 +316,7 @@
 
             },
             error: function () {
-              
+
                 alert(res.Status);
                 $('#txtProductName').val('');
             }
